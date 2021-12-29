@@ -1,0 +1,57 @@
+.heading {
+  color: var(--tng-blue);
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.button {
+  color: var(--light-gray);
+  background: var(--tng-blue);
+  width: var(--button-width);
+}
+
+:global(.no-touch) .button:hover,
+.button:focus {
+  color: white;
+  background: var(--light-blue);
+}
+
+.button:disabled,
+.button:disabled:hover {
+  color: var(--light-gray);
+  background: var(--tng-gray);
+  cursor: not-allowed;
+}
+
+:global(.no-touch) .button:hover:active {
+  background: var(--tng-blue);
+}
+
+.table {
+  text-align: left;
+  padding: 0.25rem;
+  border-spacing: 0.5rem 0;
+  margin: auto;
+  line-height: 1.5rem;
+}
+
+.blueBorder {
+  border: 0.125rem solid var(--tng-blue);
+  width: min-content;
+  border-radius: var(--border-radius);
+  margin: 0.25rem 0 0.75rem 0;
+  min-width: var(--button-width);
+}
+
+.headerRow {
+  color: var(--tng-blue);
+  line-height: 35px;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: block;
+  margin: auto;
+}

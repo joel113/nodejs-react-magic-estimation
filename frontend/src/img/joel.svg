@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.1.1 (c3084ef, 2021-09-22)"
+   sodipodi:docname="joel.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:zoom="22.34375"
+     inkscape:cx="21.034965"
+     inkscape:cy="8.3244755"
+     inkscape:window-width="2617"
+     inkscape:window-height="1000"
+     inkscape:window-x="2335"
+     inkscape:window-y="174"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="rect2339"
+       style="fill:#ffb380;stroke-width:1.26767"
+       d="M 6.4860863,5.7188757 23.362239,3.8489509 20.769977,18.749914 3.3118885,19.334265 Z"
+       sodipodi:nodetypes="ccccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:16px;line-height:1.25;font-family:sans-serif;fill:#aa4400;fill-opacity:1;stroke:none"
+       x="4.9678321"
+       y="17.857342"
+       id="text1265"><tspan
+         sodipodi:role="line"
+         id="tspan1263"
+         x="4.9678321"
+         y="17.857342"
+         style="font-size:16px;fill:#aa4400">JE</tspan></text>
+  </g>
+</svg>

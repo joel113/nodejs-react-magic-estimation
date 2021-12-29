@@ -1,0 +1,10 @@
+.idea
+*.iml
+.cache
+backend/onconnect/build
+backend/ondisconnect/build
+backend/sendmessage/build
+frontend/dist*
+node_modules
+aws.config
+backend/packaged.yaml

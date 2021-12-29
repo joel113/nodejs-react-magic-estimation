@@ -1,0 +1,13 @@
+{
+    "name": "NodeJs React Magic Estimation",
+    "short_name": "Magic Estimation",
+    "display": "fullscreen",
+    "icons": [
+      {
+        "src": "joel_192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ]
+  }
+  
