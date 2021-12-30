@@ -18,7 +18,10 @@ import {
 const isSSR = typeof window === 'undefined';
 
 const ProtoLoginPage = () => (
-  <form class={classes.loginPage}>
+  <form class={classes.loginPage} onSubmit={(event) => {
+      // TODO: Implementation needed
+    }}
+  >
     <div class={classes.heading}>
       {APP_NAME_FIRST}
       <br />

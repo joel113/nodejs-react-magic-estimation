@@ -1,7 +1,7 @@
 import classes from './Footer.module.css';
 import { LABEL_SESSION, LABEL_USERNAME } from '../constants';
 
-export const ProtoLoginInfo = 
+const ProtoLoginInfo = () => (
   <footer class={classes.footer}>
     <div class={classes.sessionInfo}>
       <span class={classes.infoItem}>
@@ -13,5 +13,6 @@ export const ProtoLoginInfo =
       </span>
     </div>
   </footer>
+)
 
 export const Footer = ProtoLoginInfo;
