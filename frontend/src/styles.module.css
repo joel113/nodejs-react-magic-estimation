@@ -1,5 +1,5 @@
 .heading {
-  color: var(--tng-blue);
+  color: var(--joel-red);
   font-size: 1.5rem;
   text-align: center;
   margin-top: 1rem;
@@ -7,25 +7,25 @@
 
 .button {
   color: var(--light-gray);
-  background: var(--tng-blue);
+  background: var(--joel-red);
   width: var(--button-width);
 }
 
 :global(.no-touch) .button:hover,
 .button:focus {
   color: white;
-  background: var(--light-blue);
+  background: var(--light-red);
 }
 
 .button:disabled,
 .button:disabled:hover {
   color: var(--light-gray);
-  background: var(--tng-gray);
+  background: var(--joel-gray);
   cursor: not-allowed;
 }
 
 :global(.no-touch) .button:hover:active {
-  background: var(--tng-blue);
+  background: var(--joel-red);
 }
 
 .table {
@@ -37,7 +37,7 @@
 }
 
 .blueBorder {
-  border: 0.125rem solid var(--tng-blue);
+  border: 0.125rem solid var(--joel-red);
   width: min-content;
   border-radius: var(--border-radius);
   margin: 0.25rem 0 0.75rem 0;
@@ -45,7 +45,7 @@
 }
 
 .headerRow {
-  color: var(--tng-blue);
+  color: var(--joel-red);
   line-height: 35px;
 }
 

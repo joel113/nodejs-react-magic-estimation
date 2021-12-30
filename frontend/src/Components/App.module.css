@@ -1,9 +1,9 @@
 :root {
     --border-radius: 0.5rem;
     --button-width: 90vw;
-    --tng-blue: rgb(204, 44, 4);
-    --light-blue: hsl(39, 100%, 50%);
-    --tng-gray: rgb(161, 166, 174);
+    --joel-red: rgb(204, 44, 4);
+    --light-red: hsl(39, 100%, 50%);
+    --joel-gray: rgb(127, 132, 139);
     --light-gray: hsl(217, 8%, 94%);
     --dark-red: hsl(0, 100%, 40%);
     --red: hsl(0, 100%, 50%);
@@ -54,7 +54,7 @@
   }
   
   :global input[type='text'] {
-    border: 0.125rem solid var(--tng-blue);
+    border: 0.125rem solid var(--joel-red);
   }
   
   :global button,
@@ -64,11 +64,11 @@
   }
   
   :global input[type='text']:focus {
-    border-color: var(--light-blue);
+    border-color: var(--light-red);
   }
   
   :global a:focus {
-    outline: 0.125rem solid var(--light-blue);
+    outline: 0.125rem solid var(--light-red);
     outline-offset: 0.125rem;
   }
   

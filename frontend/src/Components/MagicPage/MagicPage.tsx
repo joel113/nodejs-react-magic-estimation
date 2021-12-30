@@ -7,7 +7,25 @@ const ProtoMagicPage = () => (
         <div class={classes.magicPageElements}>
             <table class={classes.magicPageElementsTable}>
                 <tr>
-                    <td class={classes.magicPageElementsTableColumn}><img src={infoLogo} alt={ALT_INFO_LOGO} class={classes.logoImage} />No elements so far</td>
+                    <td class={classes.empty}>
+                        <img src={infoLogo} alt={ALT_INFO_LOGO} class={classes.logoImage} />No elements so far
+                    </td>
+                </tr>
+            </table>
+            <table class={classes.magicPageElementsTable}>
+                <tr class={classes.magicPageElementsTableRowHeader}>
+                    <th>Element</th>
+                    <th>Votes</th>
+                    <th>Upvote</th>
+                    <th>Downvote</th>
+                    <th>Remove</th>
+                </tr>
+                <tr>
+                    <td>Element 1</td>
+                    <td>2</td>
+                    <td>Upvote</td>
+                    <td>Downvote</td>
+                    <td>Remove</td>
                 </tr>
             </table>
         </div>

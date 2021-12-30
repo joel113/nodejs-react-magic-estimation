@@ -18,12 +18,31 @@
     margin-right: auto;
   }
 
-  .magicPageElementsTableColumn {
+  .magicPageElementsTableRowHeader {
     margin-left: auto;
     margin-right: auto;
+    background-color: var(--joel-red);
+    color: var(--light-gray);
+  }
+
+  .magicPageElementsTable th {
+    padding: 1rem 3rem 1rem 3rem;
+  }
+
+  .magicPageElementsTable td {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem 3rem 1rem 3rem;
     text-align: center;
+    background-color: var(--light-gray);
+    color: var(--joel-gray);
   }
   
+  .magicPageElementsTable td.empty {
+    background-color: white;
+    color: #000000;
+  }
+
   .magicPageAddElements {
     margin: auto 0;
     padding: 1.5rem 0 1.5rem 0;
