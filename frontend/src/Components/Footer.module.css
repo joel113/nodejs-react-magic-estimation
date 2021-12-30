@@ -17,3 +17,15 @@
   margin: 0 0.5rem;
   white-space: nowrap;
 }
+
+.logo {
+  margin-left: 0.5rem;
+}
+
+.logoImage {
+  height: 2rem;
+  width: 2rem;
+  vertical-align: middle;
+  position: relative;
+  top: 0.15rem;
+}

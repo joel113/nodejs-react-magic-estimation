@@ -22,6 +22,10 @@ https://code.visualstudio.com/docs/nodejs/nodejs-tutorial
 
 https://github.com/TNG/next-generation-scrum-poker
 
+## Icons
+
+https://www.flaticon.com/de/uicons
+
 ## License
 
 Licensed under Apache License Version 2.0

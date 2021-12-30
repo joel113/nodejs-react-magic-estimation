@@ -1,0 +1,47 @@
+.resultsPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto 0;
+  }
+
+  .magicPageElements {
+    margin: auto 0;
+    padding: 1.5rem 0 1.5rem 0;
+  }
+
+  .magicPageElementsTable {
+    min-width: 200px;
+    max-width: 500px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .magicPageElementsTableColumn {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  
+  .magicPageAddElements {
+    margin: auto 0;
+    padding: 1.5rem 0 1.5rem 0;
+    text-align: center;
+  }
+
+  .magicPageAddElementsForm {
+    min-width: 200px;
+    max-width: 500px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .logoImage {
+    height: 2rem;
+    width: 4rem;
+    vertical-align: middle;
+    position: relative;
+    top: -0.125rem;
+  }

@@ -25,6 +25,7 @@ export const BUTTON_COPY_TO_CLIPBOARD = 'Copy Link to Clipboard';
 export const SELECT_CHANGE_SCALE = 'Change Scale';
 
 export const ALT_JOEL_LOGO = 'Joel Logo';
+export const ALT_INFO_LOGO = 'Info Logo';
 
 export const TOOLTIP_COFFEE = 'Need a break';
 export const TOOLTIP_NOT_VOTED = 'Not voted';
