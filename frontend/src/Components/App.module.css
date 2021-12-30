@@ -1,12 +1,14 @@
 :root {
     --border-radius: 0.5rem;
     --button-width: 90vw;
-    --joel-red: rgb(204, 44, 4);
-    --light-red: hsl(39, 100%, 50%);
+    --joel-red: rgb(255, 0, 0);
+    --light-red: #ff6666;
+    --dark-red: #990000;
     --joel-gray: rgb(127, 132, 139);
-    --light-gray: hsl(217, 8%, 94%);
-    --dark-red: hsl(0, 100%, 40%);
+    --light-gray: #ffe6e6;
     --red: hsl(0, 100%, 50%);
+    --joel-blue: #0066b3;
+    --light-blue: #e6f4ff;
   }
   
   @media (min-width: 300px) {
@@ -54,17 +56,18 @@
   }
   
   :global input[type='text'] {
-    border: 0.125rem solid var(--joel-red);
+    border: 0.125rem solid var(--joel-blue);
   }
   
   :global button,
   :global input[type='submit'],
+  :global a img,
   :global select {
     cursor: pointer;
   }
   
   :global input[type='text']:focus {
-    border-color: var(--light-red);
+    border-color: var(--light-blue);
   }
   
   :global a:focus {

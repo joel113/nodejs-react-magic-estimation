@@ -7,8 +7,8 @@ export const VOTE_OBSERVER = 'observer';
 export const VOTE_NOTE_VOTED = 'not-voted';
 
 // Text constants
-export const APP_NAME_FIRST = 'NODEJS REACT';
-export const APP_NAME_SECOND = 'MAGIC ESTIMATION';
+export const APP_NAME_FIRST = 'MAGIC';
+export const APP_NAME_SECOND = 'ESTIMATION';
 export const HEADING_SELECT_CARD = 'SELECT A CARD';
 export const HEADING_RESULTS = 'RESULTS';
 
@@ -26,6 +26,10 @@ export const SELECT_CHANGE_SCALE = 'Change Scale';
 
 export const ALT_JOEL_LOGO = 'Joel Logo';
 export const ALT_INFO_LOGO = 'Info Logo';
+export const ALT_UP_LOGO = 'Upvote Logo';
+export const ALT_DOWN_LOGO = 'Downvote Logo';
+export const ALT_TRASH_LOGO = 'Trash Logo';
+export const ALT_EMAIL_LOGO = 'E-Mail Logo'
 
 export const TOOLTIP_COFFEE = 'Need a break';
 export const TOOLTIP_NOT_VOTED = 'Not voted';

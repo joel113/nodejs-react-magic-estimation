@@ -5,7 +5,7 @@
     margin: auto 0;
   }
 
-  .magicPageElements {
+  .magicPageElements, .magicPageUsers {
     margin: auto 0;
     padding: 1.5rem 0 1.5rem 0;
   }
@@ -13,7 +13,7 @@
   .magicPageElementsTable {
     min-width: 200px;
     max-width: 500px;
-    width: 500px;
+    width: 700px;
     margin-left: auto;
     margin-right: auto;
   }
@@ -21,13 +21,17 @@
   .magicPageElementsTableRowHeader {
     margin-left: auto;
     margin-right: auto;
-    background-color: var(--joel-red);
+    background-color: var(--light-red);
     color: var(--light-gray);
   }
 
-  .magicPageElementsTable th {
+  .magicPageElementsTableRowHeader th {
     padding: 1rem 3rem 1rem 3rem;
   }
+
+  .magicPageElementsTableRowHeader th.elementColumn {
+    background-color: var(--joel-red); 
+  } 
 
   .magicPageElementsTable td {
     margin-left: auto;
@@ -45,7 +49,7 @@
 
   .magicPageAddElements {
     margin: auto 0;
-    padding: 1.5rem 0 1.5rem 0;
+    padding: 0 0 1.5rem 0;
     text-align: center;
   }
 
