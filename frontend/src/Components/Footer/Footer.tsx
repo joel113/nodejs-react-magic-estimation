@@ -1,8 +1,7 @@
 import classes from './Footer.module.css';
-import { LABEL_SESSION, LABEL_USERNAME } from '../constants';
-import joelLogo from '../img/joel.svg';
-import emailLogo from '../img/email.svg';
-import { ALT_JOEL_LOGO, JOEL_URL, ALT_EMAIL_LOGO } from '../constants';
+import joelLogo from '../../img/joel.svg';
+import emailLogo from '../../img/email.svg';
+import { ALT_JOEL_LOGO, JOEL_URL, ALT_EMAIL_LOGO } from '../../constants';
 
 const ProtoLoginInfo = () => (
   <footer class={classes.footer}>

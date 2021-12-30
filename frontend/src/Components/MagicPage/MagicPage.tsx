@@ -1,4 +1,5 @@
 import classes from './MagicPage.module.css'
+import sharedClasses from '../../styles.module.css'
 import infoLogo from '../../img/info.svg';
 import upLogo from '../../img/up.svg';
 import downLogo from '../../img/down.svg';
@@ -36,8 +37,8 @@ const ProtoMagicPage = () => (
             <form onSubmit={() => {
                 // implement
             }} class={classes.magicPageAddElementsForm}>
-                <input id="newElement" type="text" class="sharedClasses.text" />
-                <button class="sharedClasses.button" style="margin-left: 1.5rem; padding: 0 1.0rem 0 1.0rem">Add element</button>
+                <input id="newElement" type="text" class={sharedClasses.text} />
+                <button class={sharedClasses.button} style="margin-left: 1.5rem; padding: 0 1.0rem 0 1.0rem">Add element</button>
             </form>
         </div>
         <div class={classes.magicPageUsers}>

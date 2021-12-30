@@ -1,4 +1,4 @@
-# NodeJs React Magic Estimation
+# Magic Estimation
 
 ## Getting Started
 

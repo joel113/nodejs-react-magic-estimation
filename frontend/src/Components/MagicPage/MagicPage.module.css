@@ -1,4 +1,4 @@
-.resultsPage {
+  .resultsPage {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,7 +44,7 @@
   
   .magicPageElementsTable td.empty {
     background-color: white;
-    color: #000000;
+    color: var(--joel-gray);
   }
 
   .magicPageAddElements {
