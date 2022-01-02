@@ -32,10 +32,6 @@
   min-width: 8rem;
 }
 
-.userInput:focus {
-  border-color: var(--light-red);
-}
-
 .sessionLabel {
   grid-column: 1 / 2;
   grid-row: 3 / 4;
