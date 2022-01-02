@@ -8,7 +8,13 @@ import classes from './PageSelector.module.css';
 
 const ProtoPageSelector = ({socket} : { socket: WebSocketApi}) => {
     if(!socket.loginData.user || !socket.loggedIn) {
-        <LoginPage />
+        return (
+            <div class={classes.PageSelector}>
+                <Header />
+                <LoginPage />
+                <Footer />
+            </div>
+        )
     }
     return (
         <div class={classes.PageSelector}>
@@ -19,4 +25,4 @@ const ProtoPageSelector = ({socket} : { socket: WebSocketApi}) => {
     )
 };
 
-export const PageSelector = ProtoPageSelector;
+export const PageSelector = connectToWebSocket(ProtoPageSelector);

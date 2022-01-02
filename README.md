@@ -10,6 +10,14 @@ The project uses [PreactJs](https://preactjs.com/) which is an altnerative to Re
 
 Pract allows to be used with [JSX](https://facebook.github.io/jsx/) or [HTM](https://github.com/developit/htm).
 
+### Context
+
+For passing the login information into the tree, the project uses [context](https://preactjs.com/guide/v10/context).
+
+### React
+
+https://reactjs.org/docs/components-and-props.html
+
 ## Typescript
 
 The project uses [Typescript](https://www.typescriptlang.org/) which is a strongly typed programming language that builds on Java Script: https://github.com/microsoft/TypeScript.
