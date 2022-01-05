@@ -42,6 +42,13 @@ export const WebSocketProvider = ({children}: any) => {
     const login = (user: string, session: string) => {
         setLoginData({user, session})
         setLoggedIn(true);
+        setState({
+            ...initialWebSocketState,
+            elementVotes: {},
+            userVotes: {
+            [user]: 0,
+            }
+      });
     }
 
     const setVote = (vote: UserVote) => {
