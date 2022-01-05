@@ -67,7 +67,7 @@ export const WebSocketProvider = ({children}: any) => {
     return <WebSocketContext.Provider value={value}>{children}</WebSocketContext.Provider>;
 };
 
-// this is the type returned by the connectToWebSocket function, ComponentType is the type of a component
+// type of the connectToWebSocket function component which takes a ComponentType and returns a ComponentType
 type ConnectToWebSocket<P extends {} = {}> = (
     Component: ComponentType<
       {
@@ -80,7 +80,7 @@ type ConnectToWebSocket<P extends {} = {}> = (
     >
   ) => ComponentType<P>;
 
-// the page selector calls the connectToWebSocket method and nests the context into the tree
+// connectToWebSocket is function component of type ConnectToWebSocket which takes a Component and further application properties
 export const connectToWebSocket: ConnectToWebSocket = (Component) => (...props) => {
     return (
         <WebSocketConsumer>

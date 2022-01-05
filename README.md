@@ -10,17 +10,31 @@ The project uses [PreactJs](https://preactjs.com/) which is an altnerative to Re
 
 Pract allows to be used with [JSX](https://facebook.github.io/jsx/) or [HTM](https://github.com/developit/htm).
 
-### Context
-
-For passing the login information into the tree, the project uses [context](https://preactjs.com/guide/v10/context).
-
-### React
+## React
 
 https://reactjs.org/docs/components-and-props.html
 
 ## Typescript
 
 The project uses [Typescript](https://www.typescriptlang.org/) which is a strongly typed programming language that builds on Java Script: https://github.com/microsoft/TypeScript.
+
+## React, Preact and Typescript Essential Elements 
+
+### Function Components
+
+https://reactjs.org/docs/components-and-props.html
+
+https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components
+
+### Type Aliases
+
+https://stackoverflow.com/questions/31364693/what-is-the-type-reserved-word-in-typescript
+
+https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-aliases
+
+### Context
+
+For passing the login information into the tree, the project uses [context](https://preactjs.com/guide/v10/context).
 
 ## IDE
 
