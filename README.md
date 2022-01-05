@@ -26,6 +26,46 @@ The project uses [Typescript](https://www.typescriptlang.org/) which is a strong
 
 https://code.visualstudio.com/docs/nodejs/nodejs-tutorial
 
+### Visual Studio Code Chrome Debugging
+
+https://code.visualstudio.com/docs/editor/debugging
+
+https://github.com/microsoft/vscode-chrome-debug
+
+Visual Studio Debugging Launch Configuration
+
+```json
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/frontend",
+            "sourceMapPathOverrides": {
+                "webpack:///frontend/*": "${webRoot}/*",
+                "webpack://./frontend/*": "${webRoot}/*",
+              }
+        },
+        {
+            "name": "Launch via NPM",
+            "request": "launch",
+            "runtimeArgs": [
+                "start"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+
+    ]
+}
+```
+
 ## Inspired by
 
 https://github.com/TNG/next-generation-scrum-poker

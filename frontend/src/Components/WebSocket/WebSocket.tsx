@@ -40,7 +40,7 @@ export const WebSocketProvider = ({children}: any) => {
     const [loggedIn, setLoggedIn] = useState(false);
 
     const login = (user: string, session: string) => {
-        setLoginData({user, session})
+        setLoginData({user, session});
         setLoggedIn(true);
         setState({
             ...initialWebSocketState,
