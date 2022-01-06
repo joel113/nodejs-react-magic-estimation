@@ -26,6 +26,10 @@ https://reactjs.org/docs/components-and-props.html
 
 https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components
 
+### Conditional Rendering
+
+https://reactjs.org/docs/conditional-rendering.html
+
 ### Type Aliases
 
 https://stackoverflow.com/questions/31364693/what-is-the-type-reserved-word-in-typescript

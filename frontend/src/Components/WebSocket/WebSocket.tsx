@@ -25,6 +25,7 @@ export const WebSocketContext = createContext<WebSocketApi>({
     state: initialWebSocketState,
     loginData: initialLoginData,
     loggedIn: false,
+    addElement: doNothing,
     login: doNothing,
     setVote: doNothing,
 });
@@ -46,9 +47,13 @@ export const WebSocketProvider = ({children}: any) => {
             ...initialWebSocketState,
             elementVotes: {},
             userVotes: {
-            [user]: 0,
+                [user]: 0,
             }
       });
+    }
+
+    const addElement = (element: string) => {
+        setState({ ...state, elementVotes: { ...state.elementVotes, [element]: 0}})
     }
 
     const setVote = (vote: UserVote) => {
@@ -61,6 +66,7 @@ export const WebSocketProvider = ({children}: any) => {
         loginData,
         loggedIn,
         login,
+        addElement,
         setVote,
     };
 
