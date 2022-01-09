@@ -4,8 +4,8 @@ export interface UserVote {
   vote: number;
 }
 
-export interface ElementVotes {
-  [elementId: string]: number;
+export interface ElementVote {
+  id: string; votes: number;
 }
 
 export interface UserVotes {
@@ -13,7 +13,7 @@ export interface UserVotes {
   }
 
 export interface WebSocketState {
-  elementVotes: ElementVotes;
+  elementVotes: Array<ElementVote>;
   userVotes: UserVotes;
 }
 

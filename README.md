@@ -20,21 +20,31 @@ The project uses [Typescript](https://www.typescriptlang.org/) which is a strong
 
 ## React, Preact and Typescript Essential Elements 
 
-### Function Components
+### Functional Components
 
 https://reactjs.org/docs/components-and-props.html
 
 https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components
 
+https://preactjs.com/guide/v10/components
+
 ### Conditional Rendering
 
 https://reactjs.org/docs/conditional-rendering.html
+
+### State Hooks
+
+https://reactjs.org/docs/hooks-state.html
 
 ### Type Aliases
 
 https://stackoverflow.com/questions/31364693/what-is-the-type-reserved-word-in-typescript
 
 https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#type-aliases
+
+### Arrays
+
+https://stackoverflow.com/questions/25469244/how-can-i-define-an-interface-for-an-array-of-objects
 
 ### Context
 

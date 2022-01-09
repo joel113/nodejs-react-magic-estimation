@@ -1,6 +1,4 @@
-import { RefObject } from 'preact';
-import { useEffect, useRef, useState } from 'preact/hooks';
-import { ElementVotes, WebSocketApi } from '../../types/WebSocket';
+import { ElementVote, WebSocketApi } from '../../types/WebSocket';
 import { connectToWebSocket } from '../WebSocket/WebSocket';
 import classes from './MagicPage.module.css'
 import sharedClasses from '../../styles.module.css'
@@ -9,13 +7,12 @@ import { MagicPageNoElements } from './MagicPageNoElements';
 
 
 const ProtoMagicPage = ({socket}: {socket: WebSocketApi}) => {
-    const [elementVotes] = useState(socket.state.elementVotes);
     let newElement = '';
 
     return (
         <div class={classes.magicPage}>
             <div class={classes.magicPageElements}>
-                {getNumberOfElements(elementVotes) > 0 
+                {getNumberOfElements(socket.state.elementVotes) > 0 
                     ? <MagicPageElements />
                     : <MagicPageNoElements />
                 }
@@ -45,7 +42,7 @@ const ProtoMagicPage = ({socket}: {socket: WebSocketApi}) => {
     )
 };
 
-const getNumberOfElements = (elementVotes: ElementVotes): number =>
+const getNumberOfElements = (elementVotes: Array<ElementVote>): number =>
     Object.values(elementVotes).reduce((count, elementVotes) => count + 1, 0);
 
 export const MagicPage = connectToWebSocket(ProtoMagicPage);
