@@ -20,8 +20,8 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
             {socket.state.elementVotes.map(
                 (elementVote: ElementVote) => (
                     <tr>
-                    <td>elementVote.id</td>
-                    <td>elementVote.votes</td>
+                    <td>{elementVote.id}</td>
+                    <td>{elementVote.votes}</td>
                     <td><a href=""><img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} /></a></td>
                     <td><a href=""><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} /></a></td>
                     <td><a href=""><img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} /></a></td>

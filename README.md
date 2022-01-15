@@ -18,6 +18,10 @@ https://reactjs.org/docs/components-and-props.html
 
 The project uses [Typescript](https://www.typescriptlang.org/) which is a strongly typed programming language that builds on Java Script: https://github.com/microsoft/TypeScript.
 
+## React, Preact with Typescript
+
+https://reactjs.de/artikel/react-typescript/
+
 ## React, Preact and Typescript Essential Elements 
 
 ### Functional Components
@@ -27,6 +31,10 @@ https://reactjs.org/docs/components-and-props.html
 https://react-typescript-cheatsheet.netlify.app/docs/basic/getting-started/function_components
 
 https://preactjs.com/guide/v10/components
+
+### Classes
+
+https://www.typescriptlang.org/docs/handbook/2/classes.html
 
 ### Conditional Rendering
 

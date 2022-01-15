@@ -1,6 +1,7 @@
 import { ComponentType, createContext } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import {
+    ElementVote,
     UserVote,
     UserVotes,
     WebSocketApi,
@@ -12,7 +13,7 @@ export const doNothing = () => {};
 
 // defines the initial web socket state
 const initialWebSocketState: WebSocketState = {
-    elementVotes: {},
+    elementVotes: [],
     userVotes: {},
 };
 
@@ -45,7 +46,7 @@ export const WebSocketProvider = ({children}: any) => {
         setLoggedIn(true);
         setState({
             ...initialWebSocketState,
-            elementVotes: {},
+            elementVotes: [],
             userVotes: {
                 [user]: 0,
             }
@@ -53,7 +54,7 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const addElement = (element: string) => {
-        setState({ ...state, elementVotes: { ...state.elementVotes, [element]: 0}})
+        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(element, 0)]})
     }
 
     const setVote = (vote: UserVote) => {

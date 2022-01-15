@@ -4,8 +4,13 @@ export interface UserVote {
   vote: number;
 }
 
-export interface ElementVote {
-  id: string; votes: number;
+export class ElementVote {
+  id: string;
+  votes: number;
+  constructor(id: string, votes: number) {
+    this.id = id;
+    this.votes = votes;
+  }
 }
 
 export interface UserVotes {
