@@ -17,14 +17,14 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                 <th>Downvote</th>
                 <th>Remove</th>
             </tr>
-            {socket.state.elementVotes.map(
+            {socket.state.elementVotes.sort((a, b) => b.votes - a.votes).map(
                 (elementVote: ElementVote) => (
                     <tr>
                     <td>{elementVote.id}</td>
                     <td>{elementVote.votes}</td>
-                    <td><a href=""><img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} /></a></td>
-                    <td><a href=""><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} /></a></td>
-                    <td><a href=""><img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} /></a></td>
+                    <td><img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} /></td>
+                    <td><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} onClick={() => {socket.downvoteElement(elementVote.id)}} /></td>
+                    <td><img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} onClick={() => {socket.delElement(elementVote.id)}} /></td>
                     </tr>
             ))}
          </table>

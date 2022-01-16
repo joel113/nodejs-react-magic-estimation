@@ -27,7 +27,10 @@ export interface WebSocketApi {
   state: WebSocketState;
   loginData: WebSocketLoginData;
   loggedIn: boolean;
-  addElement(element: string): void;
+  addElement(id: string): void;
+  delElement(id: string): void;
+  upvoteElement(id: string): void;
+  downvoteElement(id: string): void;
   login(user: string, session: string): void;
   setVote(vote: UserVote): void;
 }

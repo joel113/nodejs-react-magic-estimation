@@ -27,6 +27,9 @@ export const WebSocketContext = createContext<WebSocketApi>({
     loginData: initialLoginData,
     loggedIn: false,
     addElement: doNothing,
+    delElement: doNothing,
+    upvoteElement: doNothing,
+    downvoteElement: doNothing,
     login: doNothing,
     setVote: doNothing,
 });
@@ -53,9 +56,21 @@ export const WebSocketProvider = ({children}: any) => {
       });
     }
 
-    const addElement = (element: string) => {
-        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(element, 0)]})
+    const addElement = (id: string) => {
+        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0)]})
     }
+    
+    const delElement = (id: string) => {
+        setState({...state, elementVotes: state.elementVotes.filter((value) => value.id == id)})
+    }
+
+    const upvoteElement = (id: string) => {
+        setState({...state, elementVotes: state.elementVotes.map((value) => value.id == id ? new ElementVote(id, value.votes + 1) : value )})
+    }
+    
+    const downvoteElement = (id: string) => {
+        setState({...state, elementVotes: state.elementVotes.map((value) => value.id == id ? new ElementVote(id, value.votes > 1 ? value.votes - 1 : 0) : value )})
+    }   
 
     const setVote = (vote: UserVote) => {
         setState(state)
@@ -68,6 +83,9 @@ export const WebSocketProvider = ({children}: any) => {
         loggedIn,
         login,
         addElement,
+        delElement,
+        upvoteElement,
+        downvoteElement,
         setVote,
     };
 
