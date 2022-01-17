@@ -3,7 +3,6 @@ import { useEffect, useState } from 'preact/hooks';
 import {
     ElementVote,
     UserVote,
-    UserVotes,
     WebSocketApi,
     WebSocketLoginData,
     WebSocketState,
@@ -14,7 +13,7 @@ export const doNothing = () => {};
 // defines the initial web socket state
 const initialWebSocketState: WebSocketState = {
     elementVotes: [],
-    userVotes: {},
+    userVotes: [],
 };
 
 // defines the initial web socket login data
@@ -30,6 +29,7 @@ export const WebSocketContext = createContext<WebSocketApi>({
     delElement: doNothing,
     upvoteElement: doNothing,
     downvoteElement: doNothing,
+    clearVotes: doNothing,
     login: doNothing,
     setVote: doNothing,
 });
@@ -50,9 +50,7 @@ export const WebSocketProvider = ({children}: any) => {
         setState({
             ...initialWebSocketState,
             elementVotes: [],
-            userVotes: {
-                [user]: 0,
-            }
+            userVotes: []
       });
     }
 
@@ -61,16 +59,20 @@ export const WebSocketProvider = ({children}: any) => {
     }
     
     const delElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.filter((value) => value.id == id)})
+        setState({...state, elementVotes: state.elementVotes.filter((value) => value.id != id)})
     }
 
     const upvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((value) => value.id == id ? new ElementVote(id, value.votes + 1) : value )})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, id, +1)]});
     }
     
     const downvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((value) => value.id == id ? new ElementVote(id, value.votes > 1 ? value.votes - 1 : 0) : value )})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, id, -1)]})
     }   
+
+    const clearVotes = () => {
+        setState({...state, userVotes: []})
+    }
 
     const setVote = (vote: UserVote) => {
         setState(state)
@@ -86,6 +88,7 @@ export const WebSocketProvider = ({children}: any) => {
         delElement,
         upvoteElement,
         downvoteElement,
+        clearVotes,
         setVote,
     };
 

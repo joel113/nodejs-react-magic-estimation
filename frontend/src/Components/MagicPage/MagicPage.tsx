@@ -3,8 +3,10 @@ import { ElementVote, WebSocketApi } from '../../types/WebSocket';
 import { connectToWebSocket } from '../WebSocket/WebSocket';
 import classes from './MagicPage.module.css'
 import sharedClasses from '../../styles.module.css'
-import { MagicPageElements } from './MagicPageElements';
+import { MagicPageSomeElements } from './MagicPageSomeElements';
 import { MagicPageNoElements } from './MagicPageNoElements';
+import { MagicPageSomeVotes } from './MagicPageSomeVotes';
+import { MagicPageNoVotes } from './MagicPageNoVotes';
 
 /*
 * Basic Magic Page
@@ -18,7 +20,7 @@ const ProtoMagicPage = ({socket}: {socket: WebSocketApi}) => {
         <div class={classes.magicPage}>
             <div class={classes.magicPageElements}>
                 {Object.keys(socket.state.elementVotes).length > 0 
-                    ? <MagicPageElements />
+                    ? <MagicPageSomeElements />
                     : <MagicPageNoElements />
                 }
             </div>
@@ -32,16 +34,18 @@ const ProtoMagicPage = ({socket}: {socket: WebSocketApi}) => {
                 </form>
             </div>
             <div class={classes.magicPageUsers}>
-                <table class={classes.magicPageElementsTable}>
-                    <tr class={classes.magicPageElementsTableRowHeader}>
-                        <th class={classes.elementColumn}>User</th>
-                        <th>Votes</th>
-                    </tr>
-                    <tr>
-                        <td>Element 1</td>
-                        <td>2</td>
-                    </tr>
-                </table>
+                {Object.keys(socket.state.userVotes).length > 0 
+                    ? <MagicPageSomeVotes />
+                    : <MagicPageNoVotes />
+                }
+            </div>
+            <div class={classes.magicPageAddElements}>
+                <form onSubmit={(event) => {
+                    event.preventDefault();
+                    socket.clearVotes();
+                }} class={classes.magicPageAddElementsForm}>
+                    <input id="submit" type="submit" class={sharedClasses.button} value="Reset" style="margin-left: 1.5rem; padding: 0 1.0rem 0 1.0rem" />
+                </form>
             </div>
         </div>
     )

@@ -5,6 +5,7 @@ export const APP_NAME_FIRST = 'MAGIC';
 export const APP_NAME_SECOND = 'ESTIMATION';
 
 export const LABEL_USERNAME = 'Name:';
+export const LABEL_COLOR = 'Farbe:';
 export const LABEL_SESSION = 'Session:';
 
 export const BUTTON_LOGIN = 'Login';

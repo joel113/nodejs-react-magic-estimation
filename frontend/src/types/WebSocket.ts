@@ -1,8 +1,14 @@
-export interface UserVote {
+export class UserVote {
   userId: string;
   elementId: string;
   vote: number;
+  constructor(userId: string, elementId: string, vote: number) {
+    this.userId = userId;
+    this.elementId = elementId;
+    this.vote = vote;
+  }
 }
+
 
 export class ElementVote {
   id: string;
@@ -13,13 +19,9 @@ export class ElementVote {
   }
 }
 
-export interface UserVotes {
-  [userId: string]: number;
-  }
-
 export interface WebSocketState {
   elementVotes: Array<ElementVote>;
-  userVotes: UserVotes;
+  userVotes: Array<UserVote>;
 }
 
 export interface WebSocketApi {
@@ -31,6 +33,7 @@ export interface WebSocketApi {
   delElement(id: string): void;
   upvoteElement(id: string): void;
   downvoteElement(id: string): void;
+  clearVotes(): void;
   login(user: string, session: string): void;
   setVote(vote: UserVote): void;
 }

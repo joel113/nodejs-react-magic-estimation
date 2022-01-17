@@ -31,4 +31,4 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
     )
 };
 
-export const MagicPageElements = connectToWebSocket(ProtoMagicPageElements);
+export const MagicPageSomeElements = connectToWebSocket(ProtoMagicPageElements);

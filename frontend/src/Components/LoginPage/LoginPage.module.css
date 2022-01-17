@@ -19,29 +19,51 @@
 
 .userLabel {
   grid-column: 1 / 2;
-  grid-row: 2 / 3;
+  grid-row: 1 / 2;
   align-self: center;
-  justify-self: end;
+  justify-self: left;
 }
 
 .userInput {
   grid-column: 2 / 3;
-  grid-row: 2 / 3;
+  grid-row: 1 / 2;
   padding: 0 0.5rem;
   width: 100%;
   min-width: 8rem;
 }
 
-.sessionLabel {
+.colorLabel {
   grid-column: 1 / 2;
+  grid-row: 2 / 3;
+  align-self: center;
+  justify-self: left;
+}
+
+.colorInput {
+  grid-column: 2 / 3;
+  grid-row: 3 / 3;
+  padding: 0 0.5rem;
+  width: 100%;
+  min-width: 8rem;
+}
+
+.colorPicker {
+  grid-column: 1 / 3;
   grid-row: 3 / 4;
   align-self: center;
-  justify-self: end;
+  justify-self: center;
+}
+
+.sessionLabel {
+  grid-column: 1 / 2;
+  grid-row: 4 / 5;
+  align-self: center;
+  justify-self: left;
 }
 
 .sessionLink {
   grid-column: 2 / 3;
-  grid-row: 3 / 4;
+  grid-row: 4 / 5;
   align-self: center;
   color: var(--joel-red);
 }
@@ -54,5 +76,5 @@
   composes: button from '../../styles.module.css';
   --button-width: 100%;
   grid-column: 1 / 3;
-  grid-row: 4 / 5;
+  grid-row: 5 / 6;
 }

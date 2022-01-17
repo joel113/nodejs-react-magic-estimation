@@ -2,7 +2,7 @@ import classes from './MagicPage.module.css'
 import infoLogo from '../../img/info.svg';
 import { ALT_INFO_LOGO } from '../../constants';
 
-export const MagicPageNoElements = () => {
+export const MagicPageNoVotes = () => {
     return (
         <table class={classes.magicPageElementsTable}>
             <tr>
