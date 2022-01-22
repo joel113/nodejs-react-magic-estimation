@@ -40,69 +40,42 @@
 }
 
 .colorInput {
-  grid-column: 2 / 3;
-  grid-row: 2 / 4;
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
   padding: 0 0.5rem;
   width: 100%;
   min-width: 8rem;
 }
 
-.colorArrow {
-  grid-column: 3 / 4;
-  grid-row: 2 / 3;
-  border-radius: 10px;
-  background: var(--joel-blue);
-  padding: 11px 3px 3px 5px;
-  width: 30px;
-  height: 35px;
-}
-
-.colorArrow .arrowDown {
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-top: 10px solid var(--light-gray);
-  font-size: 0;
-  line-height: 0;
-  float: left;
-}
-
-.colorArrow .arrowUp {
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid var(--light-gray);
-  font-size: 0;
-  line-height: 0;
-  float: left;
-}
-
-.colorPicker {
-  grid-column: 1 / 4;
-  grid-row: 3 / 4;
-  align-self: center;
-  justify-self: center;
-}
-
 .sessionLabel {
   grid-column: 1 / 2;
-  grid-row: 4 / 5;
+  grid-row: 3 / 4;
   align-self: center;
   justify-self: left;
 }
 
 .sessionLink {
   grid-column: 2 / 4;
-  grid-row: 4 / 5;
+  grid-row: 3 / 4;
   align-self: center;
   color: var(--joel-red);
 }
 
 .loginPage input.submit {
-  margin-top: 1.5rem;
+  margin-top: 1.0rem;
 }
 
 .submit {
   composes: button from '../../styles.module.css';
   --button-width: 100%;
   grid-column: 1 / 4;
-  grid-row: 5 / 6;
+  grid-row: 4 / 5;
+}
+
+.colorPicker {
+  grid-column: 1 / 4;
+  grid-row: 3 / 5;
+  width: 200px;
+  top: 50px;
+  padding-left: 100px;
 }
