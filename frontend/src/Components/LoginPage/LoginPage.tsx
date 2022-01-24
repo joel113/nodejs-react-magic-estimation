@@ -22,8 +22,22 @@ const ProtoLoginPage = ({socket}: {socket: WebSocketApi}) => {
   const [colorPicker, setColorPicker] = useState(false)
   let sessionId = 'not implemented';
 
-  function handleChange(color, event) {
+  function handleChange(color: any, event: any) {
     setColor(color.hex);
+    var element = document.getElementById("color")
+    if(element != null) {
+      element.style.backgroundColor = color.hex
+    }
+  }
+
+  const target = document.querySelector('#color')
+  if(target != null) {
+    document.addEventListener('click', (event) => {
+      const withinBoundaries = event.composedPath().includes(target)
+      if(!withinBoundaries) {
+        setColorPicker(false)
+      }
+    })
   }
 
   return (
@@ -35,10 +49,9 @@ const ProtoLoginPage = ({socket}: {socket: WebSocketApi}) => {
         <label for="user" class={classes.userLabel}>{LABEL_USERNAME}</label>
         <input id="user" type="text" value={user} class={classes.userInput} onInput={(event) => setUser((event.target as HTMLInputElement).value)} />
         <label for="color" class={classes.colorLabel}>{LABEL_COLOR}</label>
-        <input id="color" type="text" value={color} class={classes.colorInput} onInput={(event) => setColor((event.target as HTMLInputElement).value)}  onClick={(event) => setColorPicker(!colorPicker)} />
-        {colorPicker
-          ? <div id="colorPicker" class={classes.colorPicker}><GithubPicker onChange={handleChange} /></div>
-          : <span />
+        <input id="color" type="text" value={color} class={classes.colorInput} onInput={(event) => setColor((event.target as HTMLInputElement).value)} onClick={(event) => setColorPicker(!colorPicker)} autocomplete="off" />
+        {
+          colorPicker == true && <div id="colorPicker" class={classes.colorPicker}><GithubPicker onChange={handleChange} /></div>
         }
         <label for="session" class={classes.sessionLabel}>{LABEL_SESSION}</label>
         <input id="session" type="text" value="1234" class={classes.sessionLink} />
