@@ -18,6 +18,10 @@ https://reactjs.org/docs/components-and-props.html
 
 The project uses [Typescript](https://www.typescriptlang.org/) which is a strongly typed programming language that builds on Java Script: https://github.com/microsoft/TypeScript.
 
+## React Native
+
+https://reactnative.dev/
+
 ## React, Preact with Typescript
 
 https://reactjs.de/artikel/react-typescript/

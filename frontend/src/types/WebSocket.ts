@@ -38,4 +38,4 @@ export interface WebSocketApi {
   setVote(vote: UserVote): void;
 }
 
-export type WebSocketLoginData = { user: string; session: string };
+export type WebSocketLoginData = { user: string; color: string; session: string };

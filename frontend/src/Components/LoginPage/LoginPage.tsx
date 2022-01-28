@@ -18,17 +18,9 @@ const isSSR = typeof window === 'undefined';
 
 const ProtoLoginPage = ({socket}: {socket: WebSocketApi}) => {
   const [user, setUser] = useState(socket.loginData.user);
-  const [color, setColor] = useState("")
+  const [color, setColor] = useState(socket.loginData.color)
   const [colorPicker, setColorPicker] = useState(false)
   let sessionId = 'not implemented';
-
-  function handleChange(color: any, event: any) {
-    setColor(color.hex);
-    var element = document.getElementById("color")
-    if(element != null) {
-      element.style.backgroundColor = color.hex
-    }
-  }
 
   const target = document.querySelector('#color')
   if(target != null) {
@@ -47,11 +39,18 @@ const ProtoLoginPage = ({socket}: {socket: WebSocketApi}) => {
           socket.login(user, sessionId);
         }}>
         <label for="user" class={classes.userLabel}>{LABEL_USERNAME}</label>
-        <input id="user" type="text" value={user} class={classes.userInput} onInput={(event) => setUser((event.target as HTMLInputElement).value)} />
+        <input id="user" type="text" value={user} class={classes.userInput} onChange={(event) => setUser((event.target as HTMLInputElement).value)} />
         <label for="color" class={classes.colorLabel}>{LABEL_COLOR}</label>
-        <input id="color" type="text" value={color} class={classes.colorInput} onInput={(event) => setColor((event.target as HTMLInputElement).value)} onClick={(event) => setColorPicker(!colorPicker)} autocomplete="off" />
+        <input id="color" type="text" value={color} class={classes.colorInput} onChange={(event) => setColor((event.target as HTMLInputElement).value)} onClick={(event) => setColorPicker(!colorPicker)} autocomplete="off" />
         {
-          colorPicker == true && <div id="colorPicker" class={classes.colorPicker}><GithubPicker onChange={handleChange} /></div>
+          colorPicker == true && <div id="colorPicker" class={classes.colorPicker}><GithubPicker onChange={
+            (color, event) => {
+              setColor(color.hex);
+              var element = document.getElementById("color")
+              if(element != null) {
+                element.style.backgroundColor = color.hex
+              }
+            }} /></div>
         }
         <label for="session" class={classes.sessionLabel}>{LABEL_SESSION}</label>
         <input id="session" type="text" value="1234" class={classes.sessionLink} />
