@@ -62,6 +62,12 @@ https://stackoverflow.com/questions/25469244/how-can-i-define-an-interface-for-a
 
 For passing the login information into the tree, the project uses [context](https://preactjs.com/guide/v10/context).
 
+### Controlled and Uncontrolled Components
+
+https://reactjs.org/docs/forms.html#controlled-components
+
+https://reactjs.org/docs/uncontrolled-components.html
+
 ## IDE
 
 https://code.visualstudio.com/docs/nodejs/nodejs-tutorial
