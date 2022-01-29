@@ -16,41 +16,62 @@ import {
 // During server-side-rendering, window/history cannot be accessed
 const isSSR = typeof window === 'undefined';
 
-const ProtoLoginPage = ({socket}: {socket: WebSocketApi}) => {
+const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
   const [user, setUser] = useState(socket.loginData.user);
   const [color, setColor] = useState(socket.loginData.color)
   const [colorPicker, setColorPicker] = useState(false)
   let sessionId = 'not implemented';
 
   const target = document.querySelector('#color')
-  if(target != null) {
+  if (target != null) {
     document.addEventListener('click', (event) => {
       const withinBoundaries = event.composedPath().includes(target)
-      if(!withinBoundaries) {
+      if (!withinBoundaries) {
         setColorPicker(false)
       }
     })
   }
 
+  function updateColor(color: string) {
+    var element = document.getElementById("color")
+    if (element != null) {
+      element.style.backgroundColor = color
+    }
+  }
+
   return (
     <div>
       <form class={classes.loginPage} onSubmit={(event) => {
-          event.preventDefault();
-          socket.login(user, sessionId);
-        }}>
+        event.preventDefault();
+        socket.login(user, sessionId);
+      }}>
         <label for="user" class={classes.userLabel}>{LABEL_USERNAME}</label>
-        <input id="user" type="text" value={user} class={classes.userInput} onChange={(event) => setUser((event.target as HTMLInputElement).value)} />
+        <input id="user" type="text" value={user} class={classes.userInput}
+          required
+          autocomplete="off"
+          onChange={(event) => setUser((event.target as HTMLInputElement).value)} />
         <label for="color" class={classes.colorLabel}>{LABEL_COLOR}</label>
-        <input id="color" type="text" value={color} class={classes.colorInput} onChange={(event) => setColor((event.target as HTMLInputElement).value)} onClick={(event) => setColorPicker(!colorPicker)} autocomplete="off" />
+        <input id="color" type="text" value={color} class={classes.colorInput} 
+          required
+          autocomplete="off"
+          pattern="^#[0-9a-f]{6}$"
+          placeholder="#abcde0"
+          onChange={
+            (event) => {
+              setColor((event.target as HTMLInputElement).value);
+              updateColor(color);
+            }
+          } 
+          onClick={(event) => setColorPicker(!colorPicker)} />
         {
-          colorPicker == true && <div id="colorPicker" class={classes.colorPicker}><GithubPicker onChange={
-            (color, event) => {
-              setColor(color.hex);
-              var element = document.getElementById("color")
-              if(element != null) {
-                element.style.backgroundColor = color.hex
-              }
-            }} /></div>
+          colorPicker == true && 
+          <div id="colorPicker" class={classes.colorPicker}>
+            <GithubPicker onChange={
+              (color, event) => {
+                setColor(color.hex);
+                updateColor(color.hex)
+              }} />
+            </div>
         }
         <label for="session" class={classes.sessionLabel}>{LABEL_SESSION}</label>
         <input id="session" type="text" value="1234" class={classes.sessionLink} />
