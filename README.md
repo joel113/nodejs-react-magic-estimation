@@ -68,6 +68,24 @@ https://reactjs.org/docs/forms.html#controlled-components
 
 https://reactjs.org/docs/uncontrolled-components.html
 
+## Cascading Stylesheets
+
+### CSS display to vertically center some text
+
+The css display table element turns a rendering box into an element which behaves like a <table> html element.
+
+The css display table-cell element turns a rendering box into an element which behaves like a <td> html element.
+
+https://developer.mozilla.org/de/docs/Web/CSS/display
+
+### CSS flexbox to vertically center some text
+
+https://stackoverflow.com/questions/2939914/how-do-i-vertically-align-text-in-a-div/13515693#13515693
+
+### CSS floating
+
+https://stackoverflow.com/questions/5803023/how-to-place-two-divs-next-to-each-other#:~:text=Use%20float%3Aleft%20on%20both,height%20instead%20of%20expanding%20it.
+
 ## IDE
 
 https://code.visualstudio.com/docs/nodejs/nodejs-tutorial
@@ -111,6 +129,12 @@ Visual Studio Debugging Launch Configuration
     ]
 }
 ```
+
+### Visual Studio Code Typescript
+
+https://code.visualstudio.com/docs/languages/typescript
+
+https://code.visualstudio.com/docs/getstarted/settings
 
 ## Inspired by
 

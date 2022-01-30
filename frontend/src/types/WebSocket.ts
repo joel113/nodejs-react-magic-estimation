@@ -9,7 +9,6 @@ export class UserVote {
   }
 }
 
-
 export class ElementVote {
   id: string;
   votes: number;

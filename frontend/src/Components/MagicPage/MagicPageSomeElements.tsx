@@ -16,15 +16,23 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                 <th>Upvote</th>
                 <th>Downvote</th>
                 <th>Remove</th>
+                <th>Users</th>
             </tr>
             {socket.state.elementVotes.sort((a, b) => b.votes - a.votes).map(
                 (elementVote: ElementVote) => (
                     <tr>
-                    <td>{elementVote.id}</td>
-                    <td>{elementVote.votes}</td>
-                    <td><img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} /></td>
-                    <td><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} onClick={() => {socket.downvoteElement(elementVote.id)}} /></td>
-                    <td><img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} onClick={() => {socket.delElement(elementVote.id)}} /></td>
+                        <td>{elementVote.id}</td>
+                        <td>{elementVote.votes}</td>
+                        <td><img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} /></td>
+                        <td><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} onClick={() => {socket.downvoteElement(elementVote.id)}} /></td>
+                        <td><img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} onClick={() => {socket.delElement(elementVote.id)}} /></td>
+                        <td>
+                            <div style="display:table;width:25px;height:25px;background-color:#554433;">
+                                <div style="display:table-cell;vertical-align:middle;">
+                                    <div>J</div>
+                                </div>
+                            </div>
+                        </td>
                     </tr>
             ))}
          </table>
