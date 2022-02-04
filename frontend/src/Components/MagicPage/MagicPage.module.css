@@ -44,6 +44,38 @@
     color: var(--joel-gray);
   }
 
+  .magicPageElementsTable div.userVotes {
+    display:flex;
+    height:100%;
+  }
+
+  .magicPageElementsTable div.userVoteNameContainer {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .magicPageElementsTable div.userVoteContainer {
+    display:table;
+    width:25px;
+    height:25px;
+    margin-left:10px;
+  }
+
+  .magicPageElementsTable div.userNameContainer {
+    display:table;
+    height:25px;
+  }
+
+  .magicPageElementsTable div.userName {
+    display:table-cell;
+    vertical-align:middle;
+  }
+
+  .magicPageElementsTable div.userVoteContainer div.userVote {
+    display:table-cell;
+    vertical-align:middle;
+  }
+
   .magicPageAddElements {
     margin: auto 0;
     padding: 0 0 1.5rem 0;

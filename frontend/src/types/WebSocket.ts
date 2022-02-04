@@ -1,9 +1,11 @@
 export class UserVote {
   userId: string;
+  userColor: string;
   elementId: string;
   vote: number;
-  constructor(userId: string, elementId: string, vote: number) {
+  constructor(userId: string, userColor: string, elementId: string, vote: number) {
     this.userId = userId;
+    this.userColor = userColor;
     this.elementId = elementId;
     this.vote = vote;
   }
@@ -33,7 +35,7 @@ export interface WebSocketApi {
   upvoteElement(id: string): void;
   downvoteElement(id: string): void;
   clearVotes(): void;
-  login(user: string, session: string): void;
+  login(user: string, color: string, session: string): void;
   setVote(vote: UserVote): void;
 }
 

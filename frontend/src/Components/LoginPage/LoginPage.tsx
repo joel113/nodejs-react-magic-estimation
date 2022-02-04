@@ -43,7 +43,7 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
     <div>
       <form class={classes.loginPage} onSubmit={(event) => {
         event.preventDefault();
-        socket.login(user, sessionId);
+        socket.login(user, color, sessionId);
       }}>
         <label for="user" class={classes.userLabel}>{LABEL_USERNAME}</label>
         <input id="user" type="text" value={user} class={classes.userInput}

@@ -27,11 +27,11 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                         <td><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} onClick={() => {socket.downvoteElement(elementVote.id)}} /></td>
                         <td><img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} onClick={() => {socket.delElement(elementVote.id)}} /></td>
                         <td>
-                            <div style="display: flex;height:100%">
+                            <div class={classes.userVotes}>
                                 {socket.state.userVotes.filter((userVote: UserVote) => userVote.elementId == elementVote.id).map(
                                     (userVote: UserVote) => (
-                                        <div style="display:table;width:25px;height:25px;margin-left:10px;background-color:#554433;">
-                                            <div style="display:table-cell;vertical-align:middle;">
+                                        <div class={classes.userVoteContainer} style={{backgroundColor: userVote.userColor}}>
+                                            <div class={classes.userVote}>
                                                 <div>{userVote.userId.substring(0,1)}</div>
                                             </div>
                                         </div>

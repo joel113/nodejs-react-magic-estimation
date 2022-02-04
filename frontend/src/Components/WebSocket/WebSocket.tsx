@@ -17,7 +17,7 @@ const initialWebSocketState: WebSocketState = {
 };
 
 // defines the initial web socket login data
-const initialLoginData: WebSocketLoginData = { user: '', session: '' };
+const initialLoginData: WebSocketLoginData = { user: '', color: '', session: '' };
 
 // context allows to pass a value to a child deep down in the tree
 export const WebSocketContext = createContext<WebSocketApi>({
@@ -63,11 +63,11 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const upvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, id, +1)]});
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, +1)]});
     }
     
     const downvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, id, -1)]})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }   
 
     const clearVotes = () => {
