@@ -7,6 +7,7 @@ import { MagicPageSomeElements } from './MagicPageSomeElements';
 import { MagicPageNoElements } from './MagicPageNoElements';
 import { MagicPageSomeVotes } from './MagicPageSomeVotes';
 import { MagicPageNoVotes } from './MagicPageNoVotes';
+import { MagicPageRounds } from './MagicPageRounds';
 
 /*
 * Basic Magic Page
@@ -35,6 +36,9 @@ const ProtoMagicPage = ({ socket }: { socket: WebSocketApi }) => {
                     <input id="submit" type="submit" class={sharedClasses.button} value="Add"
                         style="margin-left: 1.5rem; padding: 0 1.0rem 0 1.0rem" />
                 </form>
+            </div>
+            <div class={classes.magicPageRounds}>
+                <MagicPageRounds />
             </div>
             <div class={classes.magicPageUsers}>
                 {Object.keys(socket.state.userVotes).length > 0

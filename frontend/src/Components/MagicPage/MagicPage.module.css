@@ -90,6 +90,62 @@
     margin-right: auto;
   }
 
+  /* Magic Page Round Component */
+  .magicPageRounds {
+    width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .magicPageRounds div.magicPageRoundsContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .magicPageRounds div.magicPageRoundsContainer div.magicPageRoundsBox {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    margin: 2px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .magicPageRounds div.magicPageRoundsContainer div.firstBox {
+    background-color: var(--joel-red);
+    color: var(--light-blue);
+    font-weight: bold;
+  }
+
+  .magicPageRounds div.magicPageRoundsContainer div.activeBox {
+    background-color: var(--light-red);
+    color: var(--light-blue);
+    font-weight: bold;
+  }
+
+  .magicPageRounds div.magicPageRoundsContainer div.nonactiveBox {
+    background-color: var(--light-gray);
+    color: var(--joel-gray);
+  }
+
+  .magicPageRounds div.magicPageRoundsContainer div.controlBox {
+    background-color: var(--joel-blue);
+    color: var(--light-blue);
+    font-weight: bold;
+    box-sizing: border-box;
+    border-radius: 10px 10px 10px 10px;
+  }
+
+  .magicPageRounds div.magicPageRoundsContainer div.magicPageRoundsBox div.magicPageRoundsName {
+    color: var(--light-blue);
+    text-align: center;
+    font-weight: bold;
+    vertical-align: middle;
+  }
+
   .logoImage {
     height: 2rem;
     width: 4rem;
