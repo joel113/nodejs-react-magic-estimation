@@ -78,7 +78,7 @@
 
   .magicPageAddElements {
     margin: auto 0;
-    padding: 0 0 1.5rem 0;
+    padding: 0 0 5rem 0;
     text-align: center;
   }
 
@@ -145,6 +145,63 @@
     font-weight: bold;
     vertical-align: middle;
   }
+
+/* Magic Page Round Component */
+.magicPageUsers {
+  width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1.5rem 0 3rem 0;
+}
+
+.magicPageUsers div.magicPageUsersContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.magicPageUsers div.magicPageUsersContainer div.magicPageUsersBox {
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  margin: 2px;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.magicPageUsers div.magicPageUsersContainer div.firstBox {
+  background-color: var(--joel-red);
+  color: var(--light-blue);
+  font-weight: bold;
+}
+
+.magicPageUsers div.magicPageUsersContainer div.activeBox {
+  background-color: var(--light-red);
+  color: var(--light-blue);
+  font-weight: bold;
+}
+
+.magicPageUsers div.magicPageUsersContainer div.nonactiveBox {
+  background-color: var(--light-gray);
+  color: var(--joel-gray);
+}
+
+.magicPageUsers div.magicPageUsersContainer div.controlBox {
+  background-color: var(--joel-blue);
+  color: var(--light-blue);
+  font-weight: bold;
+  box-sizing: border-box;
+  border-radius: 10px 10px 10px 10px;
+}
+
+.magicPageUsers div.magicPageUsersContainer div.magicPageUsersBox div.magicPageUsersName {
+  color: var(--light-blue);
+  text-align: center;
+  font-weight: bold;
+  vertical-align: middle;
+}
 
   .logoImage {
     height: 2rem;

@@ -8,6 +8,7 @@ import { MagicPageNoElements } from './MagicPageNoElements';
 import { MagicPageSomeVotes } from './MagicPageSomeVotes';
 import { MagicPageNoVotes } from './MagicPageNoVotes';
 import { MagicPageRounds } from './MagicPageRounds';
+import { MagicPageUsers } from './MagicPageUsers';
 
 /*
 * Basic Magic Page
@@ -39,6 +40,9 @@ const ProtoMagicPage = ({ socket }: { socket: WebSocketApi }) => {
             </div>
             <div class={classes.magicPageRounds}>
                 <MagicPageRounds />
+            </div>
+            <div class={classes.magicPageUsers}>
+                <MagicPageUsers />
             </div>
             <div class={classes.magicPageUsers}>
                 {Object.keys(socket.state.userVotes).length > 0
