@@ -14,9 +14,25 @@ export class UserVote {
 export class ElementVote {
   id: string;
   votes: number;
-  constructor(id: string, votes: number) {
+  fixed: boolean;
+  constructor(id: string, votes: number, fixed: boolean) {
     this.id = id;
     this.votes = votes;
+    this.fixed = fixed;
+  }
+}
+
+export class VotingRound {
+  id: number;
+  constructor(id: number) {
+    this.id = id;
+  }
+}
+
+export class VotingUser {
+  id: string;
+  constructor(id: string) {
+    this.id = id;
   }
 }
 
@@ -34,6 +50,8 @@ export interface WebSocketApi {
   delElement(id: string): void;
   upvoteElement(id: string): void;
   downvoteElement(id: string): void;
+  fixElement(id: string): void;
+  unfixElement(id: string): void;
   clearVotes(): void;
   login(user: string, color: string, session: string): void;
   setVote(vote: UserVote): void;

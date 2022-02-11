@@ -29,7 +29,11 @@ export const WebSocketContext = createContext<WebSocketApi>({
     delElement: doNothing,
     upvoteElement: doNothing,
     downvoteElement: doNothing,
+    fixElement: doNothing,
     clearVotes: doNothing,
+    addRound: doNothing,
+    nextRound: doNothing,
+    nextUser: doNothing,
     login: doNothing,
     setVote: doNothing,
 });
@@ -63,15 +67,35 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const upvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, +1)]});
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1, element.fixed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, +1)]});
     }
     
     const downvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0, element.fixed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }   
+
+    const fixElement = (id: string) => {
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, true) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    }
+
+    const unfixElement = (id: string) => {
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, false) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    }
 
     const clearVotes = () => {
         setState({...state, userVotes: []})
+    }
+
+    const addRound = () => {
+
+    }
+
+    const nextRound = () => {
+
+    }
+
+    const nextUser = () => {
+
     }
 
     const setVote = (vote: UserVote) => {
@@ -88,7 +112,12 @@ export const WebSocketProvider = ({children}: any) => {
         delElement,
         upvoteElement,
         downvoteElement,
+        fixElement,
+        unfixElement,
         clearVotes,
+        addRound,
+        nextRound,
+        nextUser,
         setVote,
     };
 
