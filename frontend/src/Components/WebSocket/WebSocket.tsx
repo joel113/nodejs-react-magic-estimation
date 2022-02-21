@@ -15,7 +15,7 @@ const initialWebSocketState: WebSocketState = {
     elementVotes: [],
     userVotes: [],
     maxRounds: 1,
-    activeRound: 0,
+    activeRound: 1,
     activeUser: ""
 };
 
@@ -91,11 +91,11 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const addRound = () => {
-        setState({...state, maxRounds: state.maxRounds++})
+        setState({...state, maxRounds: state.maxRounds + 1})
     }
 
     const nextRound = () => {
-        setState({...state, activeRound: state.activeRound++})
+        setState({...state, activeRound: state.activeRound + 1})
     }
 
     const nextUser = (user: string) => {
