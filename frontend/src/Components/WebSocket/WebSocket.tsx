@@ -14,6 +14,9 @@ export const doNothing = () => {};
 const initialWebSocketState: WebSocketState = {
     elementVotes: [],
     userVotes: [],
+    maxRounds: 1,
+    activeRound: 0,
+    activeUser: ""
 };
 
 // defines the initial web socket login data
@@ -30,6 +33,7 @@ export const WebSocketContext = createContext<WebSocketApi>({
     upvoteElement: doNothing,
     downvoteElement: doNothing,
     fixElement: doNothing,
+    unfixElement: doNothing,
     clearVotes: doNothing,
     addRound: doNothing,
     nextRound: doNothing,
@@ -59,7 +63,7 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const addElement = (id: string) => {
-        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0)]})
+        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0, false)]})
     }
     
     const delElement = (id: string) => {
@@ -87,15 +91,15 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const addRound = () => {
-
+        setState({...state, maxRounds: state.maxRounds++})
     }
 
     const nextRound = () => {
-
+        setState({...state, activeRound: state.activeRound++})
     }
 
-    const nextUser = () => {
-
+    const nextUser = (user: string) => {
+        setState({...state, activeUser: user})
     }
 
     const setVote = (vote: UserVote) => {

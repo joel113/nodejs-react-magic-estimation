@@ -39,6 +39,9 @@ export class VotingUser {
 export interface WebSocketState {
   elementVotes: Array<ElementVote>;
   userVotes: Array<UserVote>;
+  maxRounds: number;
+  activeRound: number;
+  activeUser: String;
 }
 
 export interface WebSocketApi {
@@ -53,6 +56,9 @@ export interface WebSocketApi {
   fixElement(id: string): void;
   unfixElement(id: string): void;
   clearVotes(): void;
+  addRound(): void;
+  nextRound(): void;
+  nextUser(id: string): void;
   login(user: string, color: string, session: string): void;
   setVote(vote: UserVote): void;
 }
