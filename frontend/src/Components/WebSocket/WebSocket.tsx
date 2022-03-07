@@ -75,7 +75,15 @@ export const WebSocketProvider = ({children}: any) => {
     }
     
     const downvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0, element.fixed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+        var elementVotes = state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0, element.fixed) : element )
+        var userVoteIndex = state.userVotes.findIndex((element) => element.elementId == id && element.userId == loginData.user)
+        if(userVoteIndex > -1) {
+            state.userVotes.splice(userVoteIndex, 1)
+            setState({...state, elementVotes: elementVotes})
+        }
+        else {
+            setState({...state, elementVotes: elementVotes, userVotes: [...state.userVotes, new UserVote(loginData.user, loginData.color, id, -1)]})
+        }    
     }   
 
     const fixElement = (id: string) => {
