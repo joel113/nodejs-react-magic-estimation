@@ -1,11 +1,14 @@
 import { ElementVote, UserVote, WebSocketApi } from '../../types/WebSocket';
 import { connectToWebSocket } from '../WebSocket/WebSocket';
 import classes from './MagicPage.module.css'
-import infoLogo from '../../img/info.svg';
+import agreedImage from '../../img/agreed.svg';
+import disbutedIamge from '../../img/disbuted.svg';
+import lockedImage from '../../img/locked.svg';
+import ongoingImage from '../../img/ongoing.svg';
 import upLogo from '../../img/up.svg';
 import downLogo from '../../img/down.svg';
 import trashLogo from '../../img/trash.svg';
-import { ALT_INFO_LOGO, ALT_UP_LOGO, ALT_DOWN_LOGO, ALT_TRASH_LOGO } from '../../constants';
+import { ALT_AGREE_LOGO, ALT_DISBUTE_LOGO, ALT_ONGOING_LOGO, ALT_LOCKED_LOGO, ALT_UP_LOGO, ALT_DOWN_LOGO, ALT_TRASH_LOGO } from '../../constants';
 
 const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
     return (
@@ -13,6 +16,7 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
             <tr class={classes.magicPageElementsTableRowHeader}>
                 <th class={classes.elementColumn}>Element</th>
                 <th>Votes</th>
+                <th>Status</th>
                 <th>Upvote</th>
                 <th>Downvote</th>
                 <th>Remove</th>
@@ -23,6 +27,12 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                     <tr>
                         <td>{elementVote.id}</td>
                         <td>{elementVote.votes}</td>
+                        <td>
+                            <img src={disbutedIamge} alt={ALT_DISBUTE_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
+                            <img src={agreedImage} alt={ALT_AGREE_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
+                            <img src={ongoingImage} alt={ALT_ONGOING_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
+                            <img src={lockedImage} alt={ALT_LOCKED_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
+                        </td>
                         <td><img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} /></td>
                         <td><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} onClick={() => {socket.downvoteElement(elementVote.id)}} /></td>
                         <td><img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} onClick={() => {socket.delElement(elementVote.id)}} /></td>
