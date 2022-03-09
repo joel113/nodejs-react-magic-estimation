@@ -11,14 +11,21 @@ export class UserVote {
   }
 }
 
+export enum ElementState {
+  Ongoing,
+  Disbuted,
+  Agreed,
+  Locked
+}
+
 export class ElementVote {
   id: string;
   votes: number;
-  fixed: boolean;
-  constructor(id: string, votes: number, fixed: boolean) {
+  state: ElementState;
+  constructor(id: string, votes: number, state: ElementState) {
     this.id = id;
     this.votes = votes;
-    this.fixed = fixed;
+    this.state = state;
   }
 }
 

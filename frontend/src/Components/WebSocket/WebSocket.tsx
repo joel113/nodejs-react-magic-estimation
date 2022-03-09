@@ -1,6 +1,7 @@
 import { ComponentType, createContext } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import {
+    ElementState,
     ElementVote,
     UserVote,
     WebSocketApi,
@@ -63,7 +64,7 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const addElement = (id: string) => {
-        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0, false)]})
+        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0, ElementState.Ongoing)]})
     }
     
     const delElement = (id: string) => {
@@ -71,11 +72,11 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const upvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1, element.fixed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, +1)]});
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1, element.state) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, +1)]});
     }
     
     const downvoteElement = (id: string) => {
-        var elementVotes = state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0, element.fixed) : element )
+        var elementVotes = state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0, element.state) : element )
         var userVoteLength = state.userVotes.filter((element) => element.elementId == id && element.userId == loginData.user).length
         if(userVoteLength > 0) {
             var userVoteIndex = state.userVotes.findIndex((element) => element.elementId == id && element.userId == loginData.user)
@@ -90,11 +91,11 @@ export const WebSocketProvider = ({children}: any) => {
     }   
 
     const fixElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, true) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
     const unfixElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, false) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
     const clearVotes = () => {
