@@ -31,10 +31,12 @@ export const WebSocketContext = createContext<WebSocketApi>({
     loggedIn: false,
     addElement: doNothing,
     delElement: doNothing,
+    resetElement: doNothing,
+    agreeElement: doNothing,
+    disbuteElement: doNothing,
+    lockElement: doNothing,
     upvoteElement: doNothing,
     downvoteElement: doNothing,
-    fixElement: doNothing,
-    unfixElement: doNothing,
     clearVotes: doNothing,
     addRound: doNothing,
     nextRound: doNothing,
@@ -90,12 +92,24 @@ export const WebSocketProvider = ({children}: any) => {
         }
     }   
 
-    const fixElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    const resetElement = (id: string) => {
+        // TODO
+        //setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
-    const unfixElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    const agreeElement = (id: string) => {
+        // TODO
+        //setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    }
+
+    const disbuteElement = (id: string) => {
+        // TODO
+        //setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    }
+
+    const lockElement = (id: string) => {
+        // TODO
+        //setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
     const clearVotes = () => {
@@ -126,10 +140,12 @@ export const WebSocketProvider = ({children}: any) => {
         login,
         addElement,
         delElement,
+        resetElement,
+        agreeElement,
+        disbuteElement,
+        lockElement,
         upvoteElement,
         downvoteElement,
-        fixElement,
-        unfixElement,
         clearVotes,
         addRound,
         nextRound,

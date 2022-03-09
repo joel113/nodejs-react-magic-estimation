@@ -58,10 +58,12 @@ export interface WebSocketApi {
   loggedIn: boolean;
   addElement(id: string): void;
   delElement(id: string): void;
+  resetElement(id: string): void;
+  agreeElement(id: string): void;
+  disbuteElement(id: string): void;
+  lockElement(id: string): void;
   upvoteElement(id: string): void;
   downvoteElement(id: string): void;
-  fixElement(id: string): void;
-  unfixElement(id: string): void;
   clearVotes(): void;
   addRound(): void;
   nextRound(): void;
