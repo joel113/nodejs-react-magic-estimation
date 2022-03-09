@@ -1,4 +1,4 @@
-import { ElementVote, UserVote, WebSocketApi } from '../../types/WebSocket';
+import { ElementState, ElementVote, UserVote, WebSocketApi } from '../../types/WebSocket';
 import { connectToWebSocket } from '../WebSocket/WebSocket';
 import classes from './MagicPage.module.css'
 import agreedImage from '../../img/agreed.svg';
@@ -28,10 +28,18 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                         <td>{elementVote.id}</td>
                         <td>{elementVote.votes}</td>
                         <td>
-                            <img src={disbutedIamge} alt={ALT_DISBUTE_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
-                            <img src={agreedImage} alt={ALT_AGREE_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
-                            <img src={ongoingImage} alt={ALT_ONGOING_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
-                            <img src={lockedImage} alt={ALT_LOCKED_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
+                            {elementVote.state == ElementState.Ongoing &&
+                                <img src={ongoingImage} alt={ALT_ONGOING_LOGO} class={classes.logoImage} onClick={() => {socket.disbuteElement(elementVote.id)}} />
+                            }
+                            {elementVote.state == ElementState.Disbuted &&
+                                <img src={disbutedIamge} alt={ALT_DISBUTE_LOGO} class={classes.logoImage} onClick={() => {socket.agreeElement(elementVote.id)}} />
+                            }
+                            {elementVote.state == ElementState.Agreed &&
+                                <img src={agreedImage} alt={ALT_AGREE_LOGO} class={classes.logoImage} onClick={() => {socket.resetElement(elementVote.id)}} />
+                            }
+                            {elementVote.state == ElementState.Locked &&
+                                <img src={lockedImage} alt={ALT_LOCKED_LOGO} class={classes.logoImage} onClick={() => {socket.resetElement(elementVote.id)}} />
+                            }
                         </td>
                         <td><img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} /></td>
                         <td><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} onClick={() => {socket.downvoteElement(elementVote.id)}} /></td>
