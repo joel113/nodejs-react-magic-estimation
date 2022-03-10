@@ -21,10 +21,12 @@ export enum ElementState {
 export class ElementVote {
   id: string;
   votes: number;
+  votesRound: number;
   state: ElementState;
-  constructor(id: string, votes: number, state: ElementState) {
+  constructor(id: string, votes: number, votesRound: number, state: ElementState) {
     this.id = id;
     this.votes = votes;
+    this.votesRound = votesRound;
     this.state = state;
   }
 }

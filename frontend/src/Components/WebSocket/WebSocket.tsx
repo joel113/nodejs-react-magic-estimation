@@ -66,7 +66,7 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const addElement = (id: string) => {
-        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0, ElementState.Ongoing)]})
+        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0, 0, ElementState.Ongoing)]})
     }
     
     const delElement = (id: string) => {
@@ -74,11 +74,15 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const upvoteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1, element.state) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, +1)]});
+        // calculate and set disbute
+        // calculate and set agree
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes + 1, element.votesRound + 1, element.state) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, +1)]});
     }
     
     const downvoteElement = (id: string) => {
-        var elementVotes = state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votes - 1 : 0, element.state) : element )
+        // calculate and set disbute
+        // calculate and set agree
+        var elementVotes = state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes > 1 ? element.votesRound - 1 : 0, element.votesRound > 1 ? element.votesRound - 1 : 0,element.state) : element )
         var userVoteLength = state.userVotes.filter((element) => element.elementId == id && element.userId == loginData.user).length
         if(userVoteLength > 0) {
             var userVoteIndex = state.userVotes.findIndex((element) => element.elementId == id && element.userId == loginData.user)
@@ -93,19 +97,31 @@ export const WebSocketProvider = ({children}: any) => {
     }   
 
     const resetElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
     const agreeElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Agreed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Agreed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    }
+
+    const agreeElements = () => {
+        // todo
     }
 
     const disbuteElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Disbuted) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Disbuted) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    }
+
+    const disbuteElements = () => {
+        // todo
     }
 
     const lockElement = (id: string) => {
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    }
+
+    const lockElements = () => {
+        // todo
     }
 
     const clearVotes = () => {
@@ -117,7 +133,8 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const nextRound = () => {
-        setState({...state, activeRound: state.activeRound + 1})
+        // use element state and round votes to set new state
+        setState({...state, activeRound: state.activeRound + 1, elementVotes: state.elementVotes.map((element) => new ElementVote(element.id, element.votes, 0, element.state))})
     }
 
     const nextUser = (user: string) => {
