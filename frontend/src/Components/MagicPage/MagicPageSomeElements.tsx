@@ -41,9 +41,21 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                 <img src={lockedImage} alt={ALT_LOCKED_LOGO} class={classes.logoImage} onClick={() => {socket.resetElement(elementVote.id)}} />
                             }
                         </td>
-                        <td><img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} /></td>
-                        <td><img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} onClick={() => {socket.downvoteElement(elementVote.id)}} /></td>
-                        <td><img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} onClick={() => {socket.delElement(elementVote.id)}} /></td>
+                        <td>
+                            {elementVote.state != ElementState.Locked &&
+                                <img src={upLogo} alt={ALT_UP_LOGO} class={classes.logoImage} onClick={() => {socket.upvoteElement(elementVote.id)}} />
+                            }
+                        </td>
+                        <td>
+                            {elementVote.state != ElementState.Locked &&
+                                <img src={downLogo} alt={ALT_DOWN_LOGO} class={classes.logoImage} onClick={() => {socket.downvoteElement(elementVote.id)}} />
+                            }
+                        </td>
+                        <td>
+                            {elementVote.state != ElementState.Locked &&
+                                <img src={trashLogo} alt={ALT_TRASH_LOGO} class={classes.logoImage} onClick={() => {socket.delElement(elementVote.id)}} />
+                            }
+                        </td>
                         <td>
                             <div class={classes.userVotes}>
                                 {socket.state.userVotes.filter((userVote: UserVote) => userVote.elementId == elementVote.id).map(
