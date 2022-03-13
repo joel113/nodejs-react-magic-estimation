@@ -42,9 +42,6 @@ const ProtoMagicPage = ({ socket }: { socket: WebSocketApi }) => {
                 <MagicPageRounds />
             </div>
             <div class={classes.magicPageUsers}>
-                <MagicPageUsers />
-            </div>
-            <div class={classes.magicPageUsers}>
                 {Object.keys(socket.state.userVotes).length > 0
                     ? <MagicPageSomeVotes />
                     : <MagicPageNoVotes />
