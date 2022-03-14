@@ -68,6 +68,12 @@ https://reactjs.org/docs/forms.html#controlled-components
 
 https://reactjs.org/docs/uncontrolled-components.html
 
+### Exception Type Checking
+
+https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/try...catch
+
+https://stackoverflow.com/questions/64452484/how-can-i-safely-access-caught-error-properties-in-typescript
+
 ## Cascading Stylesheets
 
 ### CSS display to vertically center some text

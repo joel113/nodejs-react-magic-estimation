@@ -1,11 +1,16 @@
 import { ComponentType, createContext } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import { WEBSOCKET_URL } from '../../config';
+import {
+    getLoginRequest
+  } from '../../requests/websocket-requests';
 import {
     ElementState,
     ElementVote,
     UserVote,
     WebSocketApi,
     WebSocketLoginData,
+    WebsocketMessage,
     WebSocketState,
   } from '../../types/WebSocket';
 
@@ -51,11 +56,38 @@ export const WebSocketConsumer = WebSocketContext.Consumer;
 // the provider provides values to the context
 export const WebSocketProvider = ({children}: any) => {
     const [connected] = useState(false);
+    const [socket, setSocket] = useState<WebSocket | null>(null);
     const [state, setState] = useState(initialWebSocketState);
     const [loginData, setLoginData] = useState(initialLoginData);
     const [loggedIn, setLoggedIn] = useState(false);
 
+    useEffect(() => {
+        if (!socket) {
+          const webSocket = new WebSocket(WEBSOCKET_URL);
+          webSocket.onopen = () => {
+            if (loginData.user && loginData.session) {
+              webSocket.send(getLoginRequest(loginData.user, loginData.color, loginData.session));
+            }
+            setSocket(webSocket);
+          };
+          webSocket.onmessage = (event: any) => {
+            const message: WebsocketMessage = JSON.parse(event.data);
+            if (message.type === 'state') {
+              setState(message.payload);
+            }
+            if (message.type === 'not-logged-in') {
+              setState(initialWebSocketState);
+              setLoggedIn(false);
+            }
+          };
+          webSocket.onclose = () => {
+            setSocket(null);
+          };
+        }
+      }, [socket]);
+
     const login = (user: string, color: string, session: string) => {
+        socket!.send(getLoginRequest(user, color, session));
         setLoginData({user, color, session});
         setLoggedIn(true);
         setState({
@@ -150,7 +182,7 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const value: WebSocketApi = {
-        connected,
+        connected: Boolean(socket),
         state,
         loginData,
         loggedIn,

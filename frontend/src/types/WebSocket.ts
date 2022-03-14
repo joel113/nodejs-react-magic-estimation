@@ -74,4 +74,26 @@ export interface WebSocketApi {
   setVote(vote: UserVote): void;
 }
 
+export interface StateMessage {
+  type: 'state';
+  payload: WebSocketState;
+}
+
+export interface NotLoggedInMessage {
+  type: 'not-logged-in';
+}
+
+export type WebsocketMessage =
+  | StateMessage
+  | NotLoggedInMessage
+  | LoginMessage
+
+  export interface LoginMessage {
+    type: 'login';
+    payload: {
+      user: string;
+      session: string;
+    };
+  }
+
 export type WebSocketLoginData = { user: string; color: string; session: string };
