@@ -4,6 +4,8 @@
 
 `npm install`
 
+`npm run build:frontend`
+
 ## Preact
 
 The project uses [PreactJs](https://preactjs.com/) which is an altnerative to React with the same API: https://github.com/preactjs/preact.
@@ -73,6 +75,20 @@ https://reactjs.org/docs/uncontrolled-components.html
 https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/try...catch
 
 https://stackoverflow.com/questions/64452484/how-can-i-safely-access-caught-error-properties-in-typescript
+
+## Node.JS
+
+https://nodejs.org/en/
+
+## AWS Lambda
+
+https://docs.aws.amazon.com/de_de/lambda/latest/dg/welcome.html
+
+https://docs.aws.amazon.com/de_de/lambda/latest/dg/nodejs-handler.html
+
+### Typescript
+
+https://levelup.gitconnected.com/how-to-use-typescript-for-aws-lambda-in-3-steps-1996243547eb
 
 ## Cascading Stylesheets
 

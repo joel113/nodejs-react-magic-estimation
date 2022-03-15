@@ -4,6 +4,10 @@
     "description": "prototype for a new magic estimation",
     "scripts": {
         "start": "cd frontend && vite",
+        "build:backend": "run-p build:backend:onconnect build:backend:ondisconnect build:backend:onmessage",
+        "build:backend:onconnect": "cd backend/onconnect && rimraf build && tsc -p .",
+        "build:backend:ondisconnect": "cd backend/ondisconnect && rimraf build && tsc -p .",
+        "build:backend:onmessage": "cd backend/onmessage && rimraf build && tsc -p .",
         "build:frontend": "run-p build:frontend:vite build:frontend:typecheck",
         "build:frontend:vite": "cd frontend && rimraf dist && rimraf dist-ssr && vite build && vite build --ssr src/index-ssr.tsx --outDir dist-ssr && node prerenderHtml.js",
         "build:frontend:typecheck": "tsc -p frontend"

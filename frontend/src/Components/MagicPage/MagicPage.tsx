@@ -8,7 +8,6 @@ import { MagicPageNoElements } from './MagicPageNoElements';
 import { MagicPageSomeVotes } from './MagicPageSomeVotes';
 import { MagicPageNoVotes } from './MagicPageNoVotes';
 import { MagicPageRounds } from './MagicPageRounds';
-import { MagicPageUsers } from './MagicPageUsers';
 
 /*
 * Basic Magic Page
