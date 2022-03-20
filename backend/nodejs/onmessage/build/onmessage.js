@@ -1,13 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const ws_1 = __importDefault(require("ws"));
-const ws = new ws_1.default('ws://www.host.com/path');
-ws.on('open', function open() {
+const ws_1 = require("ws");
+const wss = new ws_1.WebSocketServer({ port: 8080 });
+wss.on('connection', function connection(ws) {
+    ws.on('message', function message(data) {
+        console.log('received: %s', data);
+    });
     ws.send('something');
-});
-ws.on('message', function message(data) {
-    console.log('received: %s', data);
 });

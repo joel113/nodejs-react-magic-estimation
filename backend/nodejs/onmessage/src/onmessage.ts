@@ -1,11 +1,17 @@
-import WebSocket from 'ws';
+import { Message } from './types';
 
-const ws = new WebSocket('ws://www.host.com/path');
+export const onMessage = async (message: Message) => {
+  try {
+    switch (message.type) {
+      case 'login':
+        //await loginUser(message.payload!.user!, message.payload!.session!, config);
+        break;
+    }
+  } catch (e: unknown) {
+      if(e instanceof Error) {
+        return { statusCode: 500, body: e.stack };
+      }
+  }
 
-ws.on('open', function open() {
-  ws.send('something');
-});
-
-ws.on('message', function message(data) {
-  console.log('received: %s', data);
-});
+  return { statusCode: 200, body: 'Data sent.' };
+};
