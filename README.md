@@ -80,15 +80,9 @@ https://stackoverflow.com/questions/64452484/how-can-i-safely-access-caught-erro
 
 https://nodejs.org/en/
 
-## AWS Lambda
+### Node.JS Web Sockets
 
-https://docs.aws.amazon.com/de_de/lambda/latest/dg/welcome.html
-
-https://docs.aws.amazon.com/de_de/lambda/latest/dg/nodejs-handler.html
-
-### Typescript
-
-https://levelup.gitconnected.com/how-to-use-typescript-for-aws-lambda-in-3-steps-1996243547eb
+https://github.com/websockets/ws
 
 ## Cascading Stylesheets
 
@@ -107,6 +101,30 @@ https://stackoverflow.com/questions/2939914/how-do-i-vertically-align-text-in-a-
 ### CSS floating
 
 https://stackoverflow.com/questions/5803023/how-to-place-two-divs-next-to-each-other#:~:text=Use%20float%3Aleft%20on%20both,height%20instead%20of%20expanding%20it.
+
+## AWS Lambda
+
+https://docs.aws.amazon.com/de_de/lambda/latest/dg/welcome.html
+
+https://docs.aws.amazon.com/de_de/lambda/latest/dg/nodejs-handler.html
+
+https://aws.amazon.com/de/blogs/compute/announcing-websocket-apis-in-amazon-api-gateway/
+
+### Typescript
+
+https://levelup.gitconnected.com/how-to-use-typescript-for-aws-lambda-in-3-steps-1996243547eb
+
+## Localstack
+
+https://hub.docker.com/r/localstack/localstack
+
+https://docs.localstack.cloud/get-started/#docker
+
+https://github.com/localstack/localstack
+
+```
+nerdctl run --rm -it -p 4566:4566 -p 4571:4571 localstack/localstack
+```
 
 ## IDE
 
