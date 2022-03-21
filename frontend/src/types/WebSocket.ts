@@ -92,6 +92,7 @@ export type WebsocketMessage =
     type: 'login';
     payload: {
       user: string;
+      color: string;
       session: string;
     };
   }

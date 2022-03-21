@@ -1,8 +1,8 @@
 export interface Payload {
   user?: string;
+  color?: string;
   session?: string;
-  scale?: string;
-  vote?: string;
+  element?: string;
 }
 
 export interface Message {

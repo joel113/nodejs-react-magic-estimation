@@ -5,7 +5,8 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
     type: 'login',
     payload: {
       user,
-      session,
+      color,
+      session
     },
   });
 
