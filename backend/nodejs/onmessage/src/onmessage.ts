@@ -36,7 +36,7 @@ export const onMessage = async (message: Message) => {
         await addRound()
         break;
       case 'nextRound':
-        await nextRout()
+        await nextRound()
         break;
     }
   } catch (e: unknown) {

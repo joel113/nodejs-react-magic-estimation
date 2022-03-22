@@ -87,6 +87,8 @@ export type WebsocketMessage =
   | StateMessage
   | NotLoggedInMessage
   | LoginMessage
+  | ChangeElementMessage
+  | ChangeEstimationMessage
 
   export interface LoginMessage {
     type: 'login';
@@ -95,6 +97,18 @@ export type WebsocketMessage =
       color: string;
       session: string;
     };
+  }
+
+  export interface ChangeElementMessage {
+    type: 'changeElement';
+    payload: {
+      id: string;
+    };
+  }
+
+  export interface ChangeEstimationMessage {
+    type: 'changeEstimation';
+    payload: {};
   }
 
 export type WebSocketLoginData = { user: string; color: string; session: string };
