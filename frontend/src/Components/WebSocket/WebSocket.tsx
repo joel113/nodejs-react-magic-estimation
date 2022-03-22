@@ -161,48 +161,49 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const resetElement = (id: string) => {
-        getResetElementRequest(id))
+        getResetElementRequest(id)
         setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
     const agreeElement = (id: string) => {
-        getAgreeElementRequest(id))
+        getAgreeElementRequest(id)
         setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Agreed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
     const disbuteElement = (id: string) => {
-        getDisbuteElementRequest(id))
+        getDisbuteElementRequest(id)
         setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Disbuted) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
     const lockElement = (id: string) => {
-        getLockElementRequest(id))
+        getLockElementRequest(id)
         setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
     const clearVotes = () => {
-        getClearVotesRequest())
+        getClearVotesRequest()
         setState({...state, userVotes: []})
     }
 
     const addRound = () => {
-        getAddRoundsRequest(id))
+        getAddRoundsRequest()
         setState({...state, maxRounds: state.maxRounds + 1})
     }
 
     const nextRound = () => {
-        getNextRoundRequest(id))
+        getNextRoundRequest()
         setState({...state, activeRound: state.activeRound + 1, elementVotes: state.elementVotes.map(
             (element) => new ElementVote(element.id, element.votes, 0, 
                 (element.votesRound == 0) ? ElementState.Locked : ElementState.Ongoing))})
     }
 
     const nextUser = (user: string) => {
-        getNextUserRequest(user))
+        // TODO: can this be deleted?
         setState({...state, activeUser: user})
     }
 
     const setVote = (vote: UserVote) => {
+        // TODO: can this be deleted?
         setState(state)
     }
 

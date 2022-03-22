@@ -100,10 +100,4 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
       payload: {},
     });
 
-  export const getNextUserRequest = () =>
-    buildRequest({
-      type: 'changeEstimation',
-      payload: {},
-    });
-
 const buildRequest = (data: WebsocketMessage) => JSON.stringify({ message: 'sendmessage', data });
