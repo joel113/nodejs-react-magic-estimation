@@ -34,6 +34,6 @@ export async function addRound() {
 
 }
 
-export async function nextRout() {
+export async function nextRound() {
 
 }

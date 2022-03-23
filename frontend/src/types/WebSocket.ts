@@ -50,7 +50,6 @@ export interface WebSocketState {
   userVotes: Array<UserVote>;
   maxRounds: number;
   activeRound: number;
-  activeUser: String;
 }
 
 export interface WebSocketApi {
@@ -69,9 +68,7 @@ export interface WebSocketApi {
   clearVotes(): void;
   addRound(): void;
   nextRound(): void;
-  nextUser(id: string): void;
   login(user: string, color: string, session: string): void;
-  setVote(vote: UserVote): void;
 }
 
 export interface StateMessage {
