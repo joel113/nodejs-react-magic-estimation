@@ -4,6 +4,7 @@
 backend/onconnect/build
 backend/ondisconnect/build
 backend/sendmessage/build
+backend/onmessage/build
 frontend/dist*
 node_modules
 aws.config
