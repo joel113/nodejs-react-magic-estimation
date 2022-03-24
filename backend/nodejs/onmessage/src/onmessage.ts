@@ -1,6 +1,7 @@
 import { Message } from './types';
 import { loginUser } from './loginuser';
-import { addElement, delElement, resetElement, disbuteElement, breakElement, upvoteElement, downvoteElement, clearVotes, addRound, nextRound } from './setelements';
+import { addElement, delElement, resetElement, disbuteElement, breakElement, upvoteElement, downvoteElement } from './elements';
+import { clearVotes, addRound, nextRound } from './estimation'
 
 export const onMessage = async (message: Message) => {
   try {

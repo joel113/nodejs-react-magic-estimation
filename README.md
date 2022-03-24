@@ -6,6 +6,18 @@
 
 `npm run build:frontend`
 
+## Getting Started Backend
+
+`npm start serve`
+
+`wscat -c localhost:8080
+
+### Docker
+
+`limactl start default`
+
+`nerdctl compose up -d`
+
 ## Preact
 
 The project uses [PreactJs](https://preactjs.com/) which is an altnerative to React with the same API: https://github.com/preactjs/preact.

@@ -4,7 +4,7 @@
     "description": "prototype for a new magic estimation",
     "scripts": {
         "start": "cd frontend && vite",
-        "serve" : "cd backend/nodejs/onmessage/src && node onmessage.ts",
+        "serve" : "cd backend/nodejs/onmessage/build && node app.js",
         "build:backend": "run-p build:backend:lambda:onconnect build:backend:lambda:ondisconnect build:backend:lambda:onmessage build:backend:nodejs:onmessage",
         "build:backend:lambda:onconnect": "cd backend/lambda/onconnect && rimraf build && tsc -p .",
         "build:backend:lambda:ondisconnect": "cd backend/lambda/ondisconnect && rimraf build && tsc -p .",

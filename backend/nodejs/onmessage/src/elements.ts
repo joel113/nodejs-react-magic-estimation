@@ -25,15 +25,3 @@ export async function upvoteElement(elementId: String) {
 export async function downvoteElement(elementId: String) {
 
 }
-
-export async function clearVotes() {
-
-}
-
-export async function addRound() {
-
-}
-
-export async function nextRound() {
-
-}
