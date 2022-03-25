@@ -1,0 +1,4 @@
+CREATE USER magic;
+CREATE DATABASE magic;
+GRANT ALL PRIVILEGES ON DATABASE magic TO magic;
+CREATE TABLE elements (id varchar(255) PRIMARY KEY);
