@@ -10,13 +10,41 @@
 
 `npm start serve`
 
-`wscat -c localhost:8080
-
 ### Docker
 
 `limactl start default`
 
 `nerdctl compose up -d`
+
+### Websocket
+
+`wscat -c localhost:8080`
+
+### Node
+
+`node`
+
+```JSON
+{
+    message: 'sendmessage', 
+    {
+        type: 'addElement',
+        payload: {
+            id
+        }
+    }
+}
+```
+
+### Postgre
+
+```
+nodectl exec -it postgres bash
+
+psql -U postgre
+
+\dt
+```
 
 ## Preact
 

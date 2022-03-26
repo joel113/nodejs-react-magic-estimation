@@ -84,28 +84,105 @@ export type WebsocketMessage =
   | StateMessage
   | NotLoggedInMessage
   | LoginMessage
-  | ChangeElementMessage
-  | ChangeEstimationMessage
+  | AddElementMessage
+  | DelElementMessage
+  | UpvoteElementMessage
+  | DownvoteElementMessage
+  | VoteElementMessage
+  | ResetElementMessage
+  | AgreeElementMessage
+  | DisbuteElementMessage
+  | LockElementMessage
+  | ClearVotesMessage
+  | AddRoundsMessage
+  | NextRoundMessage
 
-  export interface LoginMessage {
-    type: 'login';
-    payload: {
-      user: string;
-      color: string;
-      session: string;
-    };
-  }
 
-  export interface ChangeElementMessage {
-    type: 'changeElement';
-    payload: {
-      id: string;
-    };
-  }
+export interface LoginMessage {
+  type: 'login';
+  payload: {
+    user: string;
+    color: string;
+    session: string;
+  };
+}
 
-  export interface ChangeEstimationMessage {
-    type: 'changeEstimation';
-    payload: {};
-  }
+export interface AddElementMessage {
+  type: 'addElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface DelElementMessage {
+  type: 'delElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface UpvoteElementMessage {
+  type: 'upvoteElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface DownvoteElementMessage {
+  type: 'downvoteElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface VoteElementMessage {
+  type: 'voteElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface ResetElementMessage {
+  type: 'resetElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface AgreeElementMessage {
+  type: 'agreeElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface DisbuteElementMessage {
+  type: 'disbuteElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface LockElementMessage {
+  type: 'lockElement';
+  payload: {
+    id: string;
+  };
+}
+
+export interface ClearVotesMessage {
+  type: 'clearVotes';
+  payload: {};
+}
+
+export interface AddRoundsMessage {
+  type: 'addRounds';
+  payload: {};
+}
+
+export interface NextRoundMessage {
+  type: 'nextRound';
+  payload: {};
+}
 
 export type WebSocketLoginData = { user: string; color: string; session: string };

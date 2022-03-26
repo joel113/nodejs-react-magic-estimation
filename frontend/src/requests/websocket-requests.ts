@@ -12,7 +12,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getAddElementRequest = (id: string) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'addElement',
       payload: {
         id
       },
@@ -20,7 +20,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getDelElementRequest = (id: string) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'delElement',
       payload: {
         id
       },
@@ -28,7 +28,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getUpvoteElementRequest = (id: string) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'upvoteElement',
       payload: {
         id
       },
@@ -36,7 +36,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getDownvoteElementRequest = (id: string) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'downvoteElement',
       payload: {
         id
       },
@@ -44,7 +44,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getVoteElementRequest = (id: string, vote: Number) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'voteElement',
       payload: {
         id
       },
@@ -52,7 +52,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getResetElementRequest = (id: string) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'resetElement',
       payload: {
         id
       },
@@ -60,7 +60,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getAgreeElementRequest = (id: string) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'agreeElement',
       payload: {
         id
       },
@@ -68,7 +68,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getDisbuteElementRequest = (id: string) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'disbuteElement',
       payload: {
         id
       },
@@ -76,7 +76,7 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getLockElementRequest = (id: string) =>
     buildRequest({
-      type: 'changeElement',
+      type: 'lockElement',
       payload: {
         id
       },
@@ -84,19 +84,19 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
 
   export const getClearVotesRequest = () =>
     buildRequest({
-      type: 'changeEstimation',
+      type: 'clearVotes',
       payload: {},
     });
 
   export const getAddRoundsRequest = () =>
     buildRequest({
-      type: 'changeEstimation',
+      type: 'addRounds',
       payload: {},
     });
 
   export const getNextRoundRequest = () =>
     buildRequest({
-      type: 'changeEstimation',
+      type: 'nextRound',
       payload: {},
     });
 
