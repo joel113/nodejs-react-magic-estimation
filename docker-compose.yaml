@@ -13,7 +13,7 @@ services:
       - db:/var/lib/postgresql/data
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
   node:
-    image: "arm64v8/node:8"
+    image: "arm64v8/node:8-alpine"
     container_name: node
     user: "node"
     working_dir: /home/node/app
@@ -21,8 +21,8 @@ services:
       - NODE_ENV=production
     volumes:
       - ./:/home/node/app
-    expose:
-      - "8080"
+    ports:
+      - '8080:8080'
     command: "npm run serve"
 volumes:
   db:

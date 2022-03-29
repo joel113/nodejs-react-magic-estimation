@@ -30,7 +30,7 @@
     {
         type: 'addElement',
         payload: {
-            id
+            "bla"
         }
     }
 }
@@ -215,6 +215,10 @@ Visual Studio Debugging Launch Configuration
 https://code.visualstudio.com/docs/languages/typescript
 
 https://code.visualstudio.com/docs/getstarted/settings
+
+## Postgre Container
+
+https://stackoverflow.com/questions/59715622/docker-compose-and-create-db-in-postgres-on-init
 
 ## Inspired by
 
