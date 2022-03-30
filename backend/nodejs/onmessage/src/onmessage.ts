@@ -6,6 +6,7 @@ import { clearVotes, addRound, nextRound } from './estimation'
 
 export const onMessage = async (message: Message, client: Client) => {
   try {
+    console.log("Received message of type %s", message.type)
     switch (message.type) {
       case 'login':
         await loginUser(message.payload!.user!, message.payload!.color!, message.payload!.session!);
@@ -42,6 +43,7 @@ export const onMessage = async (message: Message, client: Client) => {
         break;
     }
   } catch (e: unknown) {
+      console.log('Catched error when processing received mesage: %s', e)
       if(e instanceof Error) {
         return { statusCode: 500, body: e.stack };
       }

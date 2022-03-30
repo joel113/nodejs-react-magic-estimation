@@ -10,6 +10,7 @@ const client = new Client({
     user: 'postgres',
     password: process.env.PG_PASSWORD,
 });
+
 client.connect()
 
 console.log('Web socket server start up complete')
@@ -19,8 +20,16 @@ wss.on('connection', function connection(ws) {
     console.log('Client connection established')
 
     ws.on('message', function message(data) {
-        console.log('Received message %s',[data])
-        ws.send(onMessage(JSON.parse(data.toString()).data, client))
+        console.log('Received message %s', data.toString())
+        try {
+            return onMessage(JSON.parse(data.toString()), client)
+        }
+        catch(e) {
+            console.log('Catched error when processing received mesage: %s', e)
+            if(e instanceof Error) {
+                return { statusCode: 500, body: e.stack };
+            }
+        }
     });
 
     ws.on('close', function close() {

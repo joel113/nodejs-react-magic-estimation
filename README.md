@@ -25,15 +25,7 @@
 `node`
 
 ```JSON
-{
-    message: 'sendmessage', 
-    {
-        type: 'addElement',
-        payload: {
-            "bla"
-        }
-    }
-}
+{ "type": "addElement", "payload": { "element": "bla" } }
 ```
 
 ### Postgre
