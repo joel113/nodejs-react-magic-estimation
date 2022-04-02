@@ -202,13 +202,17 @@ Visual Studio Debugging Launch Configuration
 }
 ```
 
-### Visual Studio Code Typescript
+### Visual Studio Code Typescript Debugging
+
+https://code.visualstudio.com/docs/nodejs/nodejs-debugging
+
+https://code.visualstudio.com/docs/typescript/typescript-tutorial
 
 https://code.visualstudio.com/docs/languages/typescript
 
 https://code.visualstudio.com/docs/getstarted/settings
 
-## Postgre Container
+## Postgres Container
 
 https://stackoverflow.com/questions/59715622/docker-compose-and-create-db-in-postgres-on-init
 

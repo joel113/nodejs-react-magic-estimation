@@ -8,7 +8,7 @@ const client = new pg_1.Client({
     host: 'localhost',
     port: 5432,
     user: 'postgres',
-    password: process.env.PG_PASSWORD,
+    password: 'postgres',
 });
 client.connect();
 console.log('Web socket server start up complete');
@@ -30,3 +30,4 @@ wss.on('connection', function connection(ws) {
         console.log('Client connection closed');
     });
 });
+//# sourceMappingURL=app.js.map

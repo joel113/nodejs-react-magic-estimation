@@ -52,3 +52,4 @@ const onMessage = async (message, client) => {
     return { statusCode: 200, body: 'Data sent.' };
 };
 exports.onMessage = onMessage;
+//# sourceMappingURL=onmessage.js.map

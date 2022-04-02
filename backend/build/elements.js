@@ -26,3 +26,4 @@ exports.upvoteElement = upvoteElement;
 async function downvoteElement(elementId) {
 }
 exports.downvoteElement = downvoteElement;
+//# sourceMappingURL=elements.js.map
