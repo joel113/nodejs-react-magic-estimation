@@ -4,12 +4,8 @@
     "description": "prototype for a new magic estimation",
     "scripts": {
         "start": "cd frontend && vite",
-        "serve" : "cd backend/nodejs/onmessage/build && node app.js",
-        "build:backend": "run-p build:backend:lambda:onconnect build:backend:lambda:ondisconnect build:backend:lambda:onmessage build:backend:nodejs:onmessage",
-        "build:backend:lambda:onconnect": "cd backend/lambda/onconnect && rimraf build && tsc -p .",
-        "build:backend:lambda:ondisconnect": "cd backend/lambda/ondisconnect && rimraf build && tsc -p .",
-        "build:backend:lambda:onmessage": "cd backend/lambda/onmessage && rimraf build && tsc -p .",
-        "build:backend:nodejs:onmessage": "cd backend/nodejs/onmessage && rimraf build && tsc -p .",
+        "serve" : "cd backend && node build/app.js",
+        "build:backend": "cd backend && rimraf build && tsc -p .",
         "build:frontend": "run-p build:frontend:vite build:frontend:typecheck",
         "build:frontend:vite": "cd frontend && rimraf dist && rimraf dist-ssr && vite build && vite build --ssr src/index-ssr.tsx --outDir dist-ssr && node prerenderHtml.js",
         "build:frontend:typecheck": "tsc -p frontend"
