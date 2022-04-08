@@ -4,7 +4,12 @@ exports.downvoteElement = exports.upvoteElement = exports.breakElement = exports
 async function addElement(elementId, client) {
     const query = 'INSERT into elements(id) VALUES($1)';
     client.query(query, [elementId], (err, res) => {
-        console.log("Inserted %s rows and error %s", res, err.message);
+        if (err) {
+            console.log("Error when trying to insert: %s", err);
+        }
+        else {
+            console.log("Inserted %d rows", res.rowCount);
+        }
     });
 }
 exports.addElement = addElement;
