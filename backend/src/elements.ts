@@ -24,22 +24,62 @@ export async function delElement(id: String, client: Client) {
     })
 }
 
-export async function resetElement(id: String) {
-
+export async function resetElement(id: String, client: Client) {
+    const query = 'UPDATE elements SET state=\'ongoing\' WHERE id = $1'
+    client.query(query, [id], (err, res) => {
+        if(err) {
+            console.log("Error when trying to update: %s", err)
+        }
+        else {
+            console.log("Updated %d rows", res.rowCount)
+        }
+    })
 }
 
-export async function disbuteElement(elementId: String) {
-
+export async function agreeElement(id: String, client: Client) {
+    const query = 'UPDATE elements SET state=\'agreed\' WHERE id = $1'
+    client.query(query, [id], (err, res) => {
+        if(err) {
+            console.log("Error when trying to update: %s", err)
+        }
+        else {
+            console.log("Updated %d rows", res.rowCount)
+        }
+    })
 }
 
-export async function breakElement(elementId: String) {
-
+export async function disbuteElement(id: String, client: Client) {
+    const query = 'UPDATE elements SET state=\'disbuted\' WHERE id = $1'
+    client.query(query, [id], (err, res) => {
+        if(err) {
+            console.log("Error when trying to update: %s", err)
+        }
+        else {
+            console.log("Updated %d rows", res.rowCount)
+        }
+    })
 }
 
-export async function upvoteElement(elementId: String) {
-
+export async function upvoteElement(id: String, client: Client) {
+    const query = 'UPDATE elements SET votes=votes+1, votes_round=votes_round+1 WHERE id = $1'
+    client.query(query, [id], (err, res) => {
+        if(err) {
+            console.log("Error when trying to update: %s", err)
+        }
+        else {
+            console.log("Updated %d rows", res.rowCount)
+        }
+    })
 }
 
-export async function downvoteElement(elementId: String) {
-
+export async function downvoteElement(id: String, client: Client) {
+    const query = 'UPDATE elements SET votes=votes-1, votes_round=votes_round-1 WHERE id = $1'
+    client.query(query, [id], (err, res) => {
+        if(err) {
+            console.log("Error when trying to update: %s", err)
+        }
+        else {
+            console.log("Updated %d rows", res.rowCount)
+        }
+    })
 }
