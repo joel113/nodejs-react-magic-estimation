@@ -57,17 +57,17 @@ export interface WebSocketApi {
   state: WebSocketState;
   loginData: WebSocketLoginData;
   loggedIn: boolean;
-  addElement(id: string): void;
-  delElement(id: string): void;
-  resetElement(id: string): void;
-  agreeElement(id: string): void;
-  disbuteElement(id: string): void;
-  lockElement(id: string): void;
-  upvoteElement(id: string): void;
-  downvoteElement(id: string): void;
-  clearVotes(): void;
-  addRound(): void;
-  nextRound(): void;
+  addElement(session_id: string, element_id: string): void;
+  delElement(session_id: string, element_id: string): void;
+  resetElement(session_id: string, element_id: string): void;
+  agreeElement(session_id: string, element_id: string): void;
+  disbuteElement(session_id: string, element_id: string): void;
+  lockElement(session_id: string, element_id: string): void;
+  upvoteElement(session_id: string, element_id: string): void;
+  downvoteElement(session_id: string, element_id: string): void;
+  clearVotes(session_id: string): void;
+  addRound(session_id: string): void;
+  nextRound(session_id: string): void;
   login(user: string, color: string, session: string): void;
 }
 
@@ -110,79 +110,94 @@ export interface LoginMessage {
 export interface AddElementMessage {
   type: 'addElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface DelElementMessage {
   type: 'delElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface UpvoteElementMessage {
   type: 'upvoteElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface DownvoteElementMessage {
   type: 'downvoteElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface VoteElementMessage {
   type: 'voteElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface ResetElementMessage {
   type: 'resetElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface AgreeElementMessage {
   type: 'agreeElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface DisbuteElementMessage {
   type: 'disbuteElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface LockElementMessage {
   type: 'lockElement';
   payload: {
-    id: string;
+    session_id: string;
+    element_id: string;
   };
 }
 
 export interface ClearVotesMessage {
   type: 'clearVotes';
-  payload: {};
+  payload: {
+    session_id: string;
+  };
 }
 
 export interface AddRoundsMessage {
   type: 'addRounds';
-  payload: {};
+  payload: {
+    session_id: string;
+  };
 }
 
 export interface NextRoundMessage {
   type: 'nextRound';
-  payload: {};
+  payload: {
+    session_id: string;
+  };
 }
 
 export type WebSocketLoginData = { user: string; color: string; session: string };

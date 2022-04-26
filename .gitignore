@@ -1,10 +1,7 @@
 .idea
 *.iml
 .cache
-backend/lambda/onconnect/build
-backend/lambda/onmessage/build
-backend/lambda/ondisconnect/build
-backend/nodejs/onmessage/build
+backend/build
 frontend/dist*
 node_modules
 aws.config

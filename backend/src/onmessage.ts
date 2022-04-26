@@ -1,8 +1,8 @@
-import { Message } from './types';
+import { Message } from './types/types';
 import { Client } from 'pg';
 import { loginUser } from './loginuser';
-import { addElement, delElement, resetElement, disbuteElement, breakElement, upvoteElement, downvoteElement } from './elements';
-import { clearVotes, addRound, nextRound } from './estimation'
+import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, upvoteElement, downvoteElement } from './db/elements';
+import { clearVotes, addRound, nextRound } from './db/estimation'
 
 export const onMessage = async (message: Message, client: Client) => {
   try {
@@ -12,34 +12,37 @@ export const onMessage = async (message: Message, client: Client) => {
         await loginUser(message.payload!.user!, message.payload!.color!, message.payload!.session!);
         break;
       case 'addElement':
-        await addElement(message.payload!.element!, client)
+        await addElement(message.payload!.session!, message.payload!.element!, client)
         break;
       case 'delElement':
-        await delElement(message.payload!.element!)
-        break;
-      case 'resetElement':
-        await resetElement(message.payload!.element!)
-        break;
-      case 'disbuteElement':
-        await disbuteElement(message.payload!.element!)
-        break;
-      case 'breakElement':
-        await breakElement(message.payload!.element!)
+        await delElement(message.payload!.session!, message.payload!.element!, client)
         break;
       case 'upvoteElement':
-        await upvoteElement(message.payload!.element!)
+        await upvoteElement(message.payload!.session!, message.payload!.element!, client)
         break;
       case 'downvoteElement':
-        await downvoteElement(message.payload!.element!)
+        await downvoteElement(message.payload!.session!, message.payload!.element!, client)
+        break;
+      case 'resetElement':
+        await resetElement(message.payload!.session!, message.payload!.element!, client)
+        break;
+      case 'agreeElement':
+        await agreeElement(message.payload!.session!, message.payload!.element!, client)
+        break;
+      case 'disbuteElement':
+        await disbuteElement(message.payload!.session!, message.payload!.element!, client)
+        break;
+      case 'lockElement':
+        await lockElement(message.payload!.session!, message.payload!.element!, client)
         break;
       case 'clearVotes':
-        await clearVotes()
+        await clearVotes(message.payload!.session!, client)
         break;
       case 'addRound':
-        await addRound()
+        await addRound(message.payload!.session!, client)
         break;
       case 'nextRound':
-        await nextRound()
+        await nextRound(message.payload!.session!, client)
         break;
     }
   } catch (e: unknown) {

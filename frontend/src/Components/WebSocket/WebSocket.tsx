@@ -105,32 +105,31 @@ export const WebSocketProvider = ({children}: any) => {
       });
     }
 
-    const addElement = (id: string) => {
-        socket!.send(getAddElementRequest(id));
+    const addElement = (session_id: string, element_id: string) => {
+        socket!.send(getAddElementRequest(session_id, element_id));
         setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0, 0, ElementState.Ongoing)]})
     }
     
-    const delElement = (id: string) => {
-        socket!.send(getDelElementRequest(id));
+    const delElement = (session_id: string, element_id: string) => {
+        socket!.send(getDelElementRequest(session_id, element_id));
         setState({...state, elementVotes: state.elementVotes.filter((value) => value.id != id)})
     }
 
-    const upvoteElement = (id: string) => {
-        socket!.send(getUpvoteElementRequest(id));
-        voteElement(id, 1);
+    const upvoteElement = (session_id: string, element_id: string) => {
+        socket!.send(getUpvoteElementRequest(session_id, element_id));
+        voteElement(session_id, element_id, 1);
     }
     
-    const downvoteElement = (id: string) => {
-        socket!.send(getDownvoteElementRequest(id));
-        voteElement(id, -1);
+    const downvoteElement = (session_id: string, element_id: string) => {
+        socket!.send(getDownvoteElementRequest(session_id, element_id));
+        voteElement(session_id, element_id, -1);
     } 
 
-    function voteElement(id: string, vote: number) {
-        socket!.send(getVoteElementRequest(id, vote));
+    function voteElement(session_id: string, element_id: string, vote: number) {
         var elementVotes = state.elementVotes.map(
-            (element) => element.id == id ?
+            (element) => element.id == element_id ?
                 new ElementVote(
-                    id,
+                    element_id,
                     element.votes + vote, 
                     element.votesRound + vote,
                     (state.userVotes.findIndex(
@@ -156,38 +155,38 @@ export const WebSocketProvider = ({children}: any) => {
         }
     }
 
-    const resetElement = (id: string) => {
-        socket!.send(getResetElementRequest(id));
+    const resetElement = (session_id: string, element_id: string) => {
+        socket!.send(getResetElementRequest(session_id, element_id));
         setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
-    const agreeElement = (id: string) => {
-        socket!.send(getAgreeElementRequest(id));
+    const agreeElement = (session_id: string, element_id: string) => {
+        socket!.send(getAgreeElementRequest(session_id, element_id));
         setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Agreed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
-    const disbuteElement = (id: string) => {
-        socket!.send(getDisbuteElementRequest(id));
+    const disbuteElement = (session_id: string, element_id: string) => {
+        socket!.send(getDisbuteElementRequest(session_id, element_id));
         setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Disbuted) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
-    const lockElement = (id: string) => {
-        socket!.send(getLockElementRequest(id));
+    const lockElement = (session_id: string, element_id: string) => {
+        socket!.send(getLockElementRequest(session_id, element_id));
         setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
     }
 
-    const clearVotes = () => {
-        socket!.send(getClearVotesRequest());
+    const clearVotes = (session_id: string) => {
+        socket!.send(getClearVotesRequest(session_id));
         setState({...state, userVotes: []})
     }
 
-    const addRound = () => {
-        socket!.send(getAddRoundsRequest());
+    const addRound = (session_id: string) => {
+        socket!.send(getAddRoundsRequest(session_id));
         setState({...state, maxRounds: state.maxRounds + 1})
     }
 
-    const nextRound = () => {
-        socket!.send(getNextRoundRequest());
+    const nextRound = (session_id: string) => {
+        socket!.send(getNextRoundRequest(session_id));
         setState({...state, activeRound: state.activeRound + 1, elementVotes: state.elementVotes.map(
             (element) => new ElementVote(element.id, element.votes, 0, 
                 (element.votesRound == 0) ? ElementState.Locked : ElementState.Ongoing))})
