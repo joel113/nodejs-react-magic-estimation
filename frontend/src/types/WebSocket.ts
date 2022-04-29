@@ -57,18 +57,18 @@ export interface WebSocketApi {
   state: WebSocketState;
   loginData: WebSocketLoginData;
   loggedIn: boolean;
-  addElement(session_id: string, element_id: string): void;
-  delElement(session_id: string, element_id: string): void;
-  resetElement(session_id: string, element_id: string): void;
-  agreeElement(session_id: string, element_id: string): void;
-  disbuteElement(session_id: string, element_id: string): void;
-  lockElement(session_id: string, element_id: string): void;
-  upvoteElement(session_id: string, element_id: string): void;
-  downvoteElement(session_id: string, element_id: string): void;
-  clearVotes(session_id: string): void;
-  addRound(session_id: string): void;
-  nextRound(session_id: string): void;
-  login(user: string, color: string, session: string): void;
+  addElement(element_id: string): void;
+  delElement(element_id: string): void;
+  resetElement(element_id: string): void;
+  agreeElement(element_id: string): void;
+  disbuteElement(element_id: string): void;
+  lockElement(element_id: string): void;
+  upvoteElement(element_id: string): void;
+  downvoteElement(element_id: string): void;
+  clearVotes(): void;
+  addRound(): void;
+  nextRound(): void;
+  login(user: string, color: string, sessionId: string): void;
 }
 
 export interface StateMessage {
@@ -200,4 +200,4 @@ export interface NextRoundMessage {
   };
 }
 
-export type WebSocketLoginData = { user: string; color: string; session: string };
+export type WebSocketLoginData = { user: string; color: string; sessionId: string };

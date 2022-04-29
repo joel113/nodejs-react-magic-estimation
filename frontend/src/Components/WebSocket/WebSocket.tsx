@@ -7,7 +7,6 @@ import {
     getDelElementRequest,
     getUpvoteElementRequest,
     getDownvoteElementRequest,
-    getVoteElementRequest,
     getResetElementRequest,
     getAgreeElementRequest,
     getDisbuteElementRequest,
@@ -37,7 +36,7 @@ const initialWebSocketState: WebSocketState = {
 };
 
 // defines the initial web socket login data
-const initialLoginData: WebSocketLoginData = { user: '', color: '', session: '' };
+const initialLoginData: WebSocketLoginData = { user: '', color: '', sessionId: '' };
 
 // context allows to pass a value to a child deep down in the tree
 export const WebSocketContext = createContext<WebSocketApi>({
@@ -73,8 +72,8 @@ export const WebSocketProvider = ({children}: any) => {
         if (!socket) {
           const webSocket = new WebSocket(WEBSOCKET_URL);
           webSocket.onopen = () => {
-            if (loginData.user && loginData.session) {
-              webSocket.send(getLoginRequest(loginData.user, loginData.color, loginData.session));
+            if (loginData.user && loginData.sessionId) {
+              webSocket.send(getLoginRequest(loginData.user, loginData.color, loginData.sessionId));
             }
             setSocket(webSocket);
           };
@@ -94,9 +93,9 @@ export const WebSocketProvider = ({children}: any) => {
         }
       }, [socket]);
 
-    const login = (user: string, color: string, session: string) => {
-        socket!.send(getLoginRequest(user, color, session));
-        setLoginData({user, color, session});
+    const login = (user: string, color: string, sessionId: string) => {
+        socket!.send(getLoginRequest(user, color, sessionId));
+        setLoginData({user, color, sessionId});
         setLoggedIn(true);
         setState({
             ...initialWebSocketState,
@@ -105,27 +104,27 @@ export const WebSocketProvider = ({children}: any) => {
       });
     }
 
-    const addElement = (session_id: string, element_id: string) => {
-        socket!.send(getAddElementRequest(session_id, element_id));
-        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(id, 0, 0, ElementState.Ongoing)]})
+    const addElement = (element_id: string) => {
+        socket!.send(getAddElementRequest(loginData.sessionId, element_id));
+        setState({ ...state, elementVotes: [ ...state.elementVotes, new ElementVote(element_id, 0, 0, ElementState.Ongoing)]})
     }
     
-    const delElement = (session_id: string, element_id: string) => {
-        socket!.send(getDelElementRequest(session_id, element_id));
-        setState({...state, elementVotes: state.elementVotes.filter((value) => value.id != id)})
+    const delElement = (element_id: string) => {
+        socket!.send(getDelElementRequest(loginData.sessionId, element_id));
+        setState({...state, elementVotes: state.elementVotes.filter((value) => value.id != element_id)})
     }
 
-    const upvoteElement = (session_id: string, element_id: string) => {
-        socket!.send(getUpvoteElementRequest(session_id, element_id));
-        voteElement(session_id, element_id, 1);
+    const upvoteElement = (element_id: string) => {
+        socket!.send(getUpvoteElementRequest(loginData.sessionId, element_id));
+        voteElement(element_id, 1);
     }
     
-    const downvoteElement = (session_id: string, element_id: string) => {
-        socket!.send(getDownvoteElementRequest(session_id, element_id));
-        voteElement(session_id, element_id, -1);
+    const downvoteElement = (element_id: string) => {
+        socket!.send(getDownvoteElementRequest(loginData.sessionId, element_id));
+        voteElement(element_id, -1);
     } 
 
-    function voteElement(session_id: string, element_id: string, vote: number) {
+    function voteElement(element_id: string, vote: number) {
         var elementVotes = state.elementVotes.map(
             (element) => element.id == element_id ?
                 new ElementVote(
@@ -133,13 +132,13 @@ export const WebSocketProvider = ({children}: any) => {
                     element.votes + vote, 
                     element.votesRound + vote,
                     (state.userVotes.findIndex(
-                        (userVote) => userVote.elementId == id && userVote.userId != loginData.user && userVote.vote + vote == 0) >= 0)
+                        (userVote) => userVote.elementId == element_id && userVote.userId != loginData.user && userVote.vote + vote == 0) >= 0)
                         ? ElementState.Disbuted 
                         : ElementState.Agreed)
                 : element);
-        var userVoteLength = state.userVotes.filter((element) => element.elementId == id && element.userId == loginData.user).length;
+        var userVoteLength = state.userVotes.filter((element) => element.elementId == element_id && element.userId == loginData.user).length;
         if (userVoteLength > 0) {
-            var userVoteIndex = state.userVotes.findIndex((element) => element.elementId == id && element.userId == loginData.user);
+            var userVoteIndex = state.userVotes.findIndex((element) => element.elementId == element_id && element.userId == loginData.user);
             if (userVoteIndex > -1) {
                 var userVote = state.userVotes.splice(userVoteIndex, 1)[0];
                 if (userVote.vote + vote == 0) {
@@ -151,42 +150,42 @@ export const WebSocketProvider = ({children}: any) => {
             }
         }
         else {
-            setState({ ...state, elementVotes: elementVotes, userVotes: [...state.userVotes, new UserVote(loginData.user, loginData.color, id, vote)] });
+            setState({ ...state, elementVotes: elementVotes, userVotes: [...state.userVotes, new UserVote(loginData.user, loginData.color, element_id, vote)] });
         }
     }
 
-    const resetElement = (session_id: string, element_id: string) => {
-        socket!.send(getResetElementRequest(session_id, element_id));
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    const resetElement = (element_id: string) => {
+        socket!.send(getResetElementRequest(loginData.sessionId, element_id));
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == element_id ? new ElementVote(element_id, element.votes, element.votesRound, ElementState.Ongoing) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, element_id, -1)]})
     }
 
-    const agreeElement = (session_id: string, element_id: string) => {
-        socket!.send(getAgreeElementRequest(session_id, element_id));
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Agreed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    const agreeElement = (element_id: string) => {
+        socket!.send(getAgreeElementRequest(loginData.sessionId, element_id));
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == element_id ? new ElementVote(element_id, element.votes, element.votesRound, ElementState.Agreed) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, element_id, -1)]})
     }
 
-    const disbuteElement = (session_id: string, element_id: string) => {
-        socket!.send(getDisbuteElementRequest(session_id, element_id));
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Disbuted) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    const disbuteElement = (element_id: string) => {
+        socket!.send(getDisbuteElementRequest(loginData.sessionId, element_id));
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == element_id ? new ElementVote(element_id, element.votes, element.votesRound, ElementState.Disbuted) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, element_id, -1)]})
     }
 
-    const lockElement = (session_id: string, element_id: string) => {
-        socket!.send(getLockElementRequest(session_id, element_id));
-        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == id ? new ElementVote(id, element.votes, element.votesRound, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, id, -1)]})
+    const lockElement = (element_id: string) => {
+        socket!.send(getLockElementRequest(loginData.sessionId, element_id));
+        setState({...state, elementVotes: state.elementVotes.map((element) => element.id == element_id ? new ElementVote(element_id, element.votes, element.votesRound, ElementState.Locked) : element ), userVotes: [ ...state.userVotes,  new UserVote(loginData.user, loginData.color, element_id, -1)]})
     }
 
-    const clearVotes = (session_id: string) => {
-        socket!.send(getClearVotesRequest(session_id));
+    const clearVotes = () => {
+        socket!.send(getClearVotesRequest(loginData.sessionId));
         setState({...state, userVotes: []})
     }
 
-    const addRound = (session_id: string) => {
-        socket!.send(getAddRoundsRequest(session_id));
+    const addRound = () => {
+        socket!.send(getAddRoundsRequest(loginData.sessionId));
         setState({...state, maxRounds: state.maxRounds + 1})
     }
 
-    const nextRound = (session_id: string) => {
-        socket!.send(getNextRoundRequest(session_id));
+    const nextRound = () => {
+        socket!.send(getNextRoundRequest(loginData.sessionId));
         setState({...state, activeRound: state.activeRound + 1, elementVotes: state.elementVotes.map(
             (element) => new ElementVote(element.id, element.votes, 0, 
                 (element.votesRound == 0) ? ElementState.Locked : ElementState.Ongoing))})

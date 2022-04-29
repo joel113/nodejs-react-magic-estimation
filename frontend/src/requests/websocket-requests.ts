@@ -46,16 +46,6 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
       },
     });
 
-  export const getVoteElementRequest = (session_id: string, element_id: string, vote: Number) =>
-    buildRequest({
-      type: 'voteElement',
-      payload: {
-        session_id,
-        element_id,
-        vote
-      },
-    });  
-
   export const getResetElementRequest = (session_id: string, element_id: string,) =>
     buildRequest({
       type: 'resetElement',

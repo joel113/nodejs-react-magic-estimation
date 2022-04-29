@@ -20,7 +20,7 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
   const [user, setUser] = useState(socket.loginData.user);
   const [color, setColor] = useState(socket.loginData.color)
   const [colorPicker, setColorPicker] = useState(false)
-  let sessionId = 'not implemented';
+  const [sessionId, setSessionId] = useState(generateId(8))
 
   const target = document.querySelector('#color')
   if (target != null) {
@@ -74,7 +74,7 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
             </div>
         }
         <label for="session" class={classes.sessionLabel}>{LABEL_SESSION}</label>
-        <input id="session" type="text" value="1234" class={classes.sessionLink} />
+        <input id="session" type="text" value="{sessionId}" class={classes.sessionLink} />
         <input type="submit" value={BUTTON_LOGIN} class={classes.submit} />
       </form>
 
