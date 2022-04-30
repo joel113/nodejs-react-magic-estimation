@@ -74,7 +74,7 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
             </div>
         }
         <label for="session" class={classes.sessionLabel}>{LABEL_SESSION}</label>
-        <input id="session" type="text" value="{sessionId}" class={classes.sessionLink} />
+        <input id="session" type="text" value={sessionId} class={classes.sessionLink} />
         <input type="submit" value={BUTTON_LOGIN} class={classes.submit} />
       </form>
 

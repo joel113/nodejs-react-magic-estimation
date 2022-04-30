@@ -70,10 +70,11 @@ export const WebSocketProvider = ({children}: any) => {
 
     useEffect(() => {
         if (!socket) {
-          const webSocket = new WebSocket(WEBSOCKET_URL);
+          const webSocket = new WebSocket(WEBSOCKET_URL)
+          console.log('[Magic] Connecting to web socket server %s', WEBSOCKET_URL)
           webSocket.onopen = () => {
             if (loginData.user && loginData.sessionId) {
-              webSocket.send(getLoginRequest(loginData.user, loginData.color, loginData.sessionId));
+                webSocket.send(getLoginRequest(loginData.user, loginData.color, loginData.sessionId));
             }
             setSocket(webSocket);
           };
@@ -87,11 +88,16 @@ export const WebSocketProvider = ({children}: any) => {
               setLoggedIn(false);
             }
           };
-          webSocket.onclose = () => {
+          webSocket.onerror = (event: Event) => {
+            console.log('[Magic] Catched error when connecting to web socket server')
+          }
+          webSocket.onclose = (event: CloseEvent) => {
+            console.log('[Magic] Connecting to web socket server closed: %s', event.code)
             setSocket(null);
           };
+          setSocket(webSocket);
         }
-      }, [socket]);
+      }, []);
 
     const login = (user: string, color: string, sessionId: string) => {
         socket!.send(getLoginRequest(user, color, sessionId));

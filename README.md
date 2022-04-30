@@ -82,6 +82,10 @@ https://reactjs.org/docs/conditional-rendering.html
 
 https://reactjs.org/docs/hooks-state.html
 
+### Effect Hooks
+
+https://reactjs.org/docs/hooks-effect.html
+
 ### Type Aliases
 
 https://stackoverflow.com/questions/31364693/what-is-the-type-reserved-word-in-typescript
@@ -107,6 +111,20 @@ https://reactjs.org/docs/uncontrolled-components.html
 https://developer.mozilla.org/de/docs/Web/JavaScript/Reference/Statements/try...catch
 
 https://stackoverflow.com/questions/64452484/how-can-i-safely-access-caught-error-properties-in-typescript
+
+### Web Socket
+
+https://websockets.spec.whatwg.org/
+
+https://stackoverflow.com/questions/8393092/javascript-websockets-control-initial-connection-when-does-onopen-get-bound
+
+https://stackoverflow.com/questions/58432076/websockets-with-functional-components
+
+https://stackoverflow.com/questions/18803971/websocket-onerror-how-to-read-error-description
+
+https://stackoverflow.com/questions/43564517/websocket-connection-keeps-prematurely-closing-the-connection
+
+https://github.com/netzwerg/typescript-websocket-example/blob/master/typescript-websocket-client/src/App.tsx
 
 ## Node.JS
 

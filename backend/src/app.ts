@@ -17,15 +17,15 @@ console.log('Web socket server start up complete')
 
 wss.on('connection', function connection(ws) {
 
-    console.log('Client connection established')
+    console.log('[Magic] Client connection established')
 
     ws.on('message', function message(data) {
-        console.log('Received message %s', data.toString())
+        console.log('[Magic] Received message %s', data.toString())
         try {
             return onMessage(JSON.parse(data.toString()), client)
         }
         catch(e) {
-            console.log('Catched error when processing received mesage: %s', e)
+            console.log('[Magic] Catched error when processing received mesage: %s', e)
             if(e instanceof Error) {
                 return { statusCode: 500, body: e.stack };
             }
@@ -33,6 +33,6 @@ wss.on('connection', function connection(ws) {
     });
 
     ws.on('close', function close() {
-        console.log('Client connection closed')
+        console.log('[Magic] Client connection closed')
     });
 });
