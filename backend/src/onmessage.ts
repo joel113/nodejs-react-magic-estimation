@@ -1,15 +1,15 @@
 import { Message } from './types/types';
 import { Client } from 'pg';
-import { loginUser } from './loginuser';
+import { loginUser } from './db/loginuser';
 import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, upvoteElement, downvoteElement } from './db/elements';
 import { clearVotes, addRound, nextRound } from './db/estimation'
 
 export const onMessage = async (message: Message, client: Client) => {
   try {
-    console.log("Received message of type %s", message.type)
+    console.log("[Magic] Received message of type %s", message.type)
     switch (message.type) {
       case 'login':
-        await loginUser(message.payload!.user!, message.payload!.color!, message.payload!.session!);
+        await loginUser(message.payload!.user!, message.payload!.color!, message.payload!.session!, client);
         break;
       case 'addElement':
         await addElement(message.payload!.session!, message.payload!.element!, client)

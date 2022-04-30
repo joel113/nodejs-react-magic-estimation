@@ -106,4 +106,4 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
       },
     });
 
-const buildRequest = (data: WebsocketMessage) => JSON.stringify({ message: 'sendmessage', data });
+const buildRequest = (data: WebsocketMessage) => JSON.stringify(data);

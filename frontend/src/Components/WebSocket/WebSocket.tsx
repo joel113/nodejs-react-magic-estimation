@@ -89,7 +89,7 @@ export const WebSocketProvider = ({children}: any) => {
             }
           };
           webSocket.onerror = (event: Event) => {
-            console.log('[Magic] Catched error when connecting to web socket server')
+            console.error('[Magic] Catched error when connecting to web socket server')
           }
           webSocket.onclose = (event: CloseEvent) => {
             console.log('[Magic] Connecting to web socket server closed: %s', event.code)
@@ -100,6 +100,7 @@ export const WebSocketProvider = ({children}: any) => {
       }, []);
 
     const login = (user: string, color: string, sessionId: string) => {
+        console.log('[Magic] Submiting login request to backend')
         socket!.send(getLoginRequest(user, color, sessionId));
         setLoginData({user, color, sessionId});
         setLoggedIn(true);
