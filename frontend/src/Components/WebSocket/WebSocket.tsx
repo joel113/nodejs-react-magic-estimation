@@ -11,8 +11,10 @@ import {
     getAgreeElementRequest,
     getDisbuteElementRequest,
     getLockElementRequest,
+    getOngoingElementRequest,
     getClearVotesRequest,
-    getAddRoundsRequest,
+    getInitRoundsRequest,
+    getAddRoundRequest,
     getNextRoundRequest
   } from '../../requests/websocket-requests';
 import {
@@ -104,6 +106,7 @@ export const WebSocketProvider = ({children}: any) => {
         socket!.send(getLoginRequest(user, color, sessionId));
         setLoginData({user, color, sessionId});
         setLoggedIn(true);
+        socket!.send(getInitRoundsRequest(sessionId));
         setState({
             ...initialWebSocketState,
             elementVotes: [],
@@ -140,8 +143,8 @@ export const WebSocketProvider = ({children}: any) => {
                     element.votesRound + vote,
                     (state.userVotes.findIndex(
                         (userVote) => userVote.elementId == element_id && userVote.userId != loginData.user && userVote.vote + vote == 0) >= 0)
-                        ? ElementState.Disbuted 
-                        : ElementState.Agreed)
+                        ? (socket!.send(getDisbuteElementRequest(loginData.sessionId, element_id)), ElementState.Disbuted)
+                        : (socket!.send(getAgreeElementRequest(loginData.sessionId, element_id)), ElementState.Agreed))
                 : element);
         var userVoteLength = state.userVotes.filter((element) => element.elementId == element_id && element.userId == loginData.user).length;
         if (userVoteLength > 0) {
@@ -187,7 +190,7 @@ export const WebSocketProvider = ({children}: any) => {
     }
 
     const addRound = () => {
-        socket!.send(getAddRoundsRequest(loginData.sessionId));
+        socket!.send(getAddRoundRequest(loginData.sessionId));
         setState({...state, maxRounds: state.maxRounds + 1})
     }
 
@@ -195,7 +198,9 @@ export const WebSocketProvider = ({children}: any) => {
         socket!.send(getNextRoundRequest(loginData.sessionId));
         setState({...state, activeRound: state.activeRound + 1, elementVotes: state.elementVotes.map(
             (element) => new ElementVote(element.id, element.votes, 0, 
-                (element.votesRound == 0) ? ElementState.Locked : ElementState.Ongoing))})
+                (element.votesRound == 0) 
+                ? (socket!.send(getLockElementRequest(loginData.sessionId, element.id)), ElementState.Locked)
+                : (socket!.send(getOngoingElementRequest(loginData.sessionId, element.id)),ElementState.Ongoing)))})
     }
 
     const value: WebSocketApi = {

@@ -10,99 +10,116 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
     },
   });
 
-  export const getAddElementRequest = (session_id: string, element_id: string) =>
+  export const getAddElementRequest = (session: string, element: string) =>
     buildRequest({
       type: 'addElement',
       payload: {
-        session_id,
-        element_id
+        session,
+        element
       },
     });
 
-  export const getDelElementRequest = (session_id: string, element_id: string) =>
+  export const getDelElementRequest = (session: string, element: string) =>
     buildRequest({
       type: 'delElement',
       payload: {
-        session_id,
-        element_id
+        session,
+        element
       },
     });
 
-  export const getUpvoteElementRequest = (session_id: string, element_id: string) =>
+  export const getUpvoteElementRequest = (session: string, element: string) =>
     buildRequest({
       type: 'upvoteElement',
       payload: {
-        session_id,
-        element_id
+        session,
+        element
       },
     });
 
-  export const getDownvoteElementRequest = (session_id: string, element_id: string) =>
+  export const getDownvoteElementRequest = (session: string, element: string) =>
     buildRequest({
       type: 'downvoteElement',
       payload: {
-        session_id,
-        element_id
+        session,
+        element
       },
     });
 
-  export const getResetElementRequest = (session_id: string, element_id: string,) =>
+  export const getResetElementRequest = (session: string, element: string,) =>
     buildRequest({
       type: 'resetElement',
       payload: {
-        session_id,
-        element_id
+        session,
+        element
       },
     });
 
-  export const getAgreeElementRequest = (session_id: string, element_id: string,) =>
+  export const getAgreeElementRequest = (session: string, element: string,) =>
     buildRequest({
       type: 'agreeElement',
       payload: {
-        session_id,
-        element_id
+        session,
+        element
       },
     });
 
-  export const getDisbuteElementRequest = (session_id: string, element_id: string,) =>
+  export const getDisbuteElementRequest = (session: string, element: string,) =>
     buildRequest({
       type: 'disbuteElement',
       payload: {
-        session_id,
-        element_id
+        session,
+        element
       },
     });
 
-  export const getLockElementRequest = (session_id: string, element_id: string,) =>
+  export const getLockElementRequest = (session: string, element: string,) =>
     buildRequest({
       type: 'lockElement',
       payload: {
-        session_id,
-        element_id
+        session,
+        element
       },
     });
 
-  export const getClearVotesRequest = (session_id: string) =>
+  export const getOngoingElementRequest = (session: string, element: string,) =>
+    buildRequest({
+      type: 'ongoingElement',
+      payload: {
+        session,
+        element
+      },
+    });
+
+  export const getClearVotesRequest = (session: string) =>
     buildRequest({
       type: 'clearVotes',
       payload: {
-        session_id
+        session
       },
     });
 
-  export const getAddRoundsRequest = (session_id: string) =>
+  export const getInitRoundsRequest = (session: string) =>
     buildRequest({
-      type: 'addRounds',
+      type: 'initRounds',
       payload: {
-        session_id
+        session
+      },
+    });  
+
+  export const getAddRoundRequest = (session: string) =>
+    buildRequest({
+      type: 'addRound',
+      payload: {
+        session
       },
     });
 
-  export const getNextRoundRequest = (session_id: string) =>
+  export const getNextRoundRequest = (session: string) =>
     buildRequest({
       type: 'nextRound',
       payload: {
-        session_id
+        session
       },
     });
 

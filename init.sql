@@ -11,7 +11,7 @@ CREATE TABLE elements (
     element_id varchar(255) NOT NULL,
     votes integer not null,
     votes_round integer not null,
-    element_state element_state not null,
+    state element_state not null,
     created_at timestamp not null DEFAULT Now(),
     updated_at timestamp not null DEFAULT Now(),
     PRIMARY KEY(session_id, element_id));
@@ -19,7 +19,7 @@ CREATE TABLE elements (
 CREATE TABLE rounds (
     session_id char(8) PRIMARY KEY,
     rounds integer not null,
-    rounds_active integer not null,
+    round_active integer not null,
     created_at timestamp not null DEFAULT Now(),
     updated_at timestamp not null DEFAULT Now());
 

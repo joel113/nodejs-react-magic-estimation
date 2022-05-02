@@ -1,8 +1,8 @@
 import { Message } from './types/types';
 import { Client } from 'pg';
 import { loginUser } from './db/loginuser';
-import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, upvoteElement, downvoteElement } from './db/elements';
-import { clearVotes, addRound, nextRound } from './db/estimation'
+import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement } from './db/elements';
+import { clearVotes, initRounds, addRound, nextRound } from './db/rounds'
 
 export const onMessage = async (message: Message, client: Client) => {
   try {
@@ -35,14 +35,23 @@ export const onMessage = async (message: Message, client: Client) => {
       case 'lockElement':
         await lockElement(message.payload!.session!, message.payload!.element!, client)
         break;
+      case 'ongoingElement':
+        await ongoingElement(message.payload!.session!, message.payload!.element!, client)
+        break;
       case 'clearVotes':
         await clearVotes(message.payload!.session!, client)
+        break;
+      case 'initRounds':
+        await initRounds(message.payload!.session!, client)
         break;
       case 'addRound':
         await addRound(message.payload!.session!, client)
         break;
       case 'nextRound':
         await nextRound(message.payload!.session!, client)
+        break;
+      default:
+        throw "Unknown message type"
         break;
     }
   } catch (e: unknown) {
