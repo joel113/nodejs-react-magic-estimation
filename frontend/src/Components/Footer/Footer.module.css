@@ -1,12 +1,19 @@
 .footer {
   margin: 0;
-  padding: 1.5rem 0 1.5rem 0;
+  padding: 0;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
 .sessionInfo {
+  color: var(--joel-gray);
+  font-size: 0.75rem;
+  margin-bottom: 0.25rem;
+  text-align: center;
+}
+
+.applicationInfo {
   color: var(--joel-gray);
   font-size: 0.75rem;
   margin-bottom: 0.5rem;

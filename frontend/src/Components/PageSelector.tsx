@@ -1,5 +1,6 @@
 import { WebSocketApi } from '../types/WebSocket';
 import { Footer } from './Footer/Footer';
+import { Session } from './Footer/Session';
 import { Header } from './Header/Header';
 import { LoginPage } from './LoginPage/LoginPage';
 import { MagicPage } from './MagicPage/MagicPage';
@@ -20,6 +21,7 @@ const ProtoPageSelector = ({socket} : { socket: WebSocketApi}) => {
         <div class={classes.PageSelector}>
             <Header />
             <MagicPage />
+            <Session />
             <Footer />
         </div>
     )

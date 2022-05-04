@@ -3,9 +3,9 @@ import joelLogo from '../../img/joel.svg';
 import emailLogo from '../../img/email.svg';
 import { ALT_JOEL_LOGO, JOEL_URL, ALT_EMAIL_LOGO } from '../../constants';
 
-const ProtoLoginInfo = () => (
+const FooterComponent = () => (
   <footer class={classes.footer}>
-    <div class={classes.sessionInfo}>
+    <div class={classes.applicationInfo}>
       <span class={classes.infoItem}>
         Johannes Ehm
       </span>
@@ -23,4 +23,4 @@ const ProtoLoginInfo = () => (
   </footer>
 )
 
-export const Footer = ProtoLoginInfo;
+export const Footer = FooterComponent;
