@@ -1,8 +1,8 @@
-import { Message } from './types/types';
 import { Client } from 'pg';
-import { loginUser } from './db/loginuser';
-import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement } from './db/elements';
-import { clearVotes, initRounds, addRound, nextRound } from './db/rounds'
+import { Message } from '../types/types';
+import { loginUser } from '../database/loginuser';
+import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement } from '../database/elements';
+import { clearVotes, initRounds, addRound, nextRound } from '../database/rounds'
 
 export const onMessage = async (message: Message, client: Client) => {
   try {
