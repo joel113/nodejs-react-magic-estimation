@@ -17,10 +17,18 @@ import {
 const isSSR = typeof window === 'undefined';
 
 const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
-  const [user, setUser] = useState(socket.loginData.user);
+  const [user, setUser] = useState(socket.loginData.user)
   const [color, setColor] = useState(socket.loginData.color)
   const [colorPicker, setColorPicker] = useState(false)
-  const [sessionId, setSessionId] = useState(generateId(8))
+  const [sessionId, setSessionId] = useState(socket.loginData.sessionId)
+
+  if (!isSSR) {
+    setSessionId(new URLSearchParams(window.location.search).get('sessionId') || '');
+    if (!sessionId.match(/^[a-zA-Z0-9]{8}$/i)) {
+      setSessionId(generateId(8));
+      history.replaceState({}, 'Magic Estimation', `?sessionId=${sessionId}`);
+    }
+  }
 
   const target = document.querySelector('#color')
   if (target != null) {

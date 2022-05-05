@@ -13,15 +13,14 @@ const SessionComponent = ({ socket }: { socket: WebSocketApi }) => (
           Name: {socket.loginData.user}
       </span>
     </div>
-    <div class={classes.magicPageAddElements}>
-                <form onSubmit={(event) => {
-                    event.preventDefault();
-                    socket.clearVotes();
-                }} class={classes.magicPageAddElementsForm}>
-                    <input id="submit" type="submit" class={sharedClasses.button} value="Copy Session Link"
-                        style="margin-left: 1.5rem; padding: 0 1.0rem 0 1.0rem" />
-                </form>
-            </div>
+    <div>
+        <form onSubmit={(event) => {event.preventDefault();}}>
+            <input id="submit" type="submit"
+                class={sharedClasses.button}
+                value="Copy Session Link"
+                onClick={() => navigator.clipboard.writeText(`${location.href}`)} />
+        </form>
+    </div>
   </footer>
 )
 
