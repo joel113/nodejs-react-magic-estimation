@@ -45,13 +45,6 @@ export class VotingUser {
   }
 }
 
-export interface WebSocketState {
-  elementVotes: Array<ElementVote>;
-  userVotes: Array<UserVote>;
-  maxRounds: number;
-  activeRound: number;
-}
-
 export interface WebSocketApi {
   connected: boolean;
   state: WebSocketState;
@@ -69,6 +62,13 @@ export interface WebSocketApi {
   addRound(): void;
   nextRound(): void;
   login(user: string, color: string, sessionId: string): void;
+}
+
+export interface WebSocketState {
+  elementVotes: Array<ElementVote>;
+  userVotes: Array<UserVote>;
+  maxRounds: number;
+  activeRound: number;
 }
 
 export interface StateMessage {
