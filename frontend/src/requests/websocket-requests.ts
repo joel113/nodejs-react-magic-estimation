@@ -28,21 +28,59 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
       },
     });
 
-  export const getUpvoteElementRequest = (session: string, element: string) =>
+  export const getUpvoteElementRequest = (session: string, element: string, user: string, color: string) =>
     buildRequest({
       type: 'upvoteElement',
       payload: {
         session,
-        element
+        element,
+        user,
+        color
       },
     });
 
-  export const getDownvoteElementRequest = (session: string, element: string) =>
+  export const getDownvoteElementRequest = (session: string, element: string, user: string, color: string) =>
     buildRequest({
       type: 'downvoteElement',
       payload: {
         session,
-        element
+        element,
+        user,
+        color
+      },
+    });
+
+  export const getAddVoteRequest = (session: string, element: string, user: string, color: string) =>
+    buildRequest({
+      type: 'addVote',
+      payload: {
+        session,
+        element,
+        user,
+        color
+      },
+    });
+
+  export const getUpdateVoteRequest = (session: string, element: string, user: string, votes: number, color: string) =>
+    buildRequest({
+      type: 'updateVote',
+      payload: {
+        session,
+        element,
+        user,
+        color,
+        votes
+      },
+    });
+
+  export const getRemoveVoteRequest = (session: string, element: string, user: string, color: string) =>
+    buildRequest({
+      type: 'removeVote',
+      payload: {
+        session,
+        element,
+        user,
+        color
       },
     });
 

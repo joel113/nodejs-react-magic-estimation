@@ -1,4 +1,4 @@
-import { ElementState, ElementVote, UserVote, WebSocketApi } from '../../types/WebSocket';
+import { ElementState, Elements, Votes, WebSocketApi } from '../../types/WebSocket';
 import { connectToWebSocket } from '../WebSocket/WebSocket';
 import classes from './MagicPage.module.css'
 import agreedImage from '../../img/agreed.svg';
@@ -23,7 +23,7 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                 <th>Users</th>
             </tr>
             {socket.state.elementVotes.sort((a, b) => b.votes - a.votes).map(
-                (elementVote: ElementVote) => (
+                (elementVote: Elements) => (
                     <tr>
                         <td>{elementVote.id}</td>
                         <td>{elementVote.votes}</td>
@@ -58,8 +58,8 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                         </td>
                         <td>
                             <div class={classes.userVotes}>
-                                {socket.state.userVotes.filter((userVote: UserVote) => userVote.elementId == elementVote.id).map(
-                                    (userVote: UserVote) => (
+                                {socket.state.userVotes.filter((userVote: Votes) => userVote.elementId == elementVote.id).map(
+                                    (userVote: Votes) => (
                                         <div class={classes.userVoteContainer} style={{backgroundColor: userVote.userColor}}>
                                             <div class={classes.userVote}>
                                                 <div>{userVote.userId.substring(0,1)}</div>

@@ -17,9 +17,12 @@ export class WebSocketClients {
         this.clients.delete(client);
     }
 
-    broadcast(sessionId: string, dbclient: Client, fullstate: (sessionId: string, client: Client) => Promise<string>) {
+    broadcast(sessionId: string, dbclient: Client, fullstate: (sessionId: string, client: Client) => Promise<string> | undefined) {
         console.log("[Magic] Broadcast state to users of session_id: %s", sessionId);
-        this.clients.forEach(client => client.send(fullstate(sessionId, dbclient)));
+        fullstate(sessionId, dbclient).then(
+            state => {if(state != undefined) {
+                this.clients.forEach(client => client.send(state))
+            }})
     }
 
 }

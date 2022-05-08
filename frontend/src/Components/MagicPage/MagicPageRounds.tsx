@@ -1,4 +1,4 @@
-import { UserVote, WebSocketApi } from '../../types/WebSocket';
+import { Votes, WebSocketApi } from '../../types/WebSocket';
 import { connectToWebSocket } from '../WebSocket/WebSocket';
 import classes from './MagicPage.module.css'
 

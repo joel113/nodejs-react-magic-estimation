@@ -1,4 +1,4 @@
-import { UserVote, WebSocketApi } from '../../types/WebSocket';
+import { Votes, WebSocketApi } from '../../types/WebSocket';
 import { connectToWebSocket } from '../WebSocket/WebSocket';
 import classes from './MagicPage.module.css'
 
@@ -11,7 +11,7 @@ const ProtoMagicPageUserVotes = ({socket}: {socket: WebSocketApi}) => {
                 <th>Vote</th>
             </tr>
             {socket.state.userVotes.map(
-                (userVote: UserVote) => (
+                (userVote: Votes) => (
                     <tr>
                         <td>
                             <div class={classes.userVoteNameContainer}>

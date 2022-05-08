@@ -16,6 +16,15 @@ CREATE TABLE elements (
     updated_at timestamp not null DEFAULT Now(),
     PRIMARY KEY(session_id, element_id));
 
+CREATE TABLE votes (
+    user_id char(8) not null,
+    element_id integer not null,
+    color integer not null,
+    votes integer not null,
+    created_at timestamp not null DEFAULT Now(),
+    updated_at timestamp not null DEFAULT Now(),
+    PRIMARY KEY(user_id, element_id));
+
 CREATE TABLE rounds (
     session_id char(8) PRIMARY KEY,
     rounds integer not null,

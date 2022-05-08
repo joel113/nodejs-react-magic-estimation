@@ -126,6 +126,12 @@ https://stackoverflow.com/questions/43564517/websocket-connection-keeps-prematur
 
 https://github.com/netzwerg/typescript-websocket-example/blob/master/typescript-websocket-client/src/App.tsx
 
+### Node Postgres
+
+https://github.com/brianc/node-postgres
+
+https://node-postgres.com/api/result
+
 ## Node.JS
 
 https://nodejs.org/en/

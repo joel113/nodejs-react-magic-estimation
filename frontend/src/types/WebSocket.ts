@@ -1,24 +1,4 @@
-export class UserVote {
-  userId: string;
-  userColor: string;
-  elementId: string;
-  vote: number;
-  constructor(userId: string, userColor: string, elementId: string, vote: number) {
-    this.userId = userId;
-    this.userColor = userColor;
-    this.elementId = elementId;
-    this.vote = vote;
-  }
-}
-
-export enum ElementState {
-  Ongoing,
-  Disbuted,
-  Agreed,
-  Locked
-}
-
-export class ElementVote {
+export class Elements {
   id: string;
   votes: number;
   votesRound: number;
@@ -31,17 +11,23 @@ export class ElementVote {
   }
 }
 
-export class VotingRound {
-  id: number;
-  constructor(id: number) {
-    this.id = id;
-  }
+export enum ElementState {
+  Ongoing,
+  Disbuted,
+  Agreed,
+  Locked
 }
 
-export class VotingUser {
-  id: string;
-  constructor(id: string) {
-    this.id = id;
+export class Votes {
+  userId: string;
+  userColor: string;
+  elementId: string;
+  vote: number;
+  constructor(userId: string, userColor: string, elementId: string, vote: number) {
+    this.userId = userId;
+    this.userColor = userColor;
+    this.elementId = elementId;
+    this.vote = vote;
   }
 }
 
@@ -65,8 +51,8 @@ export interface WebSocketApi {
 }
 
 export interface WebSocketState {
-  elementVotes: Array<ElementVote>;
-  userVotes: Array<UserVote>;
+  elementVotes: Array<Elements>;
+  userVotes: Array<Votes>;
   maxRounds: number;
   activeRound: number;
 }
@@ -88,7 +74,9 @@ export type WebsocketMessage =
   | DelElementMessage
   | UpvoteElementMessage
   | DownvoteElementMessage
-  | VoteElementMessage
+  | AddVoteMessage
+  | UpdateVoteMessage
+  | RemoveVoteMessage
   | ResetElementMessage
   | AgreeElementMessage
   | DisbuteElementMessage
@@ -130,6 +118,8 @@ export interface UpvoteElementMessage {
   payload: {
     session: string;
     element: string;
+    user: string;
+    color: string;
   };
 }
 
@@ -138,14 +128,39 @@ export interface DownvoteElementMessage {
   payload: {
     session: string;
     element: string;
+    user: string;
+    color: string;
   };
 }
 
-export interface VoteElementMessage {
-  type: 'voteElement';
+export interface AddVoteMessage {
+  type: 'addVote';
   payload: {
     session: string;
     element: string;
+    user: string;
+    color: string;
+  };
+}
+
+export interface UpdateVoteMessage {
+  type: 'updateVote';
+  payload: {
+    session: string;
+    element: string;
+    user: string;
+    color: string;
+    votes: number;
+  };
+}
+
+export interface RemoveVoteMessage {
+  type: 'removeVote';
+  payload: {
+    session: string;
+    element: string;
+    user: string;
+    color: string;
   };
 }
 

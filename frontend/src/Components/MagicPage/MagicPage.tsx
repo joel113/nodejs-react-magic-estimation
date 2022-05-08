@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
-import { ElementVote, WebSocketApi } from '../../types/WebSocket';
+import { Elements, WebSocketApi } from '../../types/WebSocket';
 import { connectToWebSocket } from '../WebSocket/WebSocket';
 import classes from './MagicPage.module.css'
 import sharedClasses from '../../styles.module.css'

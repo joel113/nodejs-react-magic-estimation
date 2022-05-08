@@ -3,6 +3,7 @@ export interface Payload {
   color?: string;
   session?: string;
   element?: string;
+  votes?: number;
 }
 
 export interface Message {

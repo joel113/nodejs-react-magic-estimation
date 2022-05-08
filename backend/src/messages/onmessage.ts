@@ -1,7 +1,7 @@
 import { Client } from 'pg';
 import { Message } from '../types/types';
 import { loginUser } from '../database/loginuser';
-import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement } from '../database/elements';
+import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement, addVote, updateVote, removeVote } from '../database/updatestate';
 import { clearVotes, initRounds, addRound, nextRound } from '../database/rounds'
 
 export const onMessage = async (message: Message, client: Client) => {
@@ -12,16 +12,25 @@ export const onMessage = async (message: Message, client: Client) => {
         await loginUser(message.payload!.user!, message.payload!.color!, message.payload!.session!, client);
         break;
       case 'addElement':
-        await addElement(message.payload!.session!, message.payload!.element!, client)
+        await addElement(message.payload!.session!, message.payload!.element!, client);
         break;
       case 'delElement':
-        await delElement(message.payload!.session!, message.payload!.element!, client)
+        await delElement(message.payload!.session!, message.payload!.element!, client);
         break;
       case 'upvoteElement':
-        await upvoteElement(message.payload!.session!, message.payload!.element!, client)
+        await upvoteElement(message.payload!.session!, message.payload!.element!, client);
         break;
       case 'downvoteElement':
         await downvoteElement(message.payload!.session!, message.payload!.element!, client)
+        break;
+      case 'addVote':
+        await addVote(message.payload!.session!, message.payload!.element!, message.payload!.user!, message.payload!.color!, client)
+        break;
+      case 'updateVote':
+        await updateVote(message.payload!.session!, message.payload!.element!, message.payload!.user!, message.payload!.color!, message.payload!.votes!, client)
+        break;
+      case 'removeVote':
+        await removeVote(message.payload!.session!, message.payload!.element!, message.payload!.user!, message.payload!.color!, client)
         break;
       case 'resetElement':
         await resetElement(message.payload!.session!, message.payload!.element!, client)

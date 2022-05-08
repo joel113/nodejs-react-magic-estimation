@@ -1,11 +1,11 @@
 import { Client, QueryResult } from 'pg';
 
-export const fullstate = async (sessionId: string, client: Client) => {
+export const fullstate = async (sessionId: string, client: Client): Promise<string> | undefined => {
     const queryElementVotes = 'SELECT element_id, votes, votes_round, element_state FROM elements WHERE session_id=$1';
     const elementVotes = executeSelect(client, queryElementVotes, sessionId);
 
-    const queryUserVotes = 'SELECT user_id, user_color, element_id, vote FROM users WHERE session_id=$1';
-    const userVotes = executeSelect(client, queryUserVotes, sessionId);
+    const queryVotes = 'SELECT user_id, element_id, votes FROM votes WHERE session_id=$1';
+    const votes = executeSelect(client, queryVotes, sessionId);
 
     const queryUsers = 'SELECT user_id, color FROM users WHERE session_id=$1';
     const users = executeSelect(client, queryUsers, sessionId);
@@ -13,9 +13,9 @@ export const fullstate = async (sessionId: string, client: Client) => {
     const queryRounds = 'SELECT rounds, rounds_active FROM rounds where session_id=$1';
     const rounds = executeSelect(client, queryRounds, sessionId);
 
-    Promise.all([elementVotes, userVotes, users, rounds]).then((values) => {
+    Promise.all([elementVotes, votes, users, rounds]).then((values) => {
         const elementVotesResults = values[0];
-        const userVotesResults = values[1];
+        const votesResult = values[1];
         const usersResult = values[2];
         const roundsResults = values[3];
 
@@ -24,7 +24,7 @@ export const fullstate = async (sessionId: string, client: Client) => {
         }
 
         const elementVotesPayload = elementVotesResults.rows;
-        const userVotesPayload = userVotesResults.rows;
+        const userVotesPayload = votesResult.rows;
         const userPayload = usersResult.rows;
         const rounds = roundsResults.rows[0][1];
         const roundsActive = roundsResults.rows[0][2];
@@ -34,6 +34,7 @@ export const fullstate = async (sessionId: string, client: Client) => {
             payload: { elementVotesPayload, userVotesPayload, userPayload, rounds, roundsActive },
             });
     });
+    return undefined;
 }
 
 async function executeSelect(client: Client, query: string, sessionId: String): Promise<QueryResult<any> | undefined> {
