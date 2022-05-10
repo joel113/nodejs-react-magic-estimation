@@ -1,7 +1,7 @@
 import { Client, QueryResult } from 'pg';
 
 export const fullstate = async (sessionId: string, client: Client): Promise<string> | undefined => {
-    const queryElementVotes = 'SELECT element_id, votes, votes_round, element_state FROM elements WHERE session_id=$1';
+    const queryElementVotes = 'SELECT element_id, votes, votes_round, state FROM elements WHERE session_id=$1';
     const elementVotes = executeSelect(client, queryElementVotes, sessionId);
 
     const queryVotes = 'SELECT user_id, element_id, votes FROM votes WHERE session_id=$1';
@@ -10,7 +10,7 @@ export const fullstate = async (sessionId: string, client: Client): Promise<stri
     const queryUsers = 'SELECT user_id, color FROM users WHERE session_id=$1';
     const users = executeSelect(client, queryUsers, sessionId);
 
-    const queryRounds = 'SELECT rounds, rounds_active FROM rounds where session_id=$1';
+    const queryRounds = 'SELECT rounds, round_active FROM rounds where session_id=$1';
     const rounds = executeSelect(client, queryRounds, sessionId);
 
     Promise.all([elementVotes, votes, users, rounds]).then((values) => {
@@ -37,17 +37,21 @@ export const fullstate = async (sessionId: string, client: Client): Promise<stri
     return undefined;
 }
 
-async function executeSelect(client: Client, query: string, sessionId: String): Promise<QueryResult<any> | undefined> {
-    client.query(query, [sessionId], (err, res) => {
-        if (err) {
-            console.error("[Magic] Error when trying to select: %s", err);
-        }
-        else {
-            console.log("[Magic] Selected %d rows", res.rowCount);
-            return res;
-        }
-    });
-    return undefined;
+async function executeSelect(client: Client, query: string, sessionId: String): Promise<QueryResult<any>> {
+    return new Promise<QueryResult<any>>((resolve, reject) => {
+        setTimeout(() => {
+                client.query(query, [sessionId], (err, res) => {
+                    if (err) {
+                        console.error("[Magic] Error when trying to select: %s", err);
+                        reject(err);
+                    }
+                    else {
+                        console.log("[Magic] Selected %d rows", res.rowCount);
+                        resolve(res);
+                    }
+                })}, 1000
+        )
+    })
 }
 
 function sendMessageToConnection(message: string, connectionId: string) {

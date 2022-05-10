@@ -20,13 +20,14 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
   const [user, setUser] = useState(socket.loginData.user)
   const [color, setColor] = useState(socket.loginData.color)
   const [colorPicker, setColorPicker] = useState(false)
-  const [sessionId, setSessionId] = useState(socket.loginData.sessionId)
+  const [sessionId, setSessionId] = useState("")
 
+  let sessionIdPassedOrGenerated = ''
   if (!isSSR) {
-    setSessionId(new URLSearchParams(window.location.search).get('sessionId') || '');
-    if (!sessionId.match(/^[a-zA-Z0-9]{8}$/i)) {
-      setSessionId(generateId(8));
-      history.replaceState({}, 'Magic Estimation', `?sessionId=${sessionId}`);
+    sessionIdPassedOrGenerated = new URLSearchParams(window.location.search).get('sessionId') || '';
+    if (!sessionIdPassedOrGenerated.match(/^[a-zA-Z0-9]{8}$/i)) {
+      sessionIdPassedOrGenerated = generateId(8);
+      history.replaceState({}, 'Magic Estimation', `?sessionId=${sessionIdPassedOrGenerated}`);
     }
   }
 
@@ -51,7 +52,7 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
     <div>
       <form class={classes.loginPage} onSubmit={(event) => {
         event.preventDefault();
-        socket.login(user, color, sessionId);
+        socket.login(user, color, sessionIdPassedOrGenerated);
       }}>
         <label for="user" class={classes.userLabel}>{LABEL_USERNAME}</label>
         <input id="user" type="text" value={user} class={classes.userInput}
@@ -82,7 +83,7 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
             </div>
         }
         <label for="session" class={classes.sessionLabel}>{LABEL_SESSION}</label>
-        <input id="session" type="text" value={sessionId} class={classes.sessionLink} onChange={(event) => {setSessionId((event.target as HTMLInputElement).value)}} />
+        <input id="session" type="text" value={sessionIdPassedOrGenerated} class={classes.sessionLink} onChange={(event) => {setSessionId((event.target as HTMLInputElement).value)}} />
         <input type="submit" value={BUTTON_LOGIN} class={classes.submit} />
       </form>
 
