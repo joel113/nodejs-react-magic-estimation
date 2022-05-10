@@ -1,8 +1,8 @@
 import { Client } from 'pg';
 import { Message } from '../types/types';
-import { loginUser } from '../database/loginuser';
-import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement, addVote, updateVote, removeVote } from '../database/updatestate';
-import { clearVotes, initRounds, addRound, nextRound } from '../database/rounds'
+import { loginUser } from '../state/update/users';
+import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement, addVote, updateVote, removeVote } from '../state/update/elements';
+import { clearVotes, initRounds, addRound, nextRound } from '../state/update/rounds'
 
 export const onMessage = async (message: Message, client: Client) => {
   try {

@@ -1,4 +1,5 @@
-import { Client, QueryResult } from 'pg';
+import { Client } from 'pg';
+import { executeSelect } from '../../db/queries';
 
 export const fullstate = async (sessionId: string, client: Client): Promise<string> | undefined => {
     const queryElementVotes = 'SELECT element_id, votes, votes_round, state FROM elements WHERE session_id=$1';
@@ -35,23 +36,6 @@ export const fullstate = async (sessionId: string, client: Client): Promise<stri
             });
     });
     return undefined;
-}
-
-async function executeSelect(client: Client, query: string, sessionId: String): Promise<QueryResult<any>> {
-    return new Promise<QueryResult<any>>((resolve, reject) => {
-        setTimeout(() => {
-                client.query(query, [sessionId], (err, res) => {
-                    if (err) {
-                        console.error("[Magic] Error when trying to select: %s", err);
-                        reject(err);
-                    }
-                    else {
-                        console.log("[Magic] Selected %d rows", res.rowCount);
-                        resolve(res);
-                    }
-                })}, 1000
-        )
-    })
 }
 
 function sendMessageToConnection(message: string, connectionId: string) {
