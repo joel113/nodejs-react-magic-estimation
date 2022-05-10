@@ -144,9 +144,9 @@ https://github.com/websockets/ws
 
 ### CSS display to vertically center some text
 
-The css display table element turns a rendering box into an element which behaves like a <table> html element.
+The css display table element turns a rendering box into an element which behaves like a `<table>` html element.
 
-The css display table-cell element turns a rendering box into an element which behaves like a <td> html element.
+The css display table-cell element turns a rendering box into an element which behaves like a `<td>` html element.
 
 https://developer.mozilla.org/de/docs/Web/CSS/display
 
