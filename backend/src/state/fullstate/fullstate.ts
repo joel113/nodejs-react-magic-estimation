@@ -1,7 +1,7 @@
 import { Client } from 'pg';
 import { executeSelect } from '../../db/queries';
 
-export const fullstate = async (sessionId: string, client: Client) => {
+export const fullstate = async (sessionId: string, client: Client): Promise<any> => {
     const queryElementVotes = 'SELECT element_id, votes, votes_round, state FROM elements WHERE session_id=$1';
     const elementVotes = executeSelect(client, queryElementVotes, sessionId);
 
@@ -27,8 +27,8 @@ export const fullstate = async (sessionId: string, client: Client) => {
         const elementVotesPayload = elementVotesResults.rows;
         const userVotesPayload = votesResult.rows;
         const userPayload = usersResult.rows;
-        const rounds = roundsResults.rows[0][1];
-        const roundsActive = roundsResults.rows[0][2];
+        const rounds = roundsResults.rows[0];
+        const roundsActive = roundsResults.rows[0];
 
         return JSON.stringify({
             type: 'state',

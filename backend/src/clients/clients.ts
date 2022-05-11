@@ -17,7 +17,7 @@ export class WebSocketClients {
         this.clients.delete(client);
     }
 
-    broadcast(sessionId: string, dbclient: Client, fullstate: (sessionId: string, client: Client) => Promise<string>) {
+    broadcast(sessionId: string, dbclient: Client, fullstate: (sessionId: string, client: Client) => Promise<any>) {
         fullstate(sessionId, dbclient)
             .then(
                 state => {
