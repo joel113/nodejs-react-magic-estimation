@@ -1,7 +1,7 @@
 import { Client } from 'pg';
 import { executeSelect } from '../../db/queries';
 
-export const fullstate = async (sessionId: string, client: Client): Promise<string> | undefined => {
+export const fullstate = async (sessionId: string, client: Client) => {
     const queryElementVotes = 'SELECT element_id, votes, votes_round, state FROM elements WHERE session_id=$1';
     const elementVotes = executeSelect(client, queryElementVotes, sessionId);
 
@@ -34,8 +34,9 @@ export const fullstate = async (sessionId: string, client: Client): Promise<stri
             type: 'state',
             payload: { elementVotesPayload, userVotesPayload, userPayload, rounds, roundsActive },
             });
+    }).catch((_) => {
+        throw "Promise failed"
     });
-    return undefined;
 }
 
 function sendMessageToConnection(message: string, connectionId: string) {

@@ -1,7 +1,7 @@
 import { Client } from 'pg';
 import { WebSocketServer } from 'ws';
 import { WebSocketClients } from './clients/clients';
-import { onMessage } from './messages/onmessage';
+import { onMessage } from './state/onmessage';
 import { fullstate } from './state/fullstate/fullstate';
 
 const client = new Client({host: 'localhost', port: 5432, user: 'postgres', password: 'postgres'});

@@ -1,8 +1,9 @@
 import { Client } from 'pg';
 import { Message } from '../types/types';
-import { loginUser } from '../state/update/users';
-import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement, addVote, updateVote, removeVote } from '../state/update/elements';
-import { clearVotes, initRounds, addRound, nextRound } from '../state/update/rounds'
+import { loginUser } from './update/users';
+import { addElement, delElement, resetElement, disbuteElement, lockElement, agreeElement, ongoingElement, upvoteElement, downvoteElement } from './update/elements';
+import { addVote, updateVote, removeVote } from './update/votes';
+import { clearVotes, initRounds, addRound, nextRound } from './update/rounds'
 
 export const onMessage = async (message: Message, client: Client) => {
   try {
