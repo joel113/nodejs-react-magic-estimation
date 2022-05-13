@@ -6,8 +6,8 @@ const ProtoMagicPageRounds = ({socket}: {socket: WebSocketApi}) => {
     return (
         <div class={classes.magicPageRoundsContainer}>
             <div className={`${classes.magicPageRoundsBox} ${classes.firstBox}`}>Round</div>
-            {[...Array(socket.state.maxRounds)].map((_, i) => i + 1).map(i => {
-                if(socket.state.activeRound == i) {
+            {[...Array(socket.state.rounds)].map((_, i) => i + 1).map(i => {
+                if(socket.state.roundsActive == i) {
                     return <div className={`${classes.magicPageRoundsBox} ${classes.activeBox}`}><div class={classes.magicPageRoundsName}>{i}</div></div>
                 }
                 else  {

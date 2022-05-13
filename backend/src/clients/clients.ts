@@ -18,13 +18,14 @@ export class WebSocketClients {
     }
 
     broadcast(sessionId: string, dbclient: Client, fullstate: (sessionId: string, client: Client) => Promise<any>) {
-        fullstate(sessionId, dbclient)
-            .then(
-                state => {
-                    console.log("[Magic] Broadcast state to users of session_id: %s", sessionId);
-                    this.clients.forEach(client => client.send(state))
-                })
-            .catch(err => console.log("[Magic] Failed to collected full state in order to broadcast to %s clients", sessionId))
+        fullstate(sessionId, dbclient).then(
+            state => {
+                console.log("[Magic] Broadcast state to users of session_id: %s", sessionId);
+                this.clients.forEach(client => client.send(state));
+            })
+            .catch(
+                err => console.error("[Magic] Failed to collected full state in order to broadcast to %s clients due to %s", sessionId, err)
+            )
     }
 
 }

@@ -1,6 +1,6 @@
 import { Client, QueryResult } from 'pg';
 
-export async function executeSelect(client: Client, query: string, sessionId: String): Promise<QueryResult<any>> {
+export function executeSelect(client: Client, query: string, sessionId: String): Promise<QueryResult<any>> {
     return new Promise<QueryResult<any>>((resolve, reject) => {
         setTimeout(() => {
                 client.query(query, [sessionId], (err, res) => {
@@ -16,7 +16,7 @@ export async function executeSelect(client: Client, query: string, sessionId: St
     })
 }
 
-export async function executeInsert(client: Client, query: string, values: string[]): Promise<QueryResult<any>> {
+export function executeInsert(client: Client, query: string, values: string[]): Promise<QueryResult<any>> {
     return new Promise<QueryResult<any>>((resolve, reject) => {
         setTimeout(() => {
                 client.query(query, values, (err, res) => {
@@ -48,7 +48,7 @@ export async function executeDelete(client: Client, query: string, values: strin
     })
 }
 
-export async function executeUpdate(client: Client, query: string, values: string[]): Promise<QueryResult<any>> {
+export function executeUpdate(client: Client, query: string, values: string[]): Promise<QueryResult<any>> {
     return new Promise<QueryResult<any>>((resolve, reject) => {
         setTimeout(() => {
                 client.query(query, values, (err, res) => {

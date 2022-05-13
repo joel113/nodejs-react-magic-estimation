@@ -53,8 +53,8 @@ export interface WebSocketApi {
 export interface WebSocketState {
   elementVotes: Array<Elements>;
   userVotes: Array<Votes>;
-  maxRounds: number;
-  activeRound: number;
+  rounds: number;
+  roundsActive: number;
 }
 
 export interface StateMessage {

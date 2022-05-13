@@ -36,8 +36,8 @@ export const doNothing = () => {};
 const initialWebSocketState: WebSocketState = {
     elementVotes: [],
     userVotes: [],
-    maxRounds: 1,
-    activeRound: 1
+    rounds: 1,
+    roundsActive: 1
 };
 
 // defines the initial web socket login data
@@ -197,12 +197,12 @@ export const WebSocketProvider = ({children}: any) => {
 
     const addRound = () => {
         socket!.send(getAddRoundRequest(loginData.sessionId));
-        setState({...state, maxRounds: state.maxRounds + 1})
+        setState({...state, rounds: state.rounds + 1})
     }
 
     const nextRound = () => {
         socket!.send(getNextRoundRequest(loginData.sessionId));
-        setState({...state, activeRound: state.activeRound + 1, elementVotes: state.elementVotes.map(
+        setState({...state, roundsActive: state.roundsActive + 1, elementVotes: state.elementVotes.map(
             (element) => new Elements(element.id, element.votes, 0, 
                 (element.votesRound == 0) 
                 ? (socket!.send(getLockElementRequest(loginData.sessionId, element.id)), ElementState.Locked)
