@@ -88,9 +88,12 @@ export const WebSocketProvider = ({children}: any) => {
             if (message.type === 'state') {
               setState(message.payload);
             }
-            if (message.type === 'not-logged-in') {
+            else if (message.type === 'not-logged-in') {
               setState(initialWebSocketState);
               setLoggedIn(false);
+            }
+            else {
+                console.error('[Magic] Received message with unknown message type %s', message.type);
             }
           };
           webSocket.onerror = (event: Event) => {
