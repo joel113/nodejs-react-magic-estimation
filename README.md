@@ -140,6 +140,20 @@ https://nodejs.org/en/
 
 https://github.com/websockets/ws
 
+## ESLint
+
+https://eslint.org/
+
+https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint
+
+https://code.visualstudio.com/docs/languages/typescript
+
+`npx eslint .`
+
+## Prettier ESLint
+
+https://marketplace.visualstudio.com/items?itemName=rvest.vs-code-prettier-eslint
+
 ## Cascading Stylesheets
 
 ### CSS display to vertically center some text
