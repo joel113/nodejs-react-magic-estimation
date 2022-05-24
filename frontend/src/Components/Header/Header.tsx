@@ -1,7 +1,7 @@
 import classes from './Header.module.css';
 
 export const Header = () => (
-  <header class={classes.header}>
+  <header className={classes.header}>
     Magic&nbsp;Estimation
   </header>
 );

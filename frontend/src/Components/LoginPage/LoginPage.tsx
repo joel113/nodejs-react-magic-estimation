@@ -1,33 +1,59 @@
-import { RefObject } from 'preact';
-import { GithubPicker } from 'react-color';
-import { useEffect, useRef, useState } from 'preact/hooks';
-import { WebSocketApi } from '../../types/WebSocket';
-import { connectToWebSocket } from '../WebSocket/WebSocket';
-import { generateId } from './generateId';
+import {GithubPicker} from 'react-color';
+import {useState} from 'preact/hooks';
+import {WebSocketApi} from '../../types/WebSocket';
+import {connectToWebSocket} from '../WebSocket/WebSocket';
 import classes from './LoginPage.module.css';
 import {
-  BUTTON_CONNECTING,
   BUTTON_LOGIN,
   LABEL_SESSION,
   LABEL_USERNAME,
-  LABEL_COLOR
+  LABEL_COLOR,
 } from '../../constants';
 
 // During server-side-rendering, window/history cannot be accessed
 const isSSR = typeof window === 'undefined';
 
-const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
+const ProtoLoginPage = ({socket}: { socket: WebSocketApi }) => {
   const [user, setUser] = useState(socket.loginData.user)
   const [color, setColor] = useState(socket.loginData.color)
   const [colorPicker, setColorPicker] = useState(false)
-  const [sessionId, setSessionId] = useState("")
+  const [sessionId, setSessionId] = useState('')
 
-  let sessionIdPassedOrGenerated = ''
+  /**
+   * Generates a random alphanumerical id as string of predefined length
+   * @param {num} length predefined length
+   * @return {string} the random alphanumerical id as string
+   */
+  function generateId(length: number): string {
+    const mask =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let result = '';
+    for (let i = length; i > 0; --i) {
+      result += mask[Math.round(Math.random() * (mask.length - 1))];
+    }
+    return result;
+  }
+
+  /**
+   * Updates the color of the document element with the id 'color'
+   * @param {string} color hexadecimal color value
+   */
+  function updateColor(color: string) {
+    const element = document.getElementById('color')
+    if (element != null) {
+      element.style.backgroundColor = color
+    }
+  }
+
+  let sessionIdPassedOrGenerated = sessionId
+
   if (!isSSR) {
-    sessionIdPassedOrGenerated = new URLSearchParams(window.location.search).get('sessionId') || '';
+    sessionIdPassedOrGenerated = new URLSearchParams(window.location.search)
+        .get('sessionId') || '';
     if (!sessionIdPassedOrGenerated.match(/^[a-zA-Z0-9]{8}$/i)) {
       sessionIdPassedOrGenerated = generateId(8);
-      history.replaceState({}, 'Magic Estimation', `?sessionId=${sessionIdPassedOrGenerated}`);
+      history.replaceState({}, 'Magic Estimation',
+          `?sessionId=${sessionIdPassedOrGenerated}`);
     }
   }
 
@@ -41,28 +67,30 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
     })
   }
 
-  function updateColor(color: string) {
-    var element = document.getElementById("color")
-    if (element != null) {
-      element.style.backgroundColor = color
-    }
-  }
-
   return (
     <div>
-      <form class={classes.loginPage} onSubmit={(event) => {
+      <form className={classes.loginPage} onSubmit={(event) => {
         event.preventDefault();
         socket.login(user, color, sessionIdPassedOrGenerated);
       }}>
-        <label for="user" class={classes.userLabel}>{LABEL_USERNAME}</label>
-        <input id="user" type="text" value={user} class={classes.userInput}
+        <label htmlFor="user" className={classes.userLabel}>
+          {LABEL_USERNAME}
+        </label>
+        <input id="user" type="text" value={user} className={classes.userInput}
           required
-          autocomplete="off"
-          onChange={(event) => setUser((event.target as HTMLInputElement).value)} />
-        <label for="color" class={classes.colorLabel}>{LABEL_COLOR}</label>
-        <input id="color" type="text" value={color} class={classes.colorInput} 
+          autoComplete="off"
+          onChange={
+            (event) => setUser((event.target as HTMLInputElement).value)
+          } />
+        <label htmlFor="color" className={classes.colorLabel}>
+          {LABEL_COLOR}
+        </label>
+        <input id="color"
+          type="text"
+          value={color}
+          className={classes.colorInput}
           required
-          autocomplete="off"
+          autoComplete="off"
           pattern="^#[0-9a-f]{6}$"
           placeholder="#abcde0"
           onChange={
@@ -70,21 +98,29 @@ const ProtoLoginPage = ({ socket }: { socket: WebSocketApi }) => {
               setColor((event.target as HTMLInputElement).value);
               updateColor(color);
             }
-          } 
+          }
           onClick={(event) => setColorPicker(!colorPicker)} />
         {
-          colorPicker == true && 
-          <div id="colorPicker" class={classes.colorPicker}>
+          colorPicker == true &&
+          <div id="colorPicker" className={classes.colorPicker}>
             <GithubPicker onChange={
               (color, event) => {
                 setColor(color.hex);
                 updateColor(color.hex)
               }} />
-            </div>
+          </div>
         }
-        <label for="session" class={classes.sessionLabel}>{LABEL_SESSION}</label>
-        <input id="session" type="text" value={sessionIdPassedOrGenerated} class={classes.sessionLink} onChange={(event) => {setSessionId((event.target as HTMLInputElement).value)}} />
-        <input type="submit" value={BUTTON_LOGIN} class={classes.submit} />
+        <label htmlFor="session" className={classes.sessionLabel}>
+          {LABEL_SESSION}
+        </label>
+        <input id="session"
+          type="text"
+          value={sessionIdPassedOrGenerated}
+          className={classes.sessionLink}
+          onChange={(event) => {
+            setSessionId((event.target as HTMLInputElement).value)
+          }} />
+        <input type="submit" value={BUTTON_LOGIN} className={classes.submit} />
       </form>
 
     </div>

@@ -1,9 +1,23 @@
+/**
+ * Represents the elements to be voted
+ */
 export class Elements {
   id: string;
   votes: number;
   votesRound: number;
   state: ElementState;
-  constructor(id: string, votes: number, votesRound: number, state: ElementState) {
+
+  /**
+   * Constructs an element
+   * @param {string} id of the element
+   * @param {number} votes number of votes
+   * @param {number} votesRound number of votes in the current round
+   * @param {ElementState} state state of the element
+   */
+  constructor(id: string,
+      votes: number,
+      votesRound: number,
+      state: ElementState) {
     this.id = id;
     this.votes = votes;
     this.votesRound = votesRound;
@@ -12,18 +26,36 @@ export class Elements {
 }
 
 export enum ElementState {
+  // eslint-disable-next-line no-unused-vars
   Ongoing,
+  // eslint-disable-next-line no-unused-vars
   Disbuted,
+  // eslint-disable-next-line no-unused-vars
   Agreed,
+  // eslint-disable-next-line no-unused-vars
   Locked
 }
 
+/**
+ * Represents the votes of a user to an element
+ */
 export class Votes {
   userId: string;
   userColor: string;
   elementId: string;
   vote: number;
-  constructor(userId: string, userColor: string, elementId: string, vote: number) {
+
+  /**
+   * Constructs a vote
+   * @param {string} userId of the vote
+   * @param {userColor} userColor of the user giving the vote
+   * @param {string} elementId of the vote
+   * @param {number} vote number of the votes
+   */
+  constructor(userId: string,
+      userColor: string,
+      elementId: string,
+      vote: number) {
     this.userId = userId;
     this.userColor = userColor;
     this.elementId = elementId;
@@ -232,4 +264,7 @@ export interface NextRoundMessage {
   };
 }
 
-export type WebSocketLoginData = { user: string; color: string; sessionId: string };
+export type WebSocketLoginData = {
+  user: string;
+  color: string;
+  sessionId: string };

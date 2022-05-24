@@ -1,4 +1,4 @@
-import { WebsocketMessage } from '../types/WebSocket';
+import { WebsocketMessage } from '../components/WebSocket/WebSocket';
 
 export const getLoginRequest = (user: string, color: string, session: string) =>
   buildRequest({
