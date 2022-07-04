@@ -10,13 +10,13 @@ You can run following commands to build and run the Magic Estimation
 application using the NPM package manager. The follwoing NPM package manager
 goals are available.
 
-`npm install`
+`npm install` - Installs the dependencies
 
-`npm run start`
+`npm run start` - Runs the frontend
 
-`npm run servce`
+`npm run serve` - Runs the backend
 
-`npm run build:frontend`
+`npm run build:frontend` - Builds the frontend
 
 `npm run build:backend`
 
