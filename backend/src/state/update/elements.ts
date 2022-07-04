@@ -16,8 +16,8 @@ export async function addElement(
       sessionId,
       elementId);
   const query = 'INSERT into elements(' +
-    'sessionId, ' +
-    'elementId, ' +
+    'session_id, ' +
+    'element_id, ' +
     'votes, ' +
     'votes_round, ' +
     'state) ' +
@@ -64,7 +64,7 @@ export async function resetElement(
   const query = 'UPDATE elements SET ' +
     'state=\'ongoing\',' +
     'updated_at=now(),' +
-    'WHERE sessionId = $1 AND elementId = $2';
+    'WHERE session_id = $1 AND element_id = $2';
   executeUpdate(client, query, [sessionId, elementId])
       .catch((err) => console.error('[Magic] Processing received reset ' +
       'element message failed: %s', err));
@@ -87,7 +87,7 @@ export async function agreeElement(
   const query = 'UPDATE elements SET ' +
     'state=\'agreed\', ' +
     'updated_at=now() ' +
-    'WHERE sessionId = $1 AND elementId = $2';
+    'WHERE session_id = $1 AND element_id = $2';
   executeUpdate(client, query, [sessionId, elementId])
       .catch((err) => console.error('[Magic] Processing agree element ' +
       'message failed: %s', err));
@@ -110,7 +110,7 @@ export async function disbuteElement(
   const query = 'UPDATE elements SET ' +
     'state=\'disbuted\',' +
     'updated_at=now()' +
-    'WHERE sessionId = $1 AND elementId = $2';
+    'WHERE session_id = $1 AND element_id = $2';
   executeUpdate(client, query, [sessionId, elementId])
       .catch((err) => console.error('[Magic] Processing disbute element ' +
       'message failed: %s', err));
@@ -133,7 +133,7 @@ export async function lockElement(
   const query = 'UPDATE elements SET ' +
     ' state=\'locked\', ' +
     'updated_at=now() ' +
-    'WHERE sessionId = $1 AND elementId = $2';
+    'WHERE session_id = $1 AND element_id = $2';
   executeUpdate(client, query, [sessionId, elementId])
       .catch((err) => console.error('[Magic] Processing lock element ' +
       'message failed: %s', err));
@@ -180,7 +180,7 @@ export async function upvoteElement(
     'votes=votes+1, ' +
     'votes_round=votes_round+1, ' +
     'updated_at=now() ' +
-    'WHERE sessionId = $1 AND elementId = $2';
+    'WHERE session_id = $1 AND element_id = $2';
   executeUpdate(client, updateElements, [sessionId, elementId])
       .catch((err) => console.error('[Magic] Processing upvote element ' +
       'message failed: %s', err));
@@ -204,7 +204,7 @@ export async function downvoteElement(
     'votes=votes-1, ' +
     'votes_round=votes_round-1, ' +
     'updated_at=now() ' +
-    'WHERE sessionId = $1 AND elementId = $2';
+    'WHERE session_id = $1 AND element_id = $2';
   executeUpdate(client, query, [sessionId, elementId])
       .catch((err) => console.error('[Magic] Processing downvote element ' +
       'message failed: %s', err));

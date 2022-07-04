@@ -15,11 +15,11 @@ export const fullstate = async (sessionId: string,
   'votes AS vote FROM votes WHERE session_id=$1';
   const votes = executeSelect(client, queryVotes, sessionId);
 
-  const queryUsers = 'SELECT user_id AS userId, color AS color' +
+  const queryUsers = 'SELECT user_id AS userId, color AS color ' +
     'FROM users WHERE session_id=$1';
   const users = executeSelect(client, queryUsers, sessionId);
 
-  const queryRounds = 'SELECT rounds, round_active' +
+  const queryRounds = 'SELECT rounds, round_active ' +
     'FROM rounds WHERE session_id=$1';
   const rounds = executeSelect(client, queryRounds, sessionId);
 

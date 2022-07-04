@@ -2,15 +2,43 @@
 
 ## Getting Started
 
+Magic Estimation uses the [NPM package manager](https://www.npmjs.com/) and
+provides a [package.json](https://docs.npmjs.com/cli/v8/configuring-npm/package-json)
+file which contains npm goals.
+
+You can run following commands to build and run the Magic Estimation
+application using the NPM package manager. The follwoing NPM package manager
+goals are available.
+
 `npm install`
 
+`npm run start`
+
+`npm run servce`
+
 `npm run build:frontend`
+
+`npm run build:backend`
+
+`npm run build:frontend:vite`
+
+`npm run build:frontend:typecheck`
+
+`npm run lint`
+
+`npm run lin:fix`
 
 ## Getting Started Backend
 
 `npm start serve`
 
-### Docker
+## Visual Studio Code IDE
+
+The directory `.vscode` contains the file for the 
+[Visual Studio Code IDE](https://code.visualstudio.com/) integration of Magic
+Estimation.
+
+## Docker
 
 `limactl start default`
 
@@ -30,13 +58,23 @@
 
 ### Postgre
 
+Postgre is used to store the state and serve it to the backend which serves the
+state to the clients.
+
+In order to login into the docker container which runs Postgre and to debug the
+content of the Postgre database, following commands can be used:
+
 ```
 nodectl exec -it postgres bash
 
 psql -U postgre
-
-\dt
 ```
+
+`\l` - shows the list of the databases
+
+`\c testdb` - connects to the testdb
+
+`\dt` - shows the list of the database tables
 
 ## Preact
 
