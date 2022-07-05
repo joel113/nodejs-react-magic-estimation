@@ -1,4 +1,4 @@
-import {renderToString} from 'preact-render-to-string';
+import rendering from 'preact-render-to-string';
 import {App} from './components/App';
 
 /**
@@ -6,5 +6,5 @@ import {App} from './components/App';
  * @return {string} server side rendering
  */
 export function render() {
-  return renderToString(<App />);
+  return rendering(<App />);
 }

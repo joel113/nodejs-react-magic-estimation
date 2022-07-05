@@ -122,6 +122,9 @@ https://reactjs.org/docs/hooks-state.html
 
 ### Effect Hooks
 
+Tells react to do something after rendering has been done. React will apply
+the passed function after rendering.
+
 https://reactjs.org/docs/hooks-effect.html
 
 ### Type Aliases
@@ -169,6 +172,10 @@ https://github.com/netzwerg/typescript-websocket-example/blob/master/typescript-
 https://github.com/brianc/node-postgres
 
 https://node-postgres.com/api/result
+
+### ECMAScript Modules
+
+https://nodejs.org/api/esm.html
 
 ## Node.JS
 

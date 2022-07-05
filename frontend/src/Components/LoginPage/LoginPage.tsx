@@ -1,5 +1,5 @@
 import {GithubPicker} from 'react-color';
-import {useState} from 'preact/hooks';
+import {useEffect, useState} from 'preact/hooks';
 import {WebSocketApi} from '../../types/WebSocket';
 import {connectToWebSocket} from '../WebSocket/WebSocket';
 import classes from './LoginPage.module.css';
@@ -34,17 +34,6 @@ const ProtoLoginPage = ({socket}: { socket: WebSocketApi }) => {
     return result;
   }
 
-  /**
-   * Updates the color of the document element with the id 'color'
-   * @param {string} color hexadecimal color value
-   */
-  function updateColor(color: string) {
-    const element = document.getElementById('color')
-    if (element != null) {
-      element.style.backgroundColor = color
-    }
-  }
-
   let sessionIdPassedOrGenerated = sessionId
 
   if (!isSSR) {
@@ -57,15 +46,19 @@ const ProtoLoginPage = ({socket}: { socket: WebSocketApi }) => {
     }
   }
 
-  const target = document.querySelector('#color')
-  if (target != null) {
-    document.addEventListener('click', (event) => {
-      const withinBoundaries = event.composedPath().includes(target)
-      if (!withinBoundaries) {
-        setColorPicker(false)
-      }
-    })
-  }
+  // disappears the color picker after rendering if the color picker is not
+  // clicked
+  useEffect(() => {
+    const target = document.querySelector('#color')
+    if (target != null) {
+      document.addEventListener('click', (event) => {
+        const withinBoundaries = event.composedPath().includes(target)
+        if (!withinBoundaries) {
+          setColorPicker(false)
+        }
+      })
+    }
+  })
 
   return (
     <div>
@@ -88,6 +81,7 @@ const ProtoLoginPage = ({socket}: { socket: WebSocketApi }) => {
         <input id="color"
           type="text"
           value={color}
+          style={{backgroundColor: color}}
           className={classes.colorInput}
           required
           autoComplete="off"
@@ -96,7 +90,6 @@ const ProtoLoginPage = ({socket}: { socket: WebSocketApi }) => {
           onChange={
             (event) => {
               setColor((event.target as HTMLInputElement).value);
-              updateColor(color);
             }
           }
           onClick={(event) => setColorPicker(!colorPicker)} />
@@ -106,7 +99,6 @@ const ProtoLoginPage = ({socket}: { socket: WebSocketApi }) => {
             <GithubPicker onChange={
               (color, event) => {
                 setColor(color.hex);
-                updateColor(color.hex)
               }} />
           </div>
         }
