@@ -18,19 +18,15 @@ goals are available.
 
 `npm run build:frontend` - Builds the frontend
 
-`npm run build:backend`
+`npm run build:frontend:vite` - Prerenders the HTML of the frontned
 
-`npm run build:frontend:vite`
+`npm run build:frontend:typecheck` - Builds the typescript code of the frontend
 
-`npm run build:frontend:typecheck`
+`npm run build:backend` - Builds the backend
 
-`npm run lint`
+`npm run lint` - Runs eslint
 
-`npm run lin:fix`
-
-## Getting Started Backend
-
-`npm start serve`
+`npm run lin:fix` - Fixes fixable findings of eslint
 
 ## Visual Studio Code IDE
 
@@ -38,19 +34,39 @@ The directory `.vscode` contains the file for the
 [Visual Studio Code IDE](https://code.visualstudio.com/) integration of Magic
 Estimation.
 
-## Docker
+## Container
+
+I am using containerd with lima on mac os and nerdctl. Hence, in order to start
+containers I have to start lima.
 
 `limactl start default`
+
+Furthermore, I have to use nerdctl to run the compose script.
 
 `nerdctl compose up -d`
 
 ### Websocket
 
+The frontend uses web sockets to connect to the backend. You can use wscat to
+manually connect to the backend.
+
 `wscat -c localhost:8080`
+
+The current version of magic estimation does not apply any kind of authentication
+or authorization.
 
 ### Node
 
+The backend is served using NodeJs. You can use the `node` command to run the
+backend indepentend of the available NPM and Visual Studio Code debugging
+goals.
+
 `node`
+
+The frontend to backend communication uses json serialization to encode and
+decode messages to sync the state of a session between the backend and the
+the frontend. The following snippet shows an example of adding an elment with
+the name "bla".
 
 ```JSON
 { "type": "addElement", "payload": { "element": "bla" } }
