@@ -93,15 +93,14 @@ const ProtoLoginPage = ({socket}: { socket: WebSocketApi }) => {
             }
           }
           onClick={(event) => setColorPicker(!colorPicker)} />
-        {
-          colorPicker == true &&
-          <div id="colorPicker" className={classes.colorPicker}>
-            <GithubPicker onChange={
-              (color, event) => {
-                setColor(color.hex);
-              }} />
-          </div>
-        }
+        <div id="colorPicker" className={classes.colorPicker}
+        style={(colorPicker) ? "visibility:visible;" : "visibility:hidden;"}>
+          <GithubPicker
+            onChange={
+            (color, event) => {
+              setColor(color.hex);
+            }} />
+        </div>
         <label htmlFor="session" className={classes.sessionLabel}>
           {LABEL_SESSION}
         </label>
