@@ -1,0 +1,19 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "typescript",
+			"tsconfig": "backend/tsconfig.json",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": "build",
+			"label": "tsc: Erstellen – backend/tsconfig.json"
+		},
+		{
+			"type": "npm",
+			"script": "build:backend",
+			"label": "tsc via npm: Erstellen – backend/tsconfig.json"
+		},
+	]
+}

@@ -6,5 +6,5 @@ frontend/dist*
 node_modules
 aws.config
 backend/packaged.yaml
-.vscode
 nbproject
+package-lock.json

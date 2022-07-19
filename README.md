@@ -41,9 +41,17 @@ containers I have to start lima.
 
 `limactl start default`
 
+Even if nerdctl runs the container in a virtual machine, lima provides 
+automatic port mapping that the port is not only available on the virtual
+machine but also on the host.
+
 Furthermore, I have to use nerdctl to run the compose script.
 
 `nerdctl compose up -d`
+
+In order to just start the postgre database, you can use the following command:
+
+`nerdctl compose up -d db`
 
 ### Websocket
 
@@ -55,13 +63,25 @@ manually connect to the backend.
 The current version of magic estimation does not apply any kind of authentication
 or authorization.
 
-### Node
+### Node.JS
 
-The backend is served using NodeJs. You can use the `node` command to run the
-backend indepentend of the available NPM and Visual Studio Code debugging
+The backend is served using Node.JS. You can use the `node` command to run the
+backend independent of the available NPM and Visual Studio Code debugging
 goals.
 
 `node`
+
+In order to restart node automatically, when the backend code is changed, 
+the tool [nodeman](https://nodemon.io/) is used.
+
+https://github.com/remy/nodemon/
+
+https://code.visualstudio.com/docs/nodejs/nodejs-debugging#_restarting-debug-sessions-automatically-when-source-is-edited
+
+You can use the `nodemon` command to run the backend independent of the 
+available NPM and Visual Studio Code debuggin goals:
+
+`nodemon --inspect=5858 -e ts,tsx --exec node -r ts-node/register ./backend/src/app.ts`
 
 The frontend to backend communication uses json serialization to encode and
 decode messages to sync the state of a session between the backend and the

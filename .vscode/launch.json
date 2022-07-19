@@ -1,0 +1,67 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch Chrome via chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:3000",
+            "webRoot": "${workspaceFolder}/frontend",
+            "sourceMapPathOverrides": {
+                "webpack:///frontend/*": "${webRoot}/*",
+                "webpack://./frontend/*": "${webRoot}/*",
+              }
+        },
+        {
+            "name": "Launch Frontend",
+            "request": "launch",
+            "runtimeArgs": [
+                "run",
+                "start:frontend"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+        {
+            "name": "Launch Backend via tsc and node",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/src/app.ts",
+            "preLaunchTask": "tsc: Erstellen – backend/tsconfig.json",
+            "outFiles": ["${workspaceFolder}/backend/build/**/*.js"],
+        },
+        {
+            "name": "Launch Backend via npm, tsc and node",
+            "request": "launch",
+            "runtimeArgs": [
+                "run",
+                "start:backend"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node",
+            "preLaunchTask": "tsc via npm: Erstellen – backend/tsconfig.json"
+        },
+        {
+            "name": "Launch Backend via npm, nodemon and node",
+            "request": "launch",
+            "runtimeArgs": [
+                "run",
+                "watch:backend"
+            ],
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        }
+    ]
+}
