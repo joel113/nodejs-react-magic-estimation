@@ -114,49 +114,49 @@ export const WebSocketProvider = ({children}: any) => {
   }, []);
 
   const login = (user: string, color: string, sessionId: string) => {
-    console.log('[Magic] Submiting login request to backend')
-        socket!.send(getLoginRequest(user, color, sessionId));
-        setLoginData({user, color, sessionId});
-        setLoggedIn(true);
-        socket!.send(getInitRoundsRequest(sessionId));
-        setState({
-          ...initialWebSocketState,
-          elementVotes: [],
-          userVotes: [],
-        });
+    console.log('[Magic] Submiting login request to backend');
+    socket!.send(getLoginRequest(user, color, sessionId));
+    setLoginData({user, color, sessionId});
+    setLoggedIn(true);
+    socket!.send(getInitRoundsRequest(sessionId));
+    setState({
+      ...initialWebSocketState,
+      elementVotes: [],
+      userVotes: [],
+    });
   }
 
   const addElement = (elementId: string) => {
-        socket!.send(getAddElementRequest(loginData.sessionId, elementId));
-        setState({...state,
-          elementVotes: [...state.elementVotes,
-            new Elements(elementId, 0, 0, ElementState.Ongoing)]},
-        )
+    socket!.send(getAddElementRequest(loginData.sessionId, elementId));
+    setState({...state,
+      elementVotes: [...state.elementVotes,
+        new Elements(elementId, 0, 0, ElementState.Ongoing)]},
+    )
   }
 
   const delElement = (elementId: string) => {
-        socket!.send(getDelElementRequest(loginData.sessionId, elementId));
-        setState({...state,
-          elementVotes: state.elementVotes.filter(
-              (value) => value.id != elementId)})
+    socket!.send(getDelElementRequest(loginData.sessionId, elementId));
+    setState({...state,
+      elementVotes: state.elementVotes.filter(
+          (value) => value.id != elementId)})
   }
 
   const upvoteElement = (elementId: string) => {
-        socket!.send(
-            getUpvoteElementRequest(loginData.sessionId,
-                elementId,
-                loginData.user,
-                loginData.color));
-        voteElement(elementId, 1);
+    socket!.send(
+        getUpvoteElementRequest(loginData.sessionId,
+            elementId,
+            loginData.user,
+            loginData.color));
+    voteElement(elementId, 1);
   }
 
   const downvoteElement = (elementId: string) => {
-        socket!.send(
-            getDownvoteElementRequest(loginData.sessionId,
-                elementId,
-                loginData.user,
-                loginData.color));
-        voteElement(elementId, -1);
+    socket!.send(
+        getDownvoteElementRequest(loginData.sessionId,
+            elementId,
+            loginData.user,
+            loginData.color));
+    voteElement(elementId, -1);
   }
 
   const voteElement = (elementId: string, vote: number) => {
