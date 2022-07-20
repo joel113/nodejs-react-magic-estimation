@@ -4,10 +4,7 @@ import {loginUser} from './update/users';
 import {addElement,
   delElement,
   resetElement,
-  disbuteElement,
-  lockElement,
-  agreeElement,
-  ongoingElement,
+  updateElement,
   upvoteElement,
   downvoteElement} from './update/elements';
 import {addVote, updateVote, removeVote} from './update/votes';
@@ -26,6 +23,7 @@ export const onMessage = async (message: Message, client: Client) => {
       case 'addElement':
         await addElement(message.payload!.session!,
           message.payload!.element!,
+          message.payload!.state!,
           client);
         break;
       case 'delElement':
@@ -65,29 +63,10 @@ export const onMessage = async (message: Message, client: Client) => {
           message.payload!.color!,
           client)
         break;
-      case 'resetElement':
-        await resetElement(message.payload!.session!,
+      case 'updateElement':
+        await updateElement(message.payload!.session!,
           message.payload!.element!,
-          client)
-        break;
-      case 'agreeElement':
-        await agreeElement(message.payload!.session!,
-          message.payload!.element!,
-          client)
-        break;
-      case 'disbuteElement':
-        await disbuteElement(message.payload!.session!,
-          message.payload!.element!,
-          client)
-        break;
-      case 'lockElement':
-        await lockElement(message.payload!.session!,
-          message.payload!.element!,
-          client)
-        break;
-      case 'ongoingElement':
-        await ongoingElement(message.payload!.session!,
-          message.payload!.element!,
+          message.payload!.state!,
           client)
         break;
       case 'clearVotes':

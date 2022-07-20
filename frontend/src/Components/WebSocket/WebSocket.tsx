@@ -7,11 +7,6 @@ import {
   getDelElementRequest,
   getUpvoteElementRequest,
   getDownvoteElementRequest,
-  getResetElementRequest,
-  getAgreeElementRequest,
-  getDisbuteElementRequest,
-  getLockElementRequest,
-  getOngoingElementRequest,
   getClearVotesRequest,
   getInitRoundsRequest,
   getAddRoundRequest,
@@ -19,6 +14,7 @@ import {
   getRemoveVoteRequest,
   getUpdateVoteRequest,
   getAddVoteRequest,
+  getUpdateElementRequest,
 } from '../../requests/websocket-requests';
 import {
   ElementState,
@@ -172,13 +168,17 @@ export const WebSocketProvider = ({children}: any) => {
                             userVote.userId != loginData.user &&
                               userVote.vote + vote == 0) >= 0) ?
                               (socket!.send(
-                                  getDisbuteElementRequest(
+                                  getUpdateElementRequest(
                                       loginData.sessionId,
-                                      elementId)), ElementState.Disbuted) :
+                                      elementId,
+                                      ElementState.Disbuted)), 
+                                      ElementState.Disbuted) :
                               (socket!.send(
-                                  getAgreeElementRequest(
+                                  getUpdateElementRequest(
                                       loginData.sessionId,
-                                      elementId)), ElementState.Agreed)) :
+                                      elementId,
+                                      ElementState.Agreed)),
+                                      ElementState.Agreed)) :
                 element);
 
     const userVoteLength = state.userVotes.filter(
@@ -240,7 +240,8 @@ export const WebSocketProvider = ({children}: any) => {
                 ElementState.Ongoing) : element ),
       userVotes: [...state.userVotes,
         new Votes(loginData.user, loginData.color, elementId, -1)]})
-    socket!.send(getResetElementRequest(loginData.sessionId, elementId));
+    socket!.send(getUpdateElementRequest(loginData.sessionId, elementId,
+      ElementState.Ongoing));
   }
 
   const agreeElement = (elementId: string) => {
@@ -253,7 +254,8 @@ export const WebSocketProvider = ({children}: any) => {
                 ElementState.Agreed) : element ),
       userVotes: [...state.userVotes,
         new Votes(loginData.user, loginData.color, elementId, -1)]})
-      socket!.send(getAgreeElementRequest(loginData.sessionId, elementId));
+      socket!.send(getUpdateElementRequest(loginData.sessionId, elementId,
+        ElementState.Agreed));
   }
 
   const disbuteElement = (elementId: string) => {
@@ -266,7 +268,8 @@ export const WebSocketProvider = ({children}: any) => {
                 ElementState.Disbuted) : element ),
       userVotes: [...state.userVotes,
         new Votes(loginData.user, loginData.color, elementId, -1)]})
-      socket!.send(getDisbuteElementRequest(loginData.sessionId, elementId));
+      socket!.send(getUpdateElementRequest(loginData.sessionId, elementId,
+        ElementState.Disbuted));
   }
 
   const lockElement = (elementId: string) => {
@@ -279,7 +282,8 @@ export const WebSocketProvider = ({children}: any) => {
                 ElementState.Locked) : element ),
       userVotes: [...state.userVotes,
         new Votes(loginData.user, loginData.color, elementId, -1)]})
-    socket!.send(getLockElementRequest(loginData.sessionId, elementId));
+    socket!.send(getUpdateElementRequest(loginData.sessionId, elementId,
+      ElementState.Locked));
   }
 
   const clearVotes = () => {
@@ -300,10 +304,12 @@ export const WebSocketProvider = ({children}: any) => {
               (element) => new Elements(element.id, element.votes, 0,
                 (element.votesRound == 0) ?
                 (socket!.send(
-                    getLockElementRequest(loginData.sessionId, element.id)),
+                    getUpdateElementRequest(loginData.sessionId, element.id,
+                      ElementState.Locked)),
                   ElementState.Locked) :
                 (socket!.send(
-                    getOngoingElementRequest(loginData.sessionId, element.id)),
+                    getUpdateElementRequest(loginData.sessionId, element.id,
+                      ElementState.Ongoing)),
                   ElementState.Ongoing)))})
   }
 

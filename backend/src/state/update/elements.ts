@@ -5,11 +5,12 @@ import {executeInsert, executeUpdate, executeDelete} from '../../db/queries';
  * Adds an element to the database.
  * @param {string} sessionId The session id.
  * @param {string} elementId The element id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function addElement(
     sessionId: string,
     elementId: string,
+    stateId: Number,
     client: Client) {
   console.log(
       '[Magic] Received add element message: %s, %s',
@@ -21,8 +22,8 @@ export async function addElement(
     'votes, ' +
     'votes_round, ' +
     'state) ' +
-    'VALUES($1, $2, 0, 0, \'ongoing\')';
-  executeInsert(client, query, [sessionId, elementId])
+    'VALUES($1, $2, 0, 0, $3)';
+  executeInsert(client, query, [sessionId, elementId, stateId])
       .catch((err) => console.error('[Magic] Processing received add ' +
       'element message failed: %s', err));
 }
@@ -31,7 +32,7 @@ export async function addElement(
  * Deletes an element from the database.
  * @param {string} sessionId The session id.
  * @param {string} elementId The element id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function delElement(
     sessionId: string,
@@ -51,7 +52,7 @@ export async function delElement(
  * Resets an element stored in the database.
  * @param {string} sessionId The session id.
  * @param {string} elementId The element id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function resetElement(
     sessionId: string,
@@ -62,7 +63,7 @@ export async function resetElement(
       sessionId,
       elementId);
   const query = 'UPDATE elements SET ' +
-    'state=\'ongoing\',' +
+    'state=\'Ongoing\',' +
     'updated_at=now(),' +
     'WHERE session_id = $1 AND element_id = $2';
   executeUpdate(client, query, [sessionId, elementId])
@@ -73,92 +74,25 @@ export async function resetElement(
 /**
  * Agrees an element stored in the database.
  * @param {string} sessionId The session id.
- * @param {string} elementId The element id.
- * @param {string} client The database client.
+ * @param {Number} elementId The element id.
+ * @param {Number} stateId The state id.
+ * @param {Client} client The database client.
  */
-export async function agreeElement(
+export async function updateElement(
     sessionId: string,
     elementId: string,
+    stateId: Number,
     client: Client) {
   console.log(
-      '[Magic] Received agree element message: %s, %s',
+      '[Magic] Update element message: %s, %s',
       sessionId,
       elementId);
   const query = 'UPDATE elements SET ' +
-    'state=\'agreed\', ' +
+    'state = $3, ' +
     'updated_at=now() ' +
     'WHERE session_id = $1 AND element_id = $2';
-  executeUpdate(client, query, [sessionId, elementId])
+  executeUpdate(client, query, [sessionId, elementId, stateId])
       .catch((err) => console.error('[Magic] Processing agree element ' +
-      'message failed: %s', err));
-}
-
-/**
- * Disbutes an element stored in the database.
- * @param {string} sessionId The session id.
- * @param {string} elementId The element id.
- * @param {string} client The database client.
- */
-export async function disbuteElement(
-    sessionId: string,
-    elementId: string,
-    client: Client) {
-  console.log(
-      '[Magic] Received disbute element message: %s, %s',
-      sessionId,
-      elementId);
-  const query = 'UPDATE elements SET ' +
-    'state=\'disbuted\',' +
-    'updated_at=now()' +
-    'WHERE session_id = $1 AND element_id = $2';
-  executeUpdate(client, query, [sessionId, elementId])
-      .catch((err) => console.error('[Magic] Processing disbute element ' +
-      'message failed: %s', err));
-}
-
-/**
- * Locks an element stored in the database.
- * @param {string} sessionId The session id.
- * @param {string} elementId The element id.
- * @param {string} client The database client.
- */
-export async function lockElement(
-    sessionId: string,
-    elementId: string,
-    client: Client) {
-  console.log(
-      '[Magic] Received lock element message: %s, %s',
-      sessionId,
-      elementId);
-  const query = 'UPDATE elements SET ' +
-    ' state=\'locked\', ' +
-    'updated_at=now() ' +
-    'WHERE session_id = $1 AND element_id = $2';
-  executeUpdate(client, query, [sessionId, elementId])
-      .catch((err) => console.error('[Magic] Processing lock element ' +
-      'message failed: %s', err));
-}
-
-/**
- * Ongoes an element stored in the database.
- * @param {string} sessionId The session id.
- * @param {string} elementId The element id.
- * @param {string} client The database client.
- */
-export async function ongoingElement(
-    sessionId: string,
-    elementId: string,
-    client: Client) {
-  console.log(
-      '[Magic] Received ongoing element message: %s, %s',
-      sessionId,
-      elementId);
-  const query = 'UPDATE elements SET ' +
-    'state=\'ongoing\', ' +
-    'updated_at=now() ' +
-    'WHERE sessionId = $1 AND elementId = $2';
-  executeUpdate(client, query, [sessionId, elementId])
-      .catch((err) => console.error('[Magic] Processing ongoing element ' +
       'message failed: %s', err));
 }
 
@@ -166,7 +100,7 @@ export async function ongoingElement(
  * Upvotes an element stored in the database.
  * @param {string} sessionId The session id.
  * @param {string} elementId The element id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function upvoteElement(
     sessionId: string,
@@ -190,7 +124,7 @@ export async function upvoteElement(
  * Downvotes an element stored in the database.
  * @param {string} sessionId The session id.
  * @param {string} elementId The element id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function downvoteElement(
     sessionId: string,

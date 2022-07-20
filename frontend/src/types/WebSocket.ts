@@ -103,17 +103,13 @@ export type WebsocketMessage =
   | NotLoggedInMessage
   | LoginMessage
   | AddElementMessage
+  | UpdateElementMessage
   | DelElementMessage
   | UpvoteElementMessage
   | DownvoteElementMessage
   | AddVoteMessage
   | UpdateVoteMessage
   | RemoveVoteMessage
-  | ResetElementMessage
-  | AgreeElementMessage
-  | DisbuteElementMessage
-  | LockElementMessage
-  | OngoingElementMessage
   | ClearVotesMessage
   | InitRoundsMessage
   | AddRoundsMessage
@@ -134,6 +130,16 @@ export interface AddElementMessage {
   payload: {
     session: string;
     element: string;
+  };
+}
+
+
+export interface UpdateElementMessage {
+  type: 'updateElement';
+  payload: {
+    session: string;
+    element: string;
+    state: number;
   };
 }
 
@@ -193,46 +199,6 @@ export interface RemoveVoteMessage {
     element: string;
     user: string;
     color: string;
-  };
-}
-
-export interface ResetElementMessage {
-  type: 'resetElement';
-  payload: {
-    session: string;
-    element: string;
-  };
-}
-
-export interface AgreeElementMessage {
-  type: 'agreeElement';
-  payload: {
-    session: string;
-    element: string;
-  };
-}
-
-export interface DisbuteElementMessage {
-  type: 'disbuteElement';
-  payload: {
-    session: string;
-    element: string;
-  };
-}
-
-export interface LockElementMessage {
-  type: 'lockElement';
-  payload: {
-    session: string;
-    element: string;
-  };
-}
-
-export interface OngoingElementMessage {
-  type: 'ongoingElement';
-  payload: {
-    session: string;
-    element: string;
   };
 }
 

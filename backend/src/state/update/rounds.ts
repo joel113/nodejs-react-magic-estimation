@@ -4,7 +4,7 @@ import {executeUpdate, executeInsert} from '../../db/queries';
 /**
  * Clears all votes from the database for a given session.
  * @param {string} sessionId The session id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function clearVotes(sessionId: string, client: Client) {
   const query = 'UPDATE elements set ' +
@@ -18,7 +18,7 @@ export async function clearVotes(sessionId: string, client: Client) {
 /**
  * Initializes the rounds for a given session.
  * @param {string} sessionId The session id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function initRounds(sessionId: string, client: Client) {
   console.log('[Magic] Received init rounds message: %s', sessionId);
@@ -32,7 +32,7 @@ export async function initRounds(sessionId: string, client: Client) {
 /**
  * Adds around to a session.
  * @param {string} sessionId The session id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function addRound(sessionId: string, client: Client) {
   console.log('[Magic] Received add round message: %s', sessionId);
@@ -48,7 +48,7 @@ export async function addRound(sessionId: string, client: Client) {
 /**
  * Switches to next round of a session.
  * @param {string} sessionId The session id.
- * @param {string} client The database client.
+ * @param {Client} client The database client.
  */
 export async function nextRound(sessionId: string, client: Client) {
   console.log('[Magic] Received next round message: %s', sessionId);

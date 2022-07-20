@@ -19,6 +19,16 @@ export const getAddElementRequest = (session: string, element: string) =>
     },
   });
 
+  export const getUpdateElementRequest = (session: string, element: string, state: number) =>
+  buildRequest({
+    type: 'updateElement',
+    payload: {
+      session,
+      element,
+      state
+    },
+  });
+
 export const getDelElementRequest = (session: string, element: string) =>
   buildRequest({
     type: 'delElement',
@@ -97,51 +107,6 @@ export const getRemoveVoteRequest = (session: string,
       element,
       user,
       color,
-    },
-  });
-
-export const getResetElementRequest = (session: string, element: string) =>
-  buildRequest({
-    type: 'resetElement',
-    payload: {
-      session,
-      element,
-    },
-  });
-
-export const getAgreeElementRequest = (session: string, element: string) =>
-  buildRequest({
-    type: 'agreeElement',
-    payload: {
-      session,
-      element,
-    },
-  });
-
-export const getDisbuteElementRequest = (session: string, element: string) =>
-  buildRequest({
-    type: 'disbuteElement',
-    payload: {
-      session,
-      element,
-    },
-  });
-
-export const getLockElementRequest = (session: string, element: string) =>
-  buildRequest({
-    type: 'lockElement',
-    payload: {
-      session,
-      element,
-    },
-  });
-
-export const getOngoingElementRequest = (session: string, element: string) =>
-  buildRequest({
-    type: 'ongoingElement',
-    payload: {
-      session,
-      element,
     },
   });
 

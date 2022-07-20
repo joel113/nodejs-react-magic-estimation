@@ -4,14 +4,12 @@ CREATE DATABASE magic;
 
 GRANT ALL PRIVILEGES ON DATABASE magic TO magic;
 
-CREATE TYPE element_state AS ENUM('ongoing','disbuted','agreed','locked');
-
 CREATE TABLE elements (
     session_id char(8) NOT NULL,
     element_id varchar(255) NOT NULL,
     votes integer not null,
     votes_round integer not null,
-    state element_state not null,
+    state integer not null,
     created_at timestamp not null DEFAULT Now(),
     updated_at timestamp not null DEFAULT Now(),
     PRIMARY KEY(session_id, element_id));
