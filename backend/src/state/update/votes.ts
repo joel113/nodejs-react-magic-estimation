@@ -19,10 +19,10 @@ export async function addVote(sessionId: string,
       sessionId,
       elementId,
       userId);
-  const updateVotes = 'INSERT INTO' +
-    'votes (session_id, user_id, color, votes, updated_at, created_at)' +
-    'VALUES($1, $2, $3, 1, now(), now())';
-  executeInsert(client, updateVotes, [sessionId, userId, color])
+  const updateVotes = 'INSERT INTO ' +
+    'votes (session_id, user_id, element_id, color, votes, updated_at, created_at)' +
+    'VALUES($1, $2, $3, $4, 1, now(), now())';
+  executeInsert(client, updateVotes, [sessionId, userId, elementId, color])
       .catch((err) =>
         console.error('[Magic] Processing add vote message failed: %s', err));
 }
@@ -48,9 +48,9 @@ export async function updateVote(sessionId: string,
       elementId,
       userId,
       votes);
-  const updateVotes = 'UPDATE votes SET votes=$4, updated_at=now()' +
-    'WHERE session_id=$1, user_id=$2, element_id=$3';
-  executeUpdate(client, updateVotes, [sessionId, userId, color])
+  const updateVotes = 'UPDATE votes SET votes=$4, updated_at=now() ' +
+    'WHERE session_id=$1 AND user_id=$2 AND element_id=$3';
+  executeUpdate(client, updateVotes, [sessionId, userId, elementId, votes])
       .catch((err) =>
         console.error(
             '[Magic] Processing update vote message failed: %s', err));
@@ -75,7 +75,7 @@ export async function removeVote(sessionId: string,
       elementId,
       userId);
   const updateVotes = 'DELETE FROM votes' +
-    'WHERE session_id=$1, user_id=$2, element_id=$3';
+    'WHERE session_id=$1 AND user_id=$2 AND element_id=$3';
   executeInsert(client, updateVotes, [sessionId, userId, color])
       .catch((err) =>
         console.error(

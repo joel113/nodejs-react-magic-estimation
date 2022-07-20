@@ -24,13 +24,17 @@ export const getAddElementRequest = (session: string,
 
   export const getUpdateElementRequest = (session: string,
     element: string,
-    state: number) =>
+    state: number,
+    votes: number,
+    votesround: number) =>
   buildRequest({
     type: 'updateElement',
     payload: {
       session,
       element,
-      state
+      state,
+      votes,
+      votesround
     },
   });
 
@@ -40,34 +44,6 @@ export const getDelElementRequest = (session: string, element: string) =>
     payload: {
       session,
       element,
-    },
-  });
-
-export const getUpvoteElementRequest = (session: string,
-    element: string,
-    user: string,
-    color: string) =>
-  buildRequest({
-    type: 'upvoteElement',
-    payload: {
-      session,
-      element,
-      user,
-      color,
-    },
-  });
-
-export const getDownvoteElementRequest = (session: string,
-    element: string,
-    user: string,
-    color: string) =>
-  buildRequest({
-    type: 'downvoteElement',
-    payload: {
-      session,
-      element,
-      user,
-      color,
     },
   });
 

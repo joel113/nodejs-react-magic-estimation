@@ -5,8 +5,6 @@ import {
   getLoginRequest,
   getAddElementRequest,
   getDelElementRequest,
-  getUpvoteElementRequest,
-  getDownvoteElementRequest,
   getClearVotesRequest,
   getInitRoundsRequest,
   getAddRoundRequest,
@@ -49,8 +47,7 @@ export const WebSocketContext = createContext<WebSocketApi>({
   addElement: doNothing,
   updateElement: doNothing,
   delElement: doNothing,
-  upvoteElement: doNothing,
-  downvoteElement: doNothing,
+  updateVote: doNothing,
   clearVotes: doNothing,
   addRound: doNothing,
   nextRound: doNothing,
@@ -119,117 +116,70 @@ export const WebSocketProvider = ({children}: any) => {
     });
   }
 
-  const addElement = (elementId: string, stateId: number) => {
+  const addElement = (elementId: string, elementState: number, votes: number,
+    votes_round: number) => {
+    setState({...state,
+      elementVotes: [...state.elementVotes,
+        new Elements(elementId, votes, votes_round, elementState)]},
+    );
     socket!.send(getAddElementRequest(loginData.sessionId,
       elementId,
-      stateId));
-    setState({...state,
-      elementVotes: [...state.elementVotes,
-        new Elements(elementId, 0, 0, ElementState.Ongoing)]},
-    )
+      elementState));
   }
 
-  const updateElement = (elementId: string, stateId: number) => {
+  const updateElement = (elementId: string,
+    elementState: number,
+    votes: number,
+    votes_round: number) => {
+    setState({...state, elementVotes: state.elementVotes.map(
+      (element) => element.id == elementId ? 
+        new Elements(elementId, 99, votes_round, elementState) : element )});
     socket!.send(getUpdateElementRequest(loginData.sessionId,
       elementId,
-      stateId));
-    setState({...state,
-      elementVotes: [...state.elementVotes,
-        new Elements(elementId, 0, 0, ElementState.Ongoing)]},
-    )
+      elementState,
+      votes,
+      votes_round));
   }
 
   const delElement = (elementId: string) => {
-    socket!.send(getDelElementRequest(loginData.sessionId, elementId));
     setState({...state,
       elementVotes: state.elementVotes.filter(
-          (value) => value.id != elementId)})
+          (value) => value.id != elementId)});
+    socket!.send(getDelElementRequest(loginData.sessionId, elementId));
   }
 
-  const upvoteElement = (elementId: string) => {
-    socket!.send(
-        getUpvoteElementRequest(loginData.sessionId,
-            elementId,
-            loginData.user,
-            loginData.color));
-    voteElement(elementId, 1);
-  }
-
-  const downvoteElement = (elementId: string) => {
-    socket!.send(
-        getDownvoteElementRequest(loginData.sessionId,
-            elementId,
-            loginData.user,
-            loginData.color));
-    voteElement(elementId, -1);
-  }
-
-  const voteElement = (elementId: string, vote: number) => {
-    const elementVotes = state.elementVotes.map(
-        (element) => element.id == elementId ?
-                new Elements(
-                    elementId,
-                    element.votes + vote,
-                    element.votesRound + vote,
-                    (state.userVotes.findIndex(
-                        (userVote) =>
-                          userVote.elementId == elementId &&
-                            userVote.userId != loginData.user &&
-                              userVote.vote + vote == 0) >= 0) ?
-                              (socket!.send(
-                                  getUpdateElementRequest(
-                                      loginData.sessionId,
-                                      elementId,
-                                      ElementState.Disbuted)), 
-                                      ElementState.Disbuted) :
-                              (socket!.send(
-                                  getUpdateElementRequest(
-                                      loginData.sessionId,
-                                      elementId,
-                                      ElementState.Agreed)),
-                                      ElementState.Agreed)) :
-                element);
-
-    const userVoteLength = state.userVotes.filter(
+  const updateVote = (elementId: string, vote: number) => {
+    const userVoteIndex = state.userVotes.findIndex(
         (element) =>
-          element.elementId == elementId &&
-           element.userId == loginData.user).length;
-
-    if (userVoteLength > 0) {
-      const userVoteIndex = state.userVotes.findIndex(
-          (element) =>
-            element.elementId == elementId &&
-              element.userId == loginData.user);
-      if (userVoteIndex > -1) {
-        const userVote = state.userVotes.splice(userVoteIndex, 1)[0];
-        if (userVote.vote + vote == 0) {
-          setState({...state, elementVotes: elementVotes});
-                    socket!.send(
-                        getRemoveVoteRequest(
-                            loginData.sessionId,
-                            elementId,
-                            loginData.user,
-                            loginData.color));
-        } else {
-          setState({...state,
-            elementVotes: elementVotes,
-            userVotes: [...state.userVotes,
-              new Votes(userVote.userId,
-                  userVote.userColor,
-                  userVote.elementId,
-                  userVote.vote + vote)]});
-                    socket!.send(
-                        getUpdateVoteRequest(loginData.sessionId,
-                            elementId,
-                            loginData.user,
-                            userVote.vote + vote,
-                            loginData.color));
-        }
+          element.elementid == elementId &&
+            element.userid == loginData.user);
+    if (userVoteIndex > -1) {
+      const userVote = state.userVotes.splice(userVoteIndex, 1)[0];
+      if (userVote.vote + vote == 0) {
+        setState({...state});
+        socket!.send(
+            getRemoveVoteRequest(
+                loginData.sessionId,
+                elementId,
+                loginData.user,
+                loginData.color));
+      } else {
+        setState({...state,
+          userVotes: [...state.userVotes,
+            new Votes(userVote.userid,
+                userVote.usercolor,
+                userVote.elementid,
+                userVote.vote + vote)]});
+        socket!.send(
+            getUpdateVoteRequest(loginData.sessionId,
+                elementId,
+                loginData.user,
+                userVote.vote + vote,
+                loginData.color));
       }
     } else {
       setState(
           {...state,
-            elementVotes: elementVotes,
             userVotes: [...state.userVotes,
               new Votes(loginData.user, loginData.color, elementId, vote)]});
       socket!.send(getAddVoteRequest(loginData.sessionId,
@@ -252,18 +202,8 @@ export const WebSocketProvider = ({children}: any) => {
   const nextRound = () => {
         socket!.send(getNextRoundRequest(loginData.sessionId));
         setState({...state,
-          roundsActive: state.roundsActive + 1,
-          elementVotes: state.elementVotes.map(
-              (element) => new Elements(element.id, element.votes, 0,
-                (element.votesRound == 0) ?
-                (socket!.send(
-                    getUpdateElementRequest(loginData.sessionId, element.id,
-                      ElementState.Locked)),
-                  ElementState.Locked) :
-                (socket!.send(
-                    getUpdateElementRequest(loginData.sessionId, element.id,
-                      ElementState.Ongoing)),
-                  ElementState.Ongoing)))})
+          roundsActive: state.roundsActive + 1
+        })
   }
 
   const value: WebSocketApi = {
@@ -275,8 +215,7 @@ export const WebSocketProvider = ({children}: any) => {
     addElement,
     updateElement,
     delElement,
-    upvoteElement,
-    downvoteElement,
+    updateVote,
     clearVotes,
     addRound,
     nextRound,

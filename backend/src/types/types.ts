@@ -4,6 +4,7 @@ export interface Payload {
   session?: string;
   element?: string;
   votes?: number;
+  votesround?: number;
   state?: number;
 }
 

@@ -76,12 +76,16 @@ export async function resetElement(
  * @param {string} sessionId The session id.
  * @param {Number} elementId The element id.
  * @param {Number} stateId The state id.
+ * @param {Number} votes The votes of the element.
+ * @param {Number} votesRound The votes of the element in the round.
  * @param {Client} client The database client.
  */
 export async function updateElement(
     sessionId: string,
     elementId: string,
     stateId: Number,
+    votes: Number,
+    votesRound: Number,
     client: Client) {
   console.log(
       '[Magic] Update element message: %s, %s',
@@ -89,9 +93,11 @@ export async function updateElement(
       elementId);
   const query = 'UPDATE elements SET ' +
     'state = $3, ' +
+    'votes = $4, ' +
+    'votes_round = $5, ' +
     'updated_at=now() ' +
     'WHERE session_id = $1 AND element_id = $2';
-  executeUpdate(client, query, [sessionId, elementId, stateId])
+  executeUpdate(client, query, [sessionId, elementId, stateId, votes, votesRound])
       .catch((err) => console.error('[Magic] Processing agree element ' +
       'message failed: %s', err));
 }

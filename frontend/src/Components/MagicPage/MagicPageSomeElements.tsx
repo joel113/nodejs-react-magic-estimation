@@ -43,7 +43,9 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   className={classes.logoImage}
                                   onClick={() => {
                                     socket.updateElement(elementVote.id,
-                                      ElementState.Disbuted)
+                                      ElementState.Disbuted,
+                                      elementVote.votes,
+                                      elementVote.votesround)
                                   }} />
                 }
                 {elementVote.state == ElementState.Disbuted &&
@@ -52,7 +54,9 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   className={classes.logoImage}
                                   onClick={() => {
                                     socket.updateElement(elementVote.id,
-                                      ElementState.Agreed)
+                                      ElementState.Agreed,
+                                      elementVote.votes,
+                                      elementVote.votesround)
                                   }} />
                 }
                 {elementVote.state == ElementState.Agreed &&
@@ -60,7 +64,9 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   alt={ALT_AGREE_LOGO}
                                   className={classes.logoImage} onClick={() => {
                                     socket.updateElement(elementVote.id,
-                                      ElementState.Ongoing)
+                                      ElementState.Ongoing,
+                                      elementVote.votes,
+                                      elementVote.votesround)
                                   }} />
                 }
                 {elementVote.state == ElementState.Locked &&
@@ -69,7 +75,9 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   className={classes.logoImage}
                                   onClick={() => {
                                     socket.updateElement(elementVote.id,
-                                      ElementState.Ongoing)
+                                      ElementState.Ongoing,
+                                      elementVote.votes,
+                                      elementVote.votesround)
                                   }} />
                 }
               </td>
@@ -79,7 +87,11 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   alt={ALT_UP_LOGO}
                                   className={classes.logoImage}
                                   onClick={() => {
-                                    socket.upvoteElement(elementVote.id)
+                                    socket.updateElement(elementVote.id,
+                                      elementVote.state,
+                                      elementVote.votes + 1,
+                                      elementVote.votesround + 1)
+                                    socket.updateVote(elementVote.id, 1)
                                   }} />
                 }
               </td>
@@ -89,7 +101,11 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   alt={ALT_DOWN_LOGO}
                                   className={classes.logoImage}
                                   onClick={() => {
-                                    socket.downvoteElement(elementVote.id)
+                                    socket.updateElement(elementVote.id,
+                                      elementVote.state,
+                                      elementVote.votes - 1,
+                                      elementVote.votesround - 1)
+                                    socket.updateVote(elementVote.id, -1)
                                   }} />
                 }
               </td>
@@ -108,15 +124,15 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                   {socket.state.userVotes
                       .filter(
                           (userVote: Votes) =>
-                            userVote.elementId == elementVote.id)
+                            userVote.elementid == elementVote.id)
                       .map(
                           (userVote: Votes) => (
                             <div
-                              key={userVote.elementId}
+                              key={userVote.elementid}
                               className={classes.userVoteContainer}
-                              style={{backgroundColor: userVote.userColor}}>
+                              style={{backgroundColor: userVote.usercolor}}>
                               <div className={classes.userVote}>
-                                <div>{userVote.userId.substring(0, 1)}</div>
+                                <div>{userVote.userid.substring(0, 1)}</div>
                               </div>
                             </div>
                           ),

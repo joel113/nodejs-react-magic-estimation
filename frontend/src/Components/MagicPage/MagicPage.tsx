@@ -22,7 +22,7 @@ const ProtoMagicPage = ({socket}: { socket: WebSocketApi }) => {
       <div className={classes.magicPageAddElements}>
         <form onSubmit={(event) => {
           event.preventDefault();
-          socket.addElement(newElement, ElementState.Ongoing);
+          socket.addElement(newElement, ElementState.Ongoing, 0, 0);
         }} className={classes.magicPageAddElementsForm}>
           <input id="newElement"
             type="text"

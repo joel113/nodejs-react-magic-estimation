@@ -31,16 +31,14 @@ export const onMessage = async (message: Message, client: Client) => {
           message.payload!.element!,
           client);
         break;
-      case 'upvoteElement':
-        await upvoteElement(message.payload!.session!,
-          message.payload!.element!,
-          client);
-        break;
-      case 'downvoteElement':
-        await downvoteElement(message.payload!.session!,
-          message.payload!.element!,
-          client)
-        break;
+        case 'updateElement':
+          await updateElement(message.payload!.session!,
+            message.payload!.element!,
+            message.payload!.state!,
+            message.payload!.votes!,
+            message.payload!.votesround!,
+            client)
+          break;
       case 'addVote':
         await addVote(message.payload!.session!,
           message.payload!.element!,
@@ -61,12 +59,6 @@ export const onMessage = async (message: Message, client: Client) => {
           message.payload!.element!,
           message.payload!.user!,
           message.payload!.color!,
-          client)
-        break;
-      case 'updateElement':
-        await updateElement(message.payload!.session!,
-          message.payload!.element!,
-          message.payload!.state!,
           client)
         break;
       case 'clearVotes':

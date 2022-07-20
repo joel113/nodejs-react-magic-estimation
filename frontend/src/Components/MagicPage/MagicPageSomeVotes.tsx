@@ -12,23 +12,23 @@ const ProtoMagicPageUserVotes = ({socket}: {socket: WebSocketApi}) => {
       </tr>
       {socket.state.userVotes.map(
           (userVote: Votes) => (
-            <tr key={userVote.elementId}>
+            <tr key={userVote.elementid}>
               <td>
                 <div className={classes.userVoteNameContainer}>
                   <div className={classes.userVoteContainer}
-                    style={{backgroundColor: userVote.userColor}}>
+                    style={{backgroundColor: userVote.usercolor}}>
                     <div className={classes.userVote}>
-                      <div>{userVote.userId.substring(0, 1)}</div>
+                      <div>{userVote.userid.substring(0, 1)}</div>
                     </div>
                   </div>
                   <div className={classes.userNameContainer}>
                     <div className={classes.userName}>
-                      <div>{userVote.userId}</div>
+                      <div>{userVote.userid}</div>
                     </div>
                   </div>
                 </div>
               </td>
-              <td>{userVote.elementId}</td>
+              <td>{userVote.elementid}</td>
               <td>{userVote.vote}</td>
             </tr>
           ),

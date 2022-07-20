@@ -17,8 +17,8 @@ CREATE TABLE elements (
 CREATE TABLE votes (
     session_id char(8) NOT NULL,
     user_id char(8) not null,
-    element_id integer not null,
-    color integer not null,
+    element_id varchar(255) not null,
+    color varchar(255) not null,
     votes integer not null,
     created_at timestamp not null DEFAULT Now(),
     updated_at timestamp not null DEFAULT Now(),

@@ -4,14 +4,14 @@
 export class Elements {
   id: string;
   votes: number;
-  votesRound: number;
+  votesround: number;
   state: ElementState;
 
   /**
    * Constructs an element
    * @param {string} id of the element
    * @param {number} votes number of votes
-   * @param {number} votesRound number of votes in the current round
+   * @param {number} votesround number of votes in the current round
    * @param {ElementState} state state of the element
    */
   constructor(id: string,
@@ -20,7 +20,7 @@ export class Elements {
       state: ElementState) {
     this.id = id;
     this.votes = votes;
-    this.votesRound = votesRound;
+    this.votesround = votesRound;
     this.state = state;
   }
 }
@@ -40,25 +40,25 @@ export enum ElementState {
  * Represents the votes of a user to an element
  */
 export class Votes {
-  userId: string;
-  userColor: string;
-  elementId: string;
+  userid: string;
+  usercolor: string;
+  elementid: string;
   vote: number;
 
   /**
    * Constructs a vote
    * @param {string} userId of the vote
-   * @param {userColor} userColor of the user giving the vote
-   * @param {string} elementId of the vote
+   * @param {userColor} usercolor of the user giving the vote
+   * @param {string} elementid of the vote
    * @param {number} vote number of the votes
    */
   constructor(userId: string,
       userColor: string,
       elementId: string,
       vote: number) {
-    this.userId = userId;
-    this.userColor = userColor;
-    this.elementId = elementId;
+    this.userid = userId;
+    this.usercolor = userColor;
+    this.elementid = elementId;
     this.vote = vote;
   }
 }
@@ -68,11 +68,12 @@ export interface WebSocketApi {
   state: WebSocketState;
   loginData: WebSocketLoginData;
   loggedIn: boolean;
-  addElement(element: string, stateId: number): void;
-  updateElement(element: string, stateId: number): void;
+  addElement(element: string, elementState: number, votes: number,
+    votesRound: number): void;
+  updateElement(element: string, elementState: number, votes: number,
+    votesRound: number): void;
   delElement(element: string): void;
-  upvoteElement(element: string): void;
-  downvoteElement(element: string): void;
+  updateVote(element: string, vote: number): void;
   clearVotes(): void;
   addRound(): void;
   nextRound(): void;
@@ -102,8 +103,6 @@ export type WebsocketMessage =
   | AddElementMessage
   | UpdateElementMessage
   | DelElementMessage
-  | UpvoteElementMessage
-  | DownvoteElementMessage
   | AddVoteMessage
   | UpdateVoteMessage
   | RemoveVoteMessage
@@ -138,6 +137,8 @@ export interface UpdateElementMessage {
     session: string;
     element: string;
     state: number;
+    votes: number;
+    votesround: number;
   };
 }
 
@@ -146,26 +147,6 @@ export interface DelElementMessage {
   payload: {
     session: string;
     element: string;
-  };
-}
-
-export interface UpvoteElementMessage {
-  type: 'upvoteElement';
-  payload: {
-    session: string;
-    element: string;
-    user: string;
-    color: string;
-  };
-}
-
-export interface DownvoteElementMessage {
-  type: 'downvoteElement';
-  payload: {
-    session: string;
-    element: string;
-    user: string;
-    color: string;
   };
 }
 
