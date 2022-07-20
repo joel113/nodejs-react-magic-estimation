@@ -10,16 +10,21 @@ export const getLoginRequest = (user: string, color: string, session: string) =>
     },
   });
 
-export const getAddElementRequest = (session: string, element: string) =>
+export const getAddElementRequest = (session: string,
+  element: string,
+  state: number) =>
   buildRequest({
     type: 'addElement',
     payload: {
       session,
       element,
+      state,
     },
   });
 
-  export const getUpdateElementRequest = (session: string, element: string, state: number) =>
+  export const getUpdateElementRequest = (session: string,
+    element: string,
+    state: number) =>
   buildRequest({
     type: 'updateElement',
     payload: {

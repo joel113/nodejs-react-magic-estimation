@@ -68,12 +68,9 @@ export interface WebSocketApi {
   state: WebSocketState;
   loginData: WebSocketLoginData;
   loggedIn: boolean;
-  addElement(element: string): void;
+  addElement(element: string, stateId: number): void;
+  updateElement(element: string, stateId: number): void;
   delElement(element: string): void;
-  resetElement(element: string): void;
-  agreeElement(element: string): void;
-  disbuteElement(element: string): void;
-  lockElement(element: string): void;
   upvoteElement(element: string): void;
   downvoteElement(element: string): void;
   clearVotes(): void;
@@ -130,6 +127,7 @@ export interface AddElementMessage {
   payload: {
     session: string;
     element: string;
+    state: number;
   };
 }
 

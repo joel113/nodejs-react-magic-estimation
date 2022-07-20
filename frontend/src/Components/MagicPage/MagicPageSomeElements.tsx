@@ -42,7 +42,8 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   alt={ALT_ONGOING_LOGO}
                                   className={classes.logoImage}
                                   onClick={() => {
-                                    socket.disbuteElement(elementVote.id)
+                                    socket.updateElement(elementVote.id,
+                                      ElementState.Disbuted)
                                   }} />
                 }
                 {elementVote.state == ElementState.Disbuted &&
@@ -50,14 +51,16 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   alt={ALT_DISBUTE_LOGO}
                                   className={classes.logoImage}
                                   onClick={() => {
-                                    socket.agreeElement(elementVote.id)
+                                    socket.updateElement(elementVote.id,
+                                      ElementState.Agreed)
                                   }} />
                 }
                 {elementVote.state == ElementState.Agreed &&
                                 <img src={agreedImage}
                                   alt={ALT_AGREE_LOGO}
                                   className={classes.logoImage} onClick={() => {
-                                    socket.resetElement(elementVote.id)
+                                    socket.updateElement(elementVote.id,
+                                      ElementState.Ongoing)
                                   }} />
                 }
                 {elementVote.state == ElementState.Locked &&
@@ -65,7 +68,8 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
                                   alt={ALT_LOCKED_LOGO}
                                   className={classes.logoImage}
                                   onClick={() => {
-                                    socket.resetElement(elementVote.id)
+                                    socket.updateElement(elementVote.id,
+                                      ElementState.Ongoing)
                                   }} />
                 }
               </td>

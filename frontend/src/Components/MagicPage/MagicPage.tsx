@@ -7,6 +7,7 @@ import {MagicPageNoElements} from './MagicPageNoElements';
 import {MagicPageSomeVotes} from './MagicPageSomeVotes';
 import {MagicPageNoVotes} from './MagicPageNoVotes';
 import {MagicPageRounds} from './MagicPageRounds';
+import {ElementState} from '../../types/WebSocket';
 
 const ProtoMagicPage = ({socket}: { socket: WebSocketApi }) => {
   let newElement = '';
@@ -21,7 +22,7 @@ const ProtoMagicPage = ({socket}: { socket: WebSocketApi }) => {
       <div className={classes.magicPageAddElements}>
         <form onSubmit={(event) => {
           event.preventDefault();
-          socket.addElement(newElement);
+          socket.addElement(newElement, ElementState.Ongoing);
         }} className={classes.magicPageAddElementsForm}>
           <input id="newElement"
             type="text"
