@@ -23,7 +23,7 @@ export async function clearVotes(sessionId: string, client: Client) {
 export async function initRounds(sessionId: string, client: Client) {
   console.log('[Magic] Received init rounds message: %s', sessionId);
   const query = 'INSERT into rounds(session_id, rounds, round_active) ' +
-    'VALUES($1, 0, 0)';
+    'VALUES($1, 1, 1)';
   executeInsert(client, query, [sessionId])
       .catch((err) => console.error('[Magic] Processing init rounds ' +
         'message failed: %s', err));
