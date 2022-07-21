@@ -65,6 +65,10 @@ export const WebSocketProvider = ({children}: any) => {
   const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
+    connect();
+  }, []);
+
+  const connect = () => {
     if (!socket) {
       const webSocket = new WebSocket(WEBSOCKET_URL)
       console.log('[Magic] Connecting to web socket server %s', WEBSOCKET_URL)
@@ -97,11 +101,18 @@ export const WebSocketProvider = ({children}: any) => {
       webSocket.onclose = (event: CloseEvent) => {
         console.log(
             '[Magic] Connecting to web socket server closed: %s', event.code)
-        setSocket(null);
+        console.log(
+          '[Magic] Trying to reconnect to web socket server ' +
+          'after a timeout of 1 second')
+        // very simple implementation of reconnecting to the web socket server
+        // after the connection was lost
+        setTimeout(function() {
+          connect();
+        }, 1000);
       };
       setSocket(webSocket);
     }
-  }, []);
+  }
 
   const login = (user: string, color: string, sessionId: string) => {
     console.log('[Magic] Submiting login request to backend');
@@ -133,7 +144,7 @@ export const WebSocketProvider = ({children}: any) => {
     votes_round: number) => {
     setState({...state, elementVotes: state.elementVotes.map(
       (element) => element.id == elementId ? 
-        new Elements(elementId, 99, votes_round, elementState) : element )});
+        new Elements(elementId, votes, votes_round, elementState) : element )});
     socket!.send(getUpdateElementRequest(loginData.sessionId,
       elementId,
       elementState,

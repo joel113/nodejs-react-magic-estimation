@@ -254,6 +254,15 @@ https://stackoverflow.com/questions/43564517/websocket-connection-keeps-prematur
 
 https://github.com/netzwerg/typescript-websocket-example/blob/master/typescript-websocket-client/src/App.tsx
 
+The Magic application tries to automatically reconnect when the connection was
+lost. I followed the very simple approach of the following StackOverflow post:
+
+https://stackoverflow.com/questions/22431751/websocket-how-to-automatically-reconnect-after-it-dies
+
+The following GitHub project has a more elaborate approach:
+
+https://github.com/joewalnes/reconnecting-websocket
+
 ### Node.JS Node Postgres
 
 As the project uses Postgre, node postgre is used to access Postgre from the
