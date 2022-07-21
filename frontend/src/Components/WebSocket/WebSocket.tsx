@@ -13,6 +13,7 @@ import {
   getUpdateVoteRequest,
   getAddVoteRequest,
   getUpdateElementRequest,
+  getFullstateRequest,
 } from '../../requests/websocket-requests';
 import {
   ElementState,
@@ -47,7 +48,6 @@ export const WebSocketContext = createContext<WebSocketApi>({
   addElement: doNothing,
   updateElement: doNothing,
   delElement: doNothing,
-  updateVote: doNothing,
   clearVotes: doNothing,
   addRound: doNothing,
   nextRound: doNothing,
@@ -125,6 +125,7 @@ export const WebSocketProvider = ({children}: any) => {
       elementVotes: [],
       userVotes: [],
     });
+    socket!.send(getFullstateRequest(sessionId));
   }
 
   const addElement = (elementId: string, elementState: number, votes: number,
@@ -136,20 +137,80 @@ export const WebSocketProvider = ({children}: any) => {
     socket!.send(getAddElementRequest(loginData.sessionId,
       elementId,
       elementState));
+    socket!.send(getFullstateRequest(loginData.sessionId))
   }
 
+  /**
+   * Updates an element including a vote. Updating the state of a element
+   * and a vote is necessary as concurrent state updates did lead to race
+   * conditions.
+   * @param elementId {string} Element to be updated
+   * @param elementState {number} Updated or previous state
+   * @param votes {number} Number of votes
+   * @param votes_round {number} Number of votes_round
+   * @param vote {number} Vote update
+   */
   const updateElement = (elementId: string,
     elementState: number,
     votes: number,
-    votes_round: number) => {
-    setState({...state, elementVotes: state.elementVotes.map(
+    votes_round: number,
+    vote: number) => {
+
+    const elementVotes = state.elementVotes.map(
       (element) => element.id == elementId ? 
-        new Elements(elementId, votes, votes_round, elementState) : element )});
+        new Elements(elementId,
+          votes + vote,
+          votes_round + vote,
+          elementState) : element);
+
+    const userVoteIndex = state.userVotes.findIndex(
+      (element) =>
+        element.elementid == elementId &&
+          element.userid == loginData.user);
+
     socket!.send(getUpdateElementRequest(loginData.sessionId,
       elementId,
       elementState,
-      votes,
-      votes_round));
+      votes + vote,
+      votes_round + vote));
+
+    const userVotes = state.userVotes;
+
+    if (userVoteIndex > -1) {
+      const userVote = userVotes.splice(userVoteIndex, 1)[0];
+      if (userVote.vote + vote == 0) {
+        socket!.send(
+          getRemoveVoteRequest(
+            loginData.sessionId,
+            elementId,
+            loginData.user,
+            loginData.color));
+      } else {
+        userVotes.push(new Votes(userVote.userid,
+          userVote.usercolor,
+          userVote.elementid,
+          userVote.vote + vote))
+        socket!.send(
+          getUpdateVoteRequest(loginData.sessionId,
+            elementId,
+            loginData.user,
+            userVote.vote + vote,
+            loginData.color));
+      }
+    } else {
+      userVotes.push(new Votes(loginData.user,
+        loginData.color,
+        elementId,
+        vote))
+      socket!.send(getAddVoteRequest(loginData.sessionId,
+        elementId,
+        loginData.user,
+        loginData.color));
+    }
+
+    setState({...state, elementVotes: elementVotes, userVotes: userVotes});
+
+    socket!.send(getFullstateRequest(loginData.sessionId))
   }
 
   const delElement = (elementId: string) => {
@@ -157,64 +218,27 @@ export const WebSocketProvider = ({children}: any) => {
       elementVotes: state.elementVotes.filter(
           (value) => value.id != elementId)});
     socket!.send(getDelElementRequest(loginData.sessionId, elementId));
-  }
-
-  const updateVote = (elementId: string, vote: number) => {
-    const userVoteIndex = state.userVotes.findIndex(
-        (element) =>
-          element.elementid == elementId &&
-            element.userid == loginData.user);
-    if (userVoteIndex > -1) {
-      const userVote = state.userVotes.splice(userVoteIndex, 1)[0];
-      if (userVote.vote + vote == 0) {
-        setState({...state});
-        socket!.send(
-            getRemoveVoteRequest(
-                loginData.sessionId,
-                elementId,
-                loginData.user,
-                loginData.color));
-      } else {
-        setState({...state,
-          userVotes: [...state.userVotes,
-            new Votes(userVote.userid,
-                userVote.usercolor,
-                userVote.elementid,
-                userVote.vote + vote)]});
-        socket!.send(
-            getUpdateVoteRequest(loginData.sessionId,
-                elementId,
-                loginData.user,
-                userVote.vote + vote,
-                loginData.color));
-      }
-    } else {
-      setState(
-          {...state,
-            userVotes: [...state.userVotes,
-              new Votes(loginData.user, loginData.color, elementId, vote)]});
-      socket!.send(getAddVoteRequest(loginData.sessionId,
-          elementId,
-          loginData.user,
-          loginData.color));
-    }
+    socket!.send(getFullstateRequest(loginData.sessionId));
   }
 
   const clearVotes = () => {
-        socket!.send(getClearVotesRequest(loginData.sessionId));
-        setState({...state, userVotes: []})
+    socket!.send(getClearVotesRequest(loginData.sessionId));
+    setState({...state, userVotes: []})
+    socket!.send(getFullstateRequest(loginData.sessionId));
   }
 
   const addRound = () => {
-        socket!.send(getAddRoundRequest(loginData.sessionId));
-        setState({...state, rounds: state.rounds + 1})
+    socket!.send(getAddRoundRequest(loginData.sessionId));
+    setState({...state, rounds: state.rounds + 1})
+    socket!.send(getFullstateRequest(loginData.sessionId));
   }
 
   const nextRound = () => {
-        socket!.send(getNextRoundRequest(loginData.sessionId));
-        setState({...state,
-          roundsActive: state.roundsActive + 1
-        })
+    socket!.send(getNextRoundRequest(loginData.sessionId));
+    setState({...state,
+      roundsActive: state.roundsActive + 1
+    })
+    socket!.send(getFullstateRequest(loginData.sessionId));
   }
 
   const value: WebSocketApi = {
@@ -226,7 +250,6 @@ export const WebSocketProvider = ({children}: any) => {
     addElement,
     updateElement,
     delElement,
-    updateVote,
     clearVotes,
     addRound,
     nextRound,

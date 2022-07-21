@@ -123,4 +123,12 @@ export const getNextRoundRequest = (session: string) =>
     },
   });
 
+export const getFullstateRequest = (session: string) =>
+  buildRequest({
+    type: 'fullstate',
+    payload: {
+      session,
+    },
+  });
+
 const buildRequest = (data: WebsocketMessage) => JSON.stringify(data);

@@ -38,105 +38,109 @@ const ProtoMagicPageElements = ({socket}: {socket: WebSocketApi}) => {
               <td>{elementVote.votes}</td>
               <td>
                 {elementVote.state == ElementState.Ongoing &&
-                                <img src={ongoingImage}
-                                  alt={ALT_ONGOING_LOGO}
-                                  className={classes.logoImage}
-                                  onClick={() => {
-                                    socket.updateElement(elementVote.id,
-                                      ElementState.Disbuted,
-                                      elementVote.votes,
-                                      elementVote.votesround)
-                                  }} />
+                  <img src={ongoingImage}
+                    alt={ALT_ONGOING_LOGO}
+                    className={classes.logoImage}
+                    onClick={() => {
+                      socket.updateElement(elementVote.id,
+                        ElementState.Disbuted,
+                        elementVote.votes,
+                        elementVote.votesround,
+                        0)
+                    }} />
                 }
                 {elementVote.state == ElementState.Disbuted &&
-                                <img src={disbutedIamge}
-                                  alt={ALT_DISBUTE_LOGO}
-                                  className={classes.logoImage}
-                                  onClick={() => {
-                                    socket.updateElement(elementVote.id,
-                                      ElementState.Agreed,
-                                      elementVote.votes,
-                                      elementVote.votesround)
-                                  }} />
+                  <img src={disbutedIamge}
+                    alt={ALT_DISBUTE_LOGO}
+                    className={classes.logoImage}
+                    onClick={() => {
+                      socket.updateElement(elementVote.id,
+                        ElementState.Agreed,
+                        elementVote.votes,
+                        elementVote.votesround,
+                        0)
+                    }} />
                 }
                 {elementVote.state == ElementState.Agreed &&
-                                <img src={agreedImage}
-                                  alt={ALT_AGREE_LOGO}
-                                  className={classes.logoImage} onClick={() => {
-                                    socket.updateElement(elementVote.id,
-                                      ElementState.Ongoing,
-                                      elementVote.votes,
-                                      elementVote.votesround)
-                                  }} />
+                  <img src={agreedImage}
+                    alt={ALT_AGREE_LOGO}
+                    className={classes.logoImage} onClick={() => {
+                      socket.updateElement(elementVote.id,
+                        ElementState.Ongoing,
+                        elementVote.votes,
+                        elementVote.votesround,
+                        0)
+                    }} />
                 }
                 {elementVote.state == ElementState.Locked &&
-                                <img src={lockedImage}
-                                  alt={ALT_LOCKED_LOGO}
-                                  className={classes.logoImage}
-                                  onClick={() => {
-                                    socket.updateElement(elementVote.id,
-                                      ElementState.Ongoing,
-                                      elementVote.votes,
-                                      elementVote.votesround)
-                                  }} />
+                  <img src={lockedImage}
+                    alt={ALT_LOCKED_LOGO}
+                    className={classes.logoImage}
+                    onClick={() => {
+                      socket.updateElement(elementVote.id,
+                        ElementState.Ongoing,
+                        elementVote.votes,
+                        elementVote.votesround,
+                        0)
+                    }} />
                 }
               </td>
               <td>
                 {elementVote.state != ElementState.Locked &&
-                                <img src={upLogo}
-                                  alt={ALT_UP_LOGO}
-                                  className={classes.logoImage}
-                                  onClick={() => {
-                                    socket.updateElement(elementVote.id,
-                                      elementVote.state,
-                                      elementVote.votes + 1,
-                                      elementVote.votesround + 1)
-                                    socket.updateVote(elementVote.id, 1)
-                                  }} />
+                  <img src={upLogo}
+                    alt={ALT_UP_LOGO}
+                    className={classes.logoImage}
+                    onClick={() => {
+                      socket.updateElement(elementVote.id,
+                        elementVote.state,
+                        elementVote.votes,
+                        elementVote.votesround,
+                        1)
+                    }} />
                 }
               </td>
               <td>
                 {elementVote.state != ElementState.Locked &&
-                                <img src={downLogo}
-                                  alt={ALT_DOWN_LOGO}
-                                  className={classes.logoImage}
-                                  onClick={() => {
-                                    socket.updateElement(elementVote.id,
-                                      elementVote.state,
-                                      elementVote.votes - 1,
-                                      elementVote.votesround - 1)
-                                    socket.updateVote(elementVote.id, -1)
-                                  }} />
+                  <img src={downLogo}
+                    alt={ALT_DOWN_LOGO}
+                    className={classes.logoImage}
+                    onClick={() => {
+                      socket.updateElement(elementVote.id,
+                        elementVote.state,
+                        elementVote.votes,
+                        elementVote.votesround,
+                        -1);
+                    }} />
                 }
               </td>
               <td>
                 {elementVote.state != ElementState.Locked &&
-                                <img src={trashLogo}
-                                  alt={ALT_TRASH_LOGO}
-                                  className={classes.logoImage}
-                                  onClick={() => {
-                                    socket.delElement(elementVote.id)
-                                  }} />
+                  <img src={trashLogo}
+                    alt={ALT_TRASH_LOGO}
+                    className={classes.logoImage}
+                    onClick={() => {
+                      socket.delElement(elementVote.id)
+                    }} />
                 }
               </td>
               <td>
                 <div className={classes.userVotes}>
                   {socket.state.userVotes
-                      .filter(
-                          (userVote: Votes) =>
-                            userVote.elementid == elementVote.id)
-                      .map(
-                          (userVote: Votes) => (
-                            <div
-                              key={userVote.elementid}
-                              className={classes.userVoteContainer}
-                              style={{backgroundColor: userVote.usercolor}}>
-                              <div className={classes.userVote}>
-                                <div>{userVote.userid.substring(0, 1)}</div>
-                              </div>
+                    .filter(
+                        (userVote: Votes) =>
+                          userVote.elementid == elementVote.id)
+                    .map(
+                        (userVote: Votes) => (
+                          <div
+                            key={userVote.elementid}
+                            className={classes.userVoteContainer}
+                            style={{backgroundColor: userVote.usercolor}}>
+                            <div className={classes.userVote}>
+                              <div>{userVote.userid.substring(0, 1)}</div>
                             </div>
-                          ),
-                      )}
+                          </div>
+                        ),
+                    )}
                 </div>
               </td>
             </tr>

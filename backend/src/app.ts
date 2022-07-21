@@ -2,7 +2,6 @@ import {Client} from 'pg';
 import {WebSocketServer} from 'ws';
 import {WebSocketClients} from './clients/clients';
 import {onMessage} from './state/onmessage';
-import {fullstate} from './state/fullstate/fullstate';
 
 const client = new Client({host: 'localhost',
   port: 5432,
@@ -26,8 +25,7 @@ wss.on('connection', function connection(ws) {
       if (sessionId && userId) {
         wsClients.addClient(sessionId, ws)
       }
-      const result = onMessage(parsedMessage, client);
-      result.then((_) => wsClients.broadcast(sessionId, client, fullstate));
+      const result = onMessage(parsedMessage, client, wsClients, sessionId);
       return result;
     } catch (e) {
       console.log(

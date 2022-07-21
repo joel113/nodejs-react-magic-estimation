@@ -71,9 +71,8 @@ export interface WebSocketApi {
   addElement(element: string, elementState: number, votes: number,
     votesRound: number): void;
   updateElement(element: string, elementState: number, votes: number,
-    votesRound: number): void;
+    votesRound: number, vote: number): void;
   delElement(element: string): void;
-  updateVote(element: string, vote: number): void;
   clearVotes(): void;
   addRound(): void;
   nextRound(): void;
@@ -110,6 +109,7 @@ export type WebsocketMessage =
   | InitRoundsMessage
   | AddRoundsMessage
   | NextRoundMessage
+  | FullstateMessage
 
 
 export interface LoginMessage {
@@ -204,6 +204,13 @@ export interface AddRoundsMessage {
 
 export interface NextRoundMessage {
   type: 'nextRound';
+  payload: {
+    session: string;
+  };
+}
+
+export interface FullstateMessage {
+  type: 'fullstate';
   payload: {
     session: string;
   };
