@@ -17,8 +17,11 @@ export async function loginUser(userId: string,
       userId,
       color,
       sessionId);
-  const query = 'INSERT into users(session_id, user_id, color)' +
-    'VALUES($1, $2, $3)';
+  const query = 'INSERT into users(session_id, user_id, color) ' +
+    'VALUES($1, $2, $3) ' +
+    'ON CONFLICT (session_id, user_id) ' +
+    'DO ' +
+    'UPDATE SET color=$3';
   executeInsert(client, query, [sessionId, userId, color])
       .catch((err) => console.error(
           '[Magic] Processing login message failed: %s', err));
