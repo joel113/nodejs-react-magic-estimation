@@ -15,8 +15,8 @@ const ProtoMagicPage = ({socket}: { socket: WebSocketApi }) => {
     <div className={classes.magicPage}>
       <div className={classes.magicPageElements}>
         {Object.keys(socket.state.elementVotes).length > 0 ?
-                    <MagicPageSomeElements /> :
-                    <MagicPageNoElements />
+          <MagicPageSomeElements /> :
+          <MagicPageNoElements />
         }
       </div>
       <div className={classes.magicPageAddElements}>
@@ -44,8 +44,8 @@ const ProtoMagicPage = ({socket}: { socket: WebSocketApi }) => {
       </div>
       <div className={classes.magicPageUsers}>
         {Object.keys(socket.state.userVotes).length > 0 ?
-                    <MagicPageSomeVotes /> :
-                    <MagicPageNoVotes />
+          <MagicPageSomeVotes /> :
+          <MagicPageNoVotes />
         }
       </div>
       <div className={classes.magicPageAddElements}>

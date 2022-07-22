@@ -64,7 +64,6 @@ export const onMessage = async (message: Message,
         await removeVote(message.payload!.session!,
           message.payload!.element!,
           message.payload!.user!,
-          message.payload!.color!,
           client)
         break;
       case 'clearVotes':

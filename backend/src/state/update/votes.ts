@@ -1,5 +1,5 @@
 import {Client} from 'pg';
-import {executeInsert, executeUpdate} from '../../db/queries';
+import {executeInsert, executeUpdate, executeDelete} from '../../db/queries';
 
 /**
  * Adds a vote to the database.
@@ -61,22 +61,20 @@ export async function updateVote(sessionId: string,
  * @param {string} sessionId
  * @param {string} elementId
  * @param {string} userId
- * @param {string} color
  * @param {Client} client
  */
 export async function removeVote(sessionId: string,
     elementId: string,
     userId: string,
-    color: string,
     client: Client) {
   console.log(
       '[Magic] Received remove vote message: %s, %s, %s',
       sessionId,
       elementId,
       userId);
-  const updateVotes = 'DELETE FROM votes' +
+  const updateVotes = 'DELETE FROM votes ' +
     'WHERE session_id=$1 AND user_id=$2 AND element_id=$3';
-  executeInsert(client, updateVotes, [sessionId, userId, color])
+  executeDelete(client, updateVotes, [sessionId, userId, elementId])
       .catch((err) =>
         console.error(
             '[Magic] Processing remove vote message failed: %s', err));

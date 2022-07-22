@@ -16,7 +16,6 @@ import {
   getFullstateRequest,
 } from '../../requests/websocket-requests';
 import {
-  ElementState,
   Elements,
   Votes,
   WebSocketApi,
@@ -96,11 +95,11 @@ export const WebSocketProvider = ({children}: any) => {
       };
       webSocket.onerror = (event: Event) => {
         console.error(
-            '[Magic] Catched error when connecting to web socket server')
+          '[Magic] Catched error when connecting to web socket server')
       }
       webSocket.onclose = (event: CloseEvent) => {
         console.log(
-            '[Magic] Connecting to web socket server closed: %s', event.code)
+          '[Magic] Connecting to web socket server closed: %s', event.code)
         console.log(
           '[Magic] Trying to reconnect to web socket server ' +
           'after a timeout of 1 second')
