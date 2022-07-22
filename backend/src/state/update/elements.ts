@@ -22,7 +22,9 @@ export async function addElement(
     'votes, ' +
     'votes_round, ' +
     'state) ' +
-    'VALUES($1, $2, 0, 0, $3)';
+    'VALUES($1, $2, 0, 0, $3) ' + 
+    'ON CONFLICT(session_id, element_id)' +
+    'DO NOTHING';
   executeInsert(client, query, [sessionId, elementId, stateId])
       .catch((err) => console.error('[Magic] Processing received add ' +
       'element message failed: %s', err));

@@ -95,14 +95,14 @@ export const WebSocketProvider = ({children}: any) => {
       };
       webSocket.onerror = (event: Event) => {
         console.error(
-          '[Magic] Catched error when connecting to web socket server')
+          '[Magic] Catched error when connecting to web socket server');
       }
       webSocket.onclose = (event: CloseEvent) => {
         console.log(
-          '[Magic] Connecting to web socket server closed: %s', event.code)
+          '[Magic] Connecting to web socket server closed: %s', event.code);
         console.log(
           '[Magic] Trying to reconnect to web socket server ' +
-          'after a timeout of 1 second')
+          'after a timeout of 1 second');
         // very simple implementation of reconnecting to the web socket server
         // after the connection was lost
         setTimeout(function() {
@@ -129,14 +129,25 @@ export const WebSocketProvider = ({children}: any) => {
 
   const addElement = (elementId: string, elementState: number, votes: number,
     votes_round: number) => {
-    setState({...state,
-      elementVotes: [...state.elementVotes,
-        new Elements(elementId, votes, votes_round, elementState)]},
-    );
-    socket!.send(getAddElementRequest(loginData.sessionId,
-      elementId,
-      elementState));
-    socket!.send(getFullstateRequest(loginData.sessionId))
+
+    const elementIndex = state.elementVotes.findIndex(
+      (element) =>
+        element.id == elementId);
+
+    if(elementIndex == -1) {
+      setState({...state,
+        elementVotes: [...state.elementVotes,
+          new Elements(elementId, votes, votes_round, elementState)]},
+      );
+      socket!.send(getAddElementRequest(loginData.sessionId,
+        elementId,
+        elementState));
+      socket!.send(getFullstateRequest(loginData.sessionId));
+    }
+    else {
+      console.log(
+        '[Magic] Do not add element as it is already existing');
+    }
   }
 
   /**
@@ -163,9 +174,9 @@ export const WebSocketProvider = ({children}: any) => {
           elementState) : element);
 
     const userVoteIndex = state.userVotes.findIndex(
-      (element) =>
-        element.elementid == elementId &&
-          element.userid == loginData.user);
+      (vote) =>
+        vote.elementid == elementId &&
+        vote.userid == loginData.user);
 
     socket!.send(getUpdateElementRequest(loginData.sessionId,
       elementId,

@@ -55,7 +55,8 @@ export async function updateVote(sessionId: string,
       elementId,
       userId,
       votes);
-  const updateVotes = 'UPDATE votes SET votes=$4, updated_at=now() ' +
+  const updateVotes = 'UPDATE votes ' + 
+    'SET votes=$4, updated_at=now() ' +
     'WHERE session_id=$1 AND user_id=$2 AND element_id=$3';
   executeUpdate(client, updateVotes, [sessionId, userId, elementId, votes])
       .catch((err) =>
