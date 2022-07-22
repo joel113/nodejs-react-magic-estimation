@@ -16,7 +16,7 @@ CREATE TABLE elements (
 
 CREATE TABLE votes (
     session_id char(8) NOT NULL,
-    user_id char(8) not null,
+    user_id varchar(8) not null,
     element_id varchar(255) not null,
     color varchar(255) not null,
     votes integer not null,
