@@ -9,7 +9,10 @@ import {executeUpdate, executeInsert} from '../../db/queries';
 export async function clearVotes(sessionId: string, client: Client) {
   const query = 'UPDATE elements set ' +
         'votes = 0,' +
-        'votes_round = 0 WHERE session_id = $1';
+        'votes_round = 0 ' +
+        'created_at=now() ' +
+        'updated_at=now() ' +
+        'WHERE session_id = $1';
   executeUpdate(client, query, [sessionId])
       .catch((err) => console.error('[Magic] Processing clear votes ' +
         'message failed: %s', err));
@@ -22,8 +25,11 @@ export async function clearVotes(sessionId: string, client: Client) {
  */
 export async function initRounds(sessionId: string, client: Client) {
   console.log('[Magic] Received init rounds message: %s', sessionId);
-  const query = 'INSERT into rounds(session_id, rounds, round_active) ' +
-    'VALUES($1, 1, 1)';
+  const query = 'INSERT into rounds'+
+    '(session_id, rounds, round_active, created_at, updated_at) ' +
+    'VALUES($1, 1, 1, now(), now()) ' +
+    'ON CONFLICT (session_id) ' +
+    'DO NOTHING;';
   executeInsert(client, query, [sessionId])
       .catch((err) => console.error('[Magic] Processing init rounds ' +
         'message failed: %s', err));
