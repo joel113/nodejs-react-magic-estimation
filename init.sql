@@ -22,7 +22,11 @@ CREATE TABLE votes (
     votes integer not null,
     created_at timestamp not null DEFAULT Now(),
     updated_at timestamp not null DEFAULT Now(),
-    PRIMARY KEY(session_id, user_id, element_id));
+    PRIMARY KEY(session_id, user_id, element_id),
+    CONSTRAINT fk_elements
+    FOREIGN KEY(session_id, element_id)
+    REFERENCES elements
+    ON DELETE CASCADE);
 
 CREATE TABLE rounds (
     session_id char(8) PRIMARY KEY,

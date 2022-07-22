@@ -39,13 +39,14 @@ export async function delElement(
     elementId: string,
     client: Client) {
   console.log(
-      '[Magic] Received del element message: %s, %s',
-      sessionId,
-      elementId);
-  const query = 'DELETE FROM elements WHERE sessionId = $1 AND elementId = $2';
+    '[Magic] Received del element message: %s, %s',
+    sessionId,
+    elementId);
+  const query = 'DELETE FROM elements WHERE ' + 
+    'session_id = $1 AND element_id = $2';
   executeDelete(client, query, [sessionId, elementId])
-      .catch((err) => console.error('[Magic] Processing received del' +
-      'element message failed: %s', err));
+    .catch((err) => console.error('[Magic] Processing received del' +
+    'element message failed: %s', err));
 }
 
 /**
