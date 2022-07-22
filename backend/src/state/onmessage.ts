@@ -49,6 +49,7 @@ export const onMessage = async (message: Message,
         await addVote(message.payload!.session!,
           message.payload!.element!,
           message.payload!.user!,
+          message.payload!.votes!,
           message.payload!.color!,
           client)
         break;

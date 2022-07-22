@@ -204,6 +204,7 @@ export const WebSocketProvider = ({children}: any) => {
       socket!.send(getAddVoteRequest(loginData.sessionId,
         elementId,
         loginData.user,
+        vote,
         loginData.color));
     }
 

@@ -156,6 +156,7 @@ export interface AddVoteMessage {
     session: string;
     element: string;
     user: string;
+    votes: number;
     color: string;
   };
 }

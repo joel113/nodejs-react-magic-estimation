@@ -50,6 +50,7 @@ export const getDelElementRequest = (session: string, element: string) =>
 export const getAddVoteRequest = (session: string,
     element: string,
     user: string,
+    votes: number,
     color: string) =>
   buildRequest({
     type: 'addVote',
@@ -57,6 +58,7 @@ export const getAddVoteRequest = (session: string,
       session,
       element,
       user,
+      votes,
       color,
     },
   });

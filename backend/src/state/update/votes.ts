@@ -6,12 +6,14 @@ import {executeInsert, executeUpdate, executeDelete} from '../../db/queries';
  * @param {string} sessionId
  * @param {string} elementId
  * @param {string} userId
+ * @param {number} votes
  * @param {string} color
  * @param {Client} client
  */
 export async function addVote(sessionId: string,
     elementId: string,
     userId: string,
+    votes: number,
     color: string,
     client: Client) {
   console.log(
@@ -20,9 +22,14 @@ export async function addVote(sessionId: string,
       elementId,
       userId);
   const updateVotes = 'INSERT INTO ' +
-    'votes (session_id, user_id, element_id, color, votes, updated_at, created_at)' +
-    'VALUES($1, $2, $3, $4, 1, now(), now())';
-  executeInsert(client, updateVotes, [sessionId, userId, elementId, color])
+    'votes ' +
+    '(session_id, user_id, element_id, color, votes, updated_at, created_at)' +
+    'VALUES($1, $2, $3, $4, $5, now(), now())';
+  executeInsert(client, updateVotes, [sessionId,
+    userId,
+    elementId,
+    color,
+    votes])
       .catch((err) =>
         console.error('[Magic] Processing add vote message failed: %s', err));
 }
